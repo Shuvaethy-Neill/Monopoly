@@ -72,20 +72,6 @@ public class Dice {
         return dice[0] + " " + dice[1];
     }
 
-    public static void main(String[] args) {
-        Dice d = new Dice();
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        System.out.println(d);
 
-    }
 
 }
