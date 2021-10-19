@@ -6,7 +6,6 @@ public class Player {
     private double money;
     private int position;
     private boolean bankrupt;
-    //private int numDoublesRolled;
     private ArrayList<Property> properties;
 
     public Player(String name){
