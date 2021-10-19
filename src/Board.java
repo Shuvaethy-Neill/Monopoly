@@ -1,4 +1,10 @@
+import javax.swing.*;
+import java.util.Arrays;
+import java.util.List;
+
 public class Board {
+    private Property[] pieces;
+    private int position;
     private enum properties {
         MEDITERRANEAN_AVENUE("MEDITERRANEAN AVENUE",60,"brown"),
         BALTIC_AVENUE("BALTIC AVENUE",60,"brown"),
@@ -23,19 +29,37 @@ public class Board {
         PARK_PLACE("PARK PLACE",350,"blue"),
         BOARDWALK("BOARDWALK",400,"blue");
 
+        private Property property;
         properties(String name, int price , String color) {
-            new Property(name,price,color);
+          this.property = new Property(name,price,color);
         }
     }
 
     public Board(){
+        pieces = new Property[22];
+        position=0;
+        for (properties p : properties.values()) {
+            if (position==22){continue;}
+            else {
+                pieces[position] = p.property;
+            }
+            position += 1;
+        }
+
 
     }
 
+    public Property[] getPieces() {
+        return pieces;
+    }
+
+    public Property getP(int i){
+        return pieces[i];
+    }
 
     public static void main(String[] args) {
         Dice d = new Dice();
-        d.roll();
+        /*d.roll();
         System.out.println(d.getRollValue() + " " + d.isDouble());
         d.roll();
         System.out.println(d.getRollValue() + " " + d.isDouble());
@@ -45,7 +69,11 @@ public class Board {
         System.out.println(d.getRollValue() + " " + d.isDouble());
         d.roll();
         System.out.println(d.getRollValue() + " " + d.isDouble());
-        System.out.println(d);
+        System.out.println(d);*/
+        Board b = new Board();
 
+        for (int i =0; i < b.getPieces().length;i++){
+            //System.out.println(b.getP(i).getName());
+        }
     }
 }
