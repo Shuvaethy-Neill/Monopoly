@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Board {
+    private Dice dice;
     private Property[] pieces;
     private int position;
     private enum properties {
@@ -36,6 +37,7 @@ public class Board {
     }
 
     public Board(){
+        dice = new Dice();
         pieces = new Property[22];
         position=0;
         for (properties p : properties.values()) {
@@ -59,17 +61,9 @@ public class Board {
 
     public static void main(String[] args) {
         Dice d = new Dice();
-        /*d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
         d.roll();
         System.out.println(d.getRollValue() + " " + d.isDouble());
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        System.out.println(d);*/
+        System.out.println(d);
         Board b = new Board();
 
         for (int i =0; i < b.getPieces().length;i++){
