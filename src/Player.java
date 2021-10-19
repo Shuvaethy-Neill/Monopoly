@@ -43,7 +43,6 @@ public class Player {
     }
 
     public void addProperty (Property property) {
-        property.setOwner(this);
         properties.add(property);
     }
 
