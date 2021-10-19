@@ -1,5 +1,5 @@
 public class Board {
-    public enum properties {
+    private enum properties {
         MEDITERRANEAN_AVENUE("MEDITERRANEAN AVENUE",60,"brown"),
         BALTIC_AVENUE("BALTIC AVENUE",60,"brown"),
         ORIENTAL_AVENUE("ORIENTAL AVENUE",100,"light blue"),
