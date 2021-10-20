@@ -1,14 +1,11 @@
-import javax.swing.*;
-import java.util.Arrays;
-import java.util.List;
-
 public class Board {
     private Dice dice;
-    private Property[] pieces;
+    private BoardSpace[] pieces;
     private int position;
-    private enum properties {
+    private enum boardSquares {
         MEDITERRANEAN_AVENUE("MEDITERRANEAN AVENUE",60,"brown"),
         BALTIC_AVENUE("BALTIC AVENUE",60,"brown"),
+        INCOME_TAX("INCOME TAX", 200),
         ORIENTAL_AVENUE("ORIENTAL AVENUE",100,"light blue"),
         VERMONT_AVENUE("VERMONT AVENUE",100,"light blue"),
         CONNECTICUT_AVENUE("CONNECTICUT AVENUE",120,"light blue"),
@@ -18,6 +15,7 @@ public class Board {
         ST_JAMES_PLACE("ST. JAMES PLACE",180,"orange"),
         TENNESSEE("TENNESSEE",180,"orange"),
         NEW_YORK_AVENUE("NEW YORK AVENUE",200,"orange"),
+        FREE_PARKING("FREE PARKING"),
         KENTUCKY_AVENUE("KENTUCKY AVENUE",220,"red"),
         INDIANA_AVENUE("INDIANA AVENUE",220,"red"),
         ILLINOIS_AVENUE("ILLINOIS AVENUE",240,"red"),
@@ -28,22 +26,30 @@ public class Board {
         NORTH_CAROLINA_AVENUE("NORTH CAROLINA AVENUE",300,"green"),
         PENNSYLVANIA_AVENUE("PENNSYLVANIA AVENUE",320,"green"),
         PARK_PLACE("PARK PLACE",350,"blue"),
+        LUXURY_TAX("LUXURY TAX", 100),
         BOARDWALK("BOARDWALK",400,"blue");
 
-        private Property property;
-        properties(String name, int price , String color) {
-          this.property = new Property(name,price,color);
+        private BoardSpace boardSpace;
+
+        boardSquares(String name, int price , String color) {
+          this.boardSpace = new Property(name, price, color);
+        }
+        boardSquares(String name, int cost) {
+            this.boardSpace = new Tax(name, cost);
+        }
+        boardSquares(String name) {
+            this.boardSpace = new FreeParking(name);
         }
     }
 
     public Board(){
         dice = new Dice();
-        pieces = new Property[22];
+        pieces = new BoardSpace[22];
         position=0;
-        for (properties p : properties.values()) {
+        for (boardSquares s : boardSquares.values()) {
             if (position==22){continue;}
             else {
-                pieces[position] = p.property;
+                pieces[position] = s.boardSpace;
             }
             position += 1;
         }
@@ -51,11 +57,11 @@ public class Board {
 
     }
 
-    public Property[] getPieces() {
+    public BoardSpace[] getPieces() {
         return pieces;
     }
 
-    public Property getP(int i){
+    public BoardSpace getP(int i){
         return pieces[i];
     }
 
