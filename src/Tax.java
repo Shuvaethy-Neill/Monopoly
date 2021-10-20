@@ -12,7 +12,7 @@ public class Tax extends BoardSpace {
     private final int cost;
 
     /**
-     *
+     * Constructor for the Tax Class
      * @param name
      * @param cost
      */

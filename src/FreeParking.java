@@ -12,7 +12,7 @@ public class FreeParking extends BoardSpace {
     private int amount;
 
     /**
-     *
+     * FreeParking class constructor
      * @param name
      */
     public FreeParking(String name) {

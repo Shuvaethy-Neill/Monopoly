@@ -1,3 +1,8 @@
+import java.util.Scanner;
+
+/**
+ *
+ */
 public class Board {
     private Dice dice;
     private BoardSpace[] pieces;
@@ -56,8 +61,6 @@ public class Board {
             }
             position += 1;
         }
-
-
     }
 
     /**
@@ -77,10 +80,28 @@ public class Board {
         return pieces[i];
     }
 
-    /**
-     *
-     * @param args
-     */
+    public void play() {
+        Scanner sc = new Scanner(System.in);
+        String command = "";
+        command = sc.nextLine();
+        System.out.println("Welcome to the game of Monopoly!");
+        System.out.println("Enter a command, type 'help' for a list of commands");
+        System.out.println(">>>");
+        boolean exit = false;
+        while(!command.equalsIgnoreCase("quit")) {
+            if(command.equalsIgnoreCase("help")) {
+                System.out.println("Type '' to... ");
+                // List out commands
+            }
+            else if(command.equalsIgnoreCase("state")) {
+                System.out.println();
+            }
+        }
+    }
+
+
+
+
     public static void main(String[] args) {
         Dice d = new Dice();
         d.roll();
@@ -88,8 +109,7 @@ public class Board {
         System.out.println(d);
         Board b = new Board();
 
-        for (int i =0; i < b.getPieces().length;i++){
-            System.out.println(b.getP(i).getName());
-        }
+
+
     }
 }
