@@ -1,4 +1,3 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 /**
@@ -56,12 +55,6 @@ public class Player {
         return position;
     }
 
-    public void getState() { //might have to move out of player class ?
-        System.out.println("You are player: " + name);
-        System.out.println("You're currently located at: " + position);
-        System.out.println("You have $" + money +" in your account");
-        System.out.println("Your properties are: " + properties.toString()); //implement toString
-    }
     /**
      * This method gets the number of doubles the user
      * has rolled during their turn
@@ -131,12 +124,16 @@ public class Player {
     }
 
     /**
-     * This method overrides the toString method in the Object
-     * class and provides a more accurate String representation
-     * @return String, the name of the player
+     * This method overrides the toString method in the Object class
+     * and provides a more accurate String representation of the whole
+     * state of the player (name, position, money, properties owned)
+     * @return String, state of player
      */
     @Override
     public String toString() {
-        return this.name;
+        return "You are player: " + name
+                + "\nYou're currently located at: " + position
+                + "\nYou have $" + money + " in your account"
+                + "\nYour properties are: " + properties.toString();
     }
 }

@@ -111,14 +111,14 @@ public class Board {
                 System.out.println("Type 'quit' to quit the game");
             }
             else if(command.equalsIgnoreCase("state")) {
-                players.get(0).getState();
+                System.out.println(players.get(0).toString());
             }
             else if(command.equalsIgnoreCase("buy")) {
                 if (((Property)pieces[players.get(0).getPosition()]).isAvailable()){
                     players.get(0).doTransaction(((Property)pieces[players.get(0).getPosition()]).getPrice());
                     players.get(0).addProperty(((Property)pieces[players.get(0).getPosition()]));
                     ((Property)pieces[players.get(0).getPosition()]).setAvailable(false);
-                    players.get(0).getState(); //for testing rn
+                    System.out.println(players.get(0).toString()); //for testing rn
                 }
                 else{
                     System.out.println("Unfortunately the property is no longer available for purchase.");
@@ -156,10 +156,6 @@ public class Board {
     }
 
     public static void main(String[] args) {
-        //Dice d = new Dice();
-        //d.roll();
-        //System.out.println(d.getRollValue() + " " + d.isDouble());
-        //System.out.println(d);
         System.out.print("Please enter your name to begin : ");
         Scanner sc = new Scanner(System.in);
         String name = "";
