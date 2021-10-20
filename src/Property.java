@@ -43,6 +43,10 @@ public class Property extends BoardSpace {
         return isAvailable;
     }
 
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
     /**
      * Getter for the price of the property
      *
@@ -97,10 +101,19 @@ public class Property extends BoardSpace {
     }
 
     /**
-     *
+     * Displays property landed on along with if it's available for purchase or they pay rent.
      */
     @Override
     public void displayInfo() {
-
+        System.out.println("You are now located at: " + getName());
+        if (isAvailable){
+            System.out.println("It costs $ " + getPrice() + ". Type 'buy' if you would like to purchase this property");
+        }
+        else{
+            System.out.println("You must pay rent: $" + getRent());
+            System.out.println("Type 'pay' to pay your rent");
+        }
     }
+    //does player pay rent to themselves if they land on their own square???
+    //with this implementation that's what's happening
 }

@@ -69,7 +69,7 @@ public class Dice {
      * @return String, a statement of the two separate dice values
      */
     public String toString () {
-        return dice[0] + " " + dice[1];
+        return "["+ dice[0]+ "]" + " " + "["+ dice[1] +"]";
     }
 
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -7,7 +8,10 @@ public class Board {
     private Dice dice;
     private BoardSpace[] pieces;
     private int position;
+   ArrayList<Player> players;
+
     private enum boardSquares {
+        START("START"), //exception for starting purposes
         MEDITERRANEAN_AVENUE("MEDITERRANEAN AVENUE",60,"brown"),
         BALTIC_AVENUE("BALTIC AVENUE",60,"brown"),
         INCOME_TAX("INCOME TAX", 200),
@@ -50,7 +54,7 @@ public class Board {
     /**
      * Constructor for the Board Class
      */
-    public Board(){
+    public Board(String name){
         dice = new Dice();
         pieces = new BoardSpace[25];
         position = 0;
@@ -61,6 +65,11 @@ public class Board {
             }
             position += 1;
         }
+        players = new ArrayList<>();
+        Player player1 = new Player(name);
+        Player player2 = new Player("P2");
+        players.add(player1);
+        players.add(player2);
     }
 
     /**
@@ -86,13 +95,13 @@ public class Board {
     public void play() {
         System.out.println("Welcome to Monopoly!");
         System.out.println("Enter a command, type 'help' for a list of commands");
-        System.out.println(">>>");
+        System.out.print(">>>");
         Scanner sc = new Scanner(System.in);
         String command = "";
         command = sc.nextLine();
-        boolean exit = false;
+        boolean exit = true;
 
-        while(!command.equalsIgnoreCase("quit")) {
+        while(true) {
             if(command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
                 System.out.println("Type 'state' to view your... like stats??");
@@ -102,11 +111,31 @@ public class Board {
                 System.out.println("Type 'quit' to quit the game");
             }
             else if(command.equalsIgnoreCase("state")) {
+                players.get(0).getState();
             }
-            else if (command.equalsIgnoreCase("start")){
+            else if(command.equalsIgnoreCase("buy")) {
+                if (((Property)pieces[players.get(0).getPosition()]).isAvailable()){
+                    players.get(0).doTransaction(((Property)pieces[players.get(0).getPosition()]).getPrice());
+                    players.get(0).addProperty(((Property)pieces[players.get(0).getPosition()]));
+                    ((Property)pieces[players.get(0).getPosition()]).setAvailable(false);
+                    players.get(0).getState(); //for testing rn
+                }
+                else{
+                    System.out.println("Unfortunately the property is no longer available for purchase.");
+                }
+
+            }
+            else if (command.equalsIgnoreCase("start") || command.equalsIgnoreCase("next") ){
                 System.out.println("Let's begin by rolling the dices");
+                //helper method?
+                dice.roll();
                 System.out.println("You rolled: " + dice.toString());
-                System.out.println("You will move up " + dice.getRollValue() + "spaces on the board!");
+                System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
+                players.get(0).move(dice.getRollValue());
+                pieces[players.get(0).getPosition()].displayInfo();
+
+                // WHAT HAPPENS IF THEY DON'T TYPE PAY?? WHEN THEY NEED TO PAY RENT?? NO LIFEHACKS
+                //HOW DO WE KNOW WHO T F IS PLAYYINNGG???
             }
             else if(command.equalsIgnoreCase("roll")) {
                 System.out.println("Rolling the dices:");
@@ -115,8 +144,10 @@ public class Board {
             }
             else {
                 System.out.println("Error: Please enter a valid command");
-                break;
+                //break;
             }
+            System.out.print("Please enter a command >>>");
+            command = sc.nextLine();
         }
     }
 
@@ -125,7 +156,11 @@ public class Board {
         d.roll();
         System.out.println(d.getRollValue() + " " + d.isDouble());
         System.out.println(d);
-        Board b = new Board();
+        System.out.print("Please enter your name to begin : ");
+        Scanner sc = new Scanner(System.in);
+        String name = "";
+        name = sc.nextLine();
+        Board b = new Board(name);
         b.play();
 
     }
