@@ -65,10 +65,10 @@ public class Player {
     }
 
     /**
-     * This method sets the number of doubles the user has rolled
+     * This method increments the number of doubles the user has rolled
      */
-    public void setNumDoubledRolled(int amount){
-        this.numDoublesRolled  = amount;
+    public void incrementNumDoublesRolled(){
+        this.numDoublesRolled++;
     }
 
     /**
