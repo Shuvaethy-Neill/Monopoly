@@ -57,10 +57,10 @@ public class Player {
     }
 
     public void getState() { //might have to move out of player class ?
-        System.out.println("You are player:" +name);
-        System.out.println("You're currently located at:" + position);
-        System.out.println("You have $ " + money +" in your account");
-        System.out.println("Your properties are: " +properties.toString()); //implement toString
+        System.out.println("You are player: " + name);
+        System.out.println("You're currently located at: " + position);
+        System.out.println("You have $" + money +" in your account");
+        System.out.println("Your properties are: " + properties.toString()); //implement toString
     }
     /**
      * This method gets the number of doubles the user

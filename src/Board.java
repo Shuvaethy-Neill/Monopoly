@@ -93,9 +93,9 @@ public class Board {
      * Method displays the user interface of the Monopoly Board that takes user input
      */
     public void play() {
-        System.out.println("Welcome to Monopoly!");
+        System.out.println("Welcome to the Monopoly Game!");
         System.out.println("Enter a command, type 'help' for a list of commands");
-        System.out.print(">>>");
+        System.out.print(">>> ");
         Scanner sc = new Scanner(System.in);
         String command = "";
         command = sc.nextLine();
@@ -125,8 +125,8 @@ public class Board {
                 }
 
             }
-            else if (command.equalsIgnoreCase("start") || command.equalsIgnoreCase("next") ){
-                System.out.println("Let's begin by rolling the dices");
+            else if (command.equalsIgnoreCase("start") ){
+                System.out.println("Let's begin by rolling the dices!");
                 //helper method?
                 dice.roll();
                 System.out.println("You rolled: " + dice.toString());
@@ -137,25 +137,29 @@ public class Board {
                 // WHAT HAPPENS IF THEY DON'T TYPE PAY?? WHEN THEY NEED TO PAY RENT?? NO LIFEHACKS
                 //HOW DO WE KNOW WHO T F IS PLAYYINNGG???
             }
-            else if(command.equalsIgnoreCase("roll")) {
+            else if(command.equalsIgnoreCase("roll") || command.equalsIgnoreCase("next")) {
                 System.out.println("Rolling the dices:");
+                dice.roll();
                 System.out.println("You rolled: " + dice.toString());
-                System.out.println("You will move up " + dice.getRollValue() + "spaces on the board!");
+                System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
+                players.get(0).move(dice.getRollValue());
+                pieces[players.get(0).getPosition()].displayInfo();
             }
             else {
                 System.out.println("Error: Please enter a valid command");
                 //break;
             }
-            System.out.print("Please enter a command >>>");
+            System.out.println(" ");
+            System.out.print("Please enter a command >>> ");
             command = sc.nextLine();
         }
     }
 
     public static void main(String[] args) {
-        Dice d = new Dice();
-        d.roll();
-        System.out.println(d.getRollValue() + " " + d.isDouble());
-        System.out.println(d);
+        //Dice d = new Dice();
+        //d.roll();
+        //System.out.println(d.getRollValue() + " " + d.isDouble());
+        //System.out.println(d);
         System.out.print("Please enter your name to begin : ");
         Scanner sc = new Scanner(System.in);
         String name = "";

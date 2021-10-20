@@ -107,7 +107,8 @@ public class Property extends BoardSpace {
     public void displayInfo() {
         System.out.println("You are now located at: " + getName());
         if (isAvailable){
-            System.out.println("It costs $ " + getPrice() + ". Type 'buy' if you would like to purchase this property");
+            System.out.println("This property costs $" + getPrice());
+            System.out.println("Type 'buy' if you would like to purchase this property");
         }
         else{
             System.out.println("You must pay rent: $" + getRent());
