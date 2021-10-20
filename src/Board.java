@@ -80,6 +80,9 @@ public class Board {
         return pieces[i];
     }
 
+    /**
+     *
+     */
     public void play() {
         Scanner sc = new Scanner(System.in);
         String command = "";
@@ -87,20 +90,23 @@ public class Board {
         System.out.println("Welcome to the game of Monopoly!");
         System.out.println("Enter a command, type 'help' for a list of commands");
         System.out.println(">>>");
-        boolean exit = false;
         while(!command.equalsIgnoreCase("quit")) {
             if(command.equalsIgnoreCase("help")) {
-                System.out.println("Type '' to... ");
+                System.out.println("Type 'state' to view the state");
+                System.out.println("");
                 // List out commands
             }
             else if(command.equalsIgnoreCase("state")) {
-                System.out.println();
+            }
+            else if (command.equalsIgnoreCase("start")){
+                System.out.println("Let's begin by rolling the dices");
+                System.out.println("You rolled: " + dice.toString());
+            }
+            else {
+                System.out.println("Error: Please enter a valid command");
             }
         }
     }
-
-
-
 
     public static void main(String[] args) {
         Dice d = new Dice();
@@ -108,8 +114,7 @@ public class Board {
         System.out.println(d.getRollValue() + " " + d.isDouble());
         System.out.println(d);
         Board b = new Board();
-
-
+        b.play();
 
     }
 }
