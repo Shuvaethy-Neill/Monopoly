@@ -74,6 +74,7 @@ public class Board {
                 System.out.println("Type 'state' to view your state in the Monopoly Game");
                 System.out.println("Type 'buy' to purchase a property");
                 System.out.println("Type 'pass' to pass your turn over to the next player");
+                System.out.println("Type 'quit' to end the game");
                 // More commands to add?
             }
             else if(command.equalsIgnoreCase("instructions")) {
@@ -96,6 +97,9 @@ public class Board {
             }
             else if(command.equalsIgnoreCase("pass")) {
 
+            }
+            else if(command.equalsIgnoreCase("quit")) {
+                break;
             }
             else {
                 System.out.println("ERROR: Please enter a valid command.\n");
