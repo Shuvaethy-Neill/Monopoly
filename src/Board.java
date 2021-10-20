@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Board {
     private Dice dice;
@@ -47,8 +48,6 @@ public class Board {
             }
             position += 1;
         }
-
-
     }
 
     public Property[] getPieces() {
@@ -57,6 +56,52 @@ public class Board {
 
     public Property getP(int i){
         return pieces[i];
+    }
+
+    // Under construction
+    public boolean displayBoard() {
+        String command = "";
+        Scanner sc = new Scanner(System.in);
+        while(!command.equalsIgnoreCase("")) {
+            // fix ^
+            System.out.println("Please enter a command to start the game >>>");
+            System.out.println("Type 'help' for a list of Monopoly commands");
+            command = sc.nextLine();
+            if(command.equalsIgnoreCase("help")) {
+                System.out.println("Type 'instructions' to view the Monopoly Game instructions");
+                System.out.println("Type 'rules' to view the Monopoly Game rules");
+                System.out.println("Type 'roll' to roll a dice when it is your turn to play");
+                System.out.println("Type 'state' to view your state in the Monopoly Game");
+                System.out.println("Type 'buy' to purchase a property");
+                System.out.println("Type 'pass' to pass your turn over to the next player");
+                // More commands added maybe?
+            }
+            else if(command.equalsIgnoreCase("instructions")) {
+                System.out.println(""); // Print out a list of instructions for the player
+            }
+            else if(command.equalsIgnoreCase("rules")) {
+                System.out.println(""); // Print out a list of rules for the player
+            }
+
+            else if(command.equalsIgnoreCase("roll")) {
+                dice.roll();
+                System.out.println("The value of your dice is: " + dice.getRollValue());
+                // advances the player based on dice value on the board
+            }
+            else if(command.equalsIgnoreCase("state")) {
+
+            }
+            else if(command.equalsIgnoreCase("buy")) {
+
+            }
+            else if(command.equalsIgnoreCase("pass")) {
+
+            }
+            else {
+                System.out.println("ERROR: Please enter a valid command.\n");
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
