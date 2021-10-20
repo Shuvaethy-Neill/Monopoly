@@ -81,29 +81,41 @@ public class Board {
     }
 
     /**
-     *
+     * Method displays the user interface of the Monopoly Board that takes user input
      */
     public void play() {
+        System.out.println("Welcome to Monopoly!");
+        System.out.println("Enter a command, type 'help' for a list of commands");
+        System.out.println(">>>");
         Scanner sc = new Scanner(System.in);
         String command = "";
         command = sc.nextLine();
-        System.out.println("Welcome to the game of Monopoly!");
-        System.out.println("Enter a command, type 'help' for a list of commands");
-        System.out.println(">>>");
+        boolean exit = false;
+
         while(!command.equalsIgnoreCase("quit")) {
             if(command.equalsIgnoreCase("help")) {
-                System.out.println("Type 'state' to view the state");
-                System.out.println("");
-                // List out commands
+                System.out.println("Type 'start' to start the game");
+                System.out.println("Type 'state' to view your... like stats??");
+                System.out.println("Type 'roll' to roll dices on your turn");
+                System.out.println("Type 'buy' to purchase a property");
+                System.out.println("Type 'pass' to pass your turn to the next player");
+                System.out.println("Type 'quit' to quit the game");
             }
             else if(command.equalsIgnoreCase("state")) {
             }
             else if (command.equalsIgnoreCase("start")){
                 System.out.println("Let's begin by rolling the dices");
                 System.out.println("You rolled: " + dice.toString());
+                System.out.println("You will move up " + dice.getRollValue() + "spaces on the board!");
+            }
+            else if(command.equalsIgnoreCase("roll")) {
+                System.out.println("Rolling the dices:");
+                System.out.println("You rolled: " + dice.toString());
+                System.out.println("You will move up " + dice.getRollValue() + "spaces on the board!");
             }
             else {
                 System.out.println("Error: Please enter a valid command");
+                break;
             }
         }
     }
