@@ -44,10 +44,10 @@ public class Board {
 
     public Board(){
         dice = new Dice();
-        pieces = new BoardSpace[22];
+        pieces = new BoardSpace[25];
         position=0;
         for (boardSquares s : boardSquares.values()) {
-            if (position==22){continue;}
+            if (position==25){continue;}
             else {
                 pieces[position] = s.boardSpace;
             }
@@ -73,7 +73,7 @@ public class Board {
         Board b = new Board();
 
         for (int i =0; i < b.getPieces().length;i++){
-            //System.out.println(b.getP(i).getName());
+            System.out.println(b.getP(i).getName());
         }
     }
 }
