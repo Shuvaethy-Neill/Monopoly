@@ -74,7 +74,7 @@ public class Board {
                 System.out.println("Type 'state' to view your state in the Monopoly Game");
                 System.out.println("Type 'buy' to purchase a property");
                 System.out.println("Type 'pass' to pass your turn over to the next player");
-                // More commands added maybe?
+                // More commands to add?
             }
             else if(command.equalsIgnoreCase("instructions")) {
                 System.out.println(""); // Print out a list of instructions for the player
