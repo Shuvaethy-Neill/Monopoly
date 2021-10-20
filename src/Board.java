@@ -45,9 +45,9 @@ public class Board {
     public Board(){
         dice = new Dice();
         pieces = new BoardSpace[25];
-        position=0;
+        position = 0;
         for (boardSquares s : boardSquares.values()) {
-            if (position==25){continue;}
+            if (position == 25){continue;}
             else {
                 pieces[position] = s.boardSpace;
             }
