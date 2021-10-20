@@ -42,6 +42,9 @@ public class Board {
         }
     }
 
+    /**
+     * Constructor for the Board Class
+     */
     public Board(){
         dice = new Dice();
         pieces = new BoardSpace[25];
@@ -57,14 +60,27 @@ public class Board {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public BoardSpace[] getPieces() {
         return pieces;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     */
     public BoardSpace getP(int i){
         return pieces[i];
     }
 
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         Dice d = new Dice();
         d.roll();
