@@ -103,19 +103,30 @@ public class Board {
     }
 
     private boolean checkBankruptcy(){
-        if(pieces[players.get(player).getPosition()].getType().equals("free parking")) {return false;}
+        boolean check = false;
+        if(pieces[players.get(player).getPosition()].getType().equals("free parking")) {}
 
         else if (pieces[players.get(player).getPosition()].getType().equals("tax")) {
-            return players.get(player).isBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
+            check = players.get(player).isBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
         }
         else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()){ //property not available
-            return players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
+            check = players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
 
         }
         else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()){
-            return players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice());
+            check = players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice());
         }
-        return false;
+        if (check) {
+            System.out.println("You have reached bankruptcy :(");
+            System.out.println("You are being eliminated from the game");
+            players.remove(player);
+            if (players.size() == 1){
+                System.out.println("GAME OVER! " + players.get(0).getName() + " has won the game! ");
+                System.out.println("Thanks for playing!");
+                System.exit(0);
+            }
+        }
+        return  check;
     }
 
     private void endTurn(){
@@ -139,8 +150,8 @@ public class Board {
         boolean exit = true;
 
 
-        while(true) {
-            if(command.equalsIgnoreCase("help")) {
+        while (true) {
+            if (command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
                 System.out.println("Type 'state' to view your... like stats??");
                 System.out.println("Type 'roll' to roll dices on your turn");
@@ -150,34 +161,31 @@ public class Board {
             }
 
             if(checkBankruptcy()){
-                System.out.println("You have reached bankruptcy :(");
-                System.out.println("You are being eliminated from the game");
-                players.remove(player);
-                if (players.size() <2){
-                   command = "pass";
-                }
+                //if bankrupt then it will exit
+                endTurn();
             }
-            else if(command.equalsIgnoreCase("state")) {
+            else if (command.equalsIgnoreCase("state")) {
                 System.out.println(players.get(player).toString());
-            }
-            else if(command.equalsIgnoreCase("buy")) {
-                if (((Property)pieces[players.get(player).getPosition()]).isAvailable()){
-                    players.get(player).doTransaction(((Property)pieces[players.get(player).getPosition()]).getPrice());
-                    players.get(player).addProperty(((Property)pieces[players.get(player).getPosition()]));
-                    ((Property)pieces[players.get(player).getPosition()]).purchase();
+            } else if (command.equalsIgnoreCase("buy")) {
+                if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
+                    players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice());
+                    players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()]));
+                    ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
+                    ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
                     System.out.println(players.get(player).toString()); //for testing rn
-                }
-                else{
+                } else {
                     System.out.println("Unfortunately the property is no longer available for purchase.");
                 }
+                if (!dice.isDouble()) {
+                    endTurn();
+                }
 
-            }
-            else if(command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll") || command.equalsIgnoreCase("next")) {
+            } else if (command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll") || command.equalsIgnoreCase("next")) {
                 //notify user that game is starting
-                if(command.equalsIgnoreCase("start")){
+                if (command.equalsIgnoreCase("start")) {
                     System.out.println("Great! I will choose which player will go first!\n");
                     player = rand.nextInt(players.size());
-                    System.out.println("Player " + (player+1) + " will start");
+                    System.out.println("Player " + (player + 1) + " will start");
                     System.out.println("Let's begin by rolling the dices!\n");
                 }
 
@@ -188,38 +196,37 @@ public class Board {
                 players.get(player).move(dice.getRollValue());
                 pieces[players.get(player).getPosition()].displayInfo();
 
-                if(pieces[players.get(player).getPosition()].getType().equals("free parking")){
-                    endTurn();
-                }
-
-                else if(pieces[players.get(player).getPosition()].getType().equals("tax")){
-                    players.get(player).doTransaction(((Tax)pieces[players.get(player).getPosition()]).getCost());
-                    ((FreeParking)pieces[13]).addAmount(((Tax)pieces[players.get(player).getPosition()]).getCost()); //add tax to parking
-                }
-                else if (!((Property)pieces[players.get(player).getPosition()]).isAvailable()){ //property is not available
+                if (pieces[players.get(player).getPosition()].getType().equals("free parking")) {
+                    if (!dice.isDouble()){endTurn();}
+                } else if (pieces[players.get(player).getPosition()].getType().equals("tax")) {
+                    players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
+                    ((FreeParking) pieces[13]).addAmount(((Tax) pieces[players.get(player).getPosition()]).getCost()); //add tax to parking
+                    if (!dice.isDouble()){endTurn();}
+                } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property is not available
                     players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent());
                     //the player who owns the property gets rent
                     ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); //failing
-
+                    if (!checkBankruptcy() && !dice.isDouble()) {
+                        endTurn();
+                    }
                 }
-            }
-            else if(command.equalsIgnoreCase("pass")) {
+            } else if (command.equalsIgnoreCase("pass")) {
                 System.out.println("Your turn is now over! Passing to next player.");
                 endTurn();
-            }
-            else if(command.equalsIgnoreCase("quit")) {
+            } else if (command.equalsIgnoreCase("quit")) {
                 System.out.println("Thanks for playing! See you next time :)");
                 System.exit(0);
-            }
-            else {
+            } else {
                 System.out.println("Error: Please enter a valid command");
             }
             System.out.println(" ");
-            System.out.println("Player " + (player+1) + ":");
+            System.out.println("Player " + (player + 1) + ":");
             System.out.print("Please enter a command >>> ");
+
             command = sc.nextLine();
-            }
+
         }
+    }
 
 
     public static void main(String[] args) {
