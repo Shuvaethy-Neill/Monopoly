@@ -51,7 +51,7 @@ public class Dice {
      * (if the two dice have the same value)
      * @return boolean, true if it is a double or false otherwise
      */
-    public boolean isDouble () {
+    public boolean isDouble() {
         return dice[0] == dice[1];
     }
 

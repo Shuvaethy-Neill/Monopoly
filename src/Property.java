@@ -20,6 +20,8 @@ public class Property extends BoardSpace {
      */
     private final String color;
 
+    private Player owner;
+
     /**
      * The Property constructor
      *
@@ -43,8 +45,12 @@ public class Property extends BoardSpace {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    /**
+     * sets the owner of the property
+     * @param p player who owns the property
+     */
+    public void setOwner(Player p){
+        this.owner= p;
     }
 
     /**
@@ -63,6 +69,15 @@ public class Property extends BoardSpace {
      */
     public String getColor() {
         return color;
+    }
+
+    /**
+     * Getter for the owner of the property
+     *
+     * @return Player, the player of the property
+     */
+    public Player getOwner() {
+        return owner;
     }
 
     /**
@@ -109,12 +124,12 @@ public class Property extends BoardSpace {
         if (isAvailable){
             System.out.println("This property costs $" + getPrice());
             System.out.println("Type 'buy' if you would like to purchase this property");
+            System.out.println("Type 'next' or 'pass' ??? if you would like to purchase this property");
         }
         else{
-            System.out.println("You must pay rent: $" + getRent());
-            System.out.println("Type 'pay' to pay your rent");
+            System.out.println("You must pay rent, taking $ " + getRent() + "from your account");
+            //System.out.println("Type 'pay' to pay your rent");
         }
     }
     //does player pay rent to themselves if they land on their own square???
-    //with this implementation that's what's happening
 }

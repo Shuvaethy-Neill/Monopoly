@@ -8,7 +8,7 @@ public class Board {
     private Dice dice;
     private BoardSpace[] pieces;
     private int position;
-    private int player;
+    private int player; //curent player
    ArrayList<Player> players;
 
     private enum boardSquares {
@@ -91,6 +91,24 @@ public class Board {
         return pieces[i];
     }
 
+    private boolean checkBankruptcy(){
+        if(pieces[players.get(player).getPosition()].getType().equals("free parking")) {return false;}
+
+        else if (pieces[players.get(player).getPosition()].getType().equals("tax")) {
+            return players.get(player).isBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
+        }
+        else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()){ //property not available
+            return players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
+
+        }
+        else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()){
+            return players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice());
+        }
+
+
+        return false;
+    }
+
     /**
      * Method displays the user interface of the Monopoly Board that takes user input
      */
@@ -113,6 +131,15 @@ public class Board {
                 System.out.println("Type 'pass' to pass your turn to the next player");
                 System.out.println("Type 'quit' to quit the game");
             }
+
+            if(checkBankruptcy()){
+                System.out.println("You have reached bankruptcy :(");
+                System.out.println("You are being eliminated from the game");
+                players.remove(player);
+                if (players.size() <2){
+                   command = "pass";
+                }
+            }
             else if(command.equalsIgnoreCase("state")) {
                 System.out.println(players.get(player).toString());
             }
@@ -120,7 +147,7 @@ public class Board {
                 if (((Property)pieces[players.get(player).getPosition()]).isAvailable()){
                     players.get(player).doTransaction(((Property)pieces[players.get(player).getPosition()]).getPrice());
                     players.get(player).addProperty(((Property)pieces[players.get(player).getPosition()]));
-                    ((Property)pieces[players.get(player).getPosition()]).setAvailable(false);
+                    ((Property)pieces[players.get(player).getPosition()]).purchase();
                     System.out.println(players.get(player).toString()); //for testing rn
                 }
                 else{
@@ -128,25 +155,29 @@ public class Board {
                 }
 
             }
-            else if (command.equalsIgnoreCase("start") ){
-                System.out.println("Let's begin by rolling the dices!");
-                //helper method?
-                dice.roll();
-                System.out.println("You rolled: " + dice.toString());
-                System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
-                players.get(player).move(dice.getRollValue());
-                pieces[players.get(player).getPosition()].displayInfo();
+            else if(command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll") || command.equalsIgnoreCase("next")) {
+                //notify user that game is starting
+                if(command.equalsIgnoreCase("start")){System.out.println("Let's begin by rolling the dices!");}
 
-                // WHAT HAPPENS IF THEY DON'T TYPE PAY?? WHEN THEY NEED TO PAY RENT?? NO LIFEHACKS
-                //HOW DO WE KNOW WHO T F IS PLAYYINNGG???
-            }
-            else if(command.equalsIgnoreCase("roll") || command.equalsIgnoreCase("next")) {
                 System.out.println("Rolling the dices:");
                 dice.roll();
                 System.out.println("You rolled: " + dice.toString());
                 System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
                 players.get(player).move(dice.getRollValue());
                 pieces[players.get(player).getPosition()].displayInfo();
+                if(pieces[players.get(player).getPosition()].getType().equals("free parking")){
+                    players.get(player).setMoney(((FreeParking)pieces[players.get(player).getPosition()]).getAmount());
+                }
+                else if(pieces[players.get(player).getPosition()].getType().equals("tax")){
+                    players.get(player).doTransaction(((Tax)pieces[players.get(player).getPosition()]).getCost());
+                    ((FreeParking)pieces[13]).addAmount(((Tax)pieces[players.get(player).getPosition()]).getCost()); //add tax to parking
+                }
+                else if (!((Property)pieces[players.get(player).getPosition()]).isAvailable()){ //property is not available
+                    players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent());
+                    //the player who owns the property gets rent
+                    ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); //failing
+
+                }
             }
             else if(command.equalsIgnoreCase("pass")) {
                 System.out.println("Your turn is now over! Passing to next player.");
@@ -155,15 +186,19 @@ public class Board {
                     player = 0;
                 }
             }
+            else if(command.equalsIgnoreCase("quit")) {
+                System.out.println("Thanks for playing! See you next time :)");
+                System.exit(0);
+            }
             else {
                 System.out.println("Error: Please enter a valid command");
-                //break;
             }
             System.out.println(" ");
             System.out.print("Please enter a command >>> ");
             command = sc.nextLine();
+            }
         }
-    }
+
 
     public static void main(String[] args) {
         System.out.print("Please enter your name to begin : ");

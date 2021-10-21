@@ -15,6 +15,7 @@ public class Player {
     private double money; //how much money player has
     private int position; //position of the player on the board
     private int numDoublesRolled;
+    private int assets; //monetary value of all the properties you own
     private boolean bankrupt; //state of bankruptcy
     private ArrayList<Property> properties;
 
@@ -26,6 +27,7 @@ public class Player {
         this.name = name;
         this.money = 1500.00;
         this.position = 0;
+        this.assets=0;
         this.numDoublesRolled = 0;
         this.bankrupt = false;
         this.properties = new ArrayList<Property>();
@@ -89,7 +91,8 @@ public class Player {
      * This method identifies the player's state of bankruptcy
      * @return boolean, true if bankrupt or false otherwise
      */
-    public boolean isBankrupt(){
+    public boolean isBankrupt(int toPay){
+        if(money < toPay){bankrupt = true;} //might be bankrupt before 0
         return bankrupt;
     }
 
@@ -117,6 +120,7 @@ public class Player {
      */
     public void addProperty (Property property) {
         properties.add(property);
+        assets += property.getPrice();
     }
 
     /**
@@ -136,7 +140,7 @@ public class Player {
     @Override
     public String toString() {
         return "You are player: " + name
-                + "\nYou're currently located at: " + position
+                + "\nYou're currently located at: " + position //position will return a number not a place on the board..
                 + "\nYou have $" + money + " in your account"
                 + "\nYour properties are: " + properties.toString();
     }
