@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 /**
  *
  */
 public class Board {
+    private Random rand;
     private Dice dice;
     private BoardSpace[] pieces;
     private int position;
@@ -55,7 +57,8 @@ public class Board {
     /**
      * Constructor for the Board Class
      */
-    public Board(String name){
+    public Board(){
+        rand = new Random();
         dice = new Dice();
         pieces = new BoardSpace[25];
         position = 0;
@@ -68,10 +71,6 @@ public class Board {
             position += 1;
         }
         players = new ArrayList<>();
-        Player player1 = new Player(name);
-        Player player2 = new Player("P2");
-        players.add(player1);
-        players.add(player2);
     }
 
     /**
@@ -91,6 +90,18 @@ public class Board {
         return pieces[i];
     }
 
+    private void welcome(){
+        System.out.println("Welcome to the Monopoly Game!");
+        System.out.println("How many players are playing? Enter 2, 3, or 4 (Minimum:2, Maximum:4)");
+        System.out.print(">>> ");
+        Scanner sc = new Scanner(System.in);
+        int people = 0;
+        people = sc.nextInt();
+        for(int i = 0; i < people; i++){
+            players.add(new Player("Player " + (i + 1)));
+        }
+    }
+
     private boolean checkBankruptcy(){
         if(pieces[players.get(player).getPosition()].getType().equals("free parking")) {return false;}
 
@@ -104,16 +115,22 @@ public class Board {
         else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()){
             return players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice());
         }
-
-
         return false;
+    }
+
+    private void endTurn(){
+        player++;
+        if(player > players.size()-1){
+            player = 0;
+        }
+        System.out.println("\nPLAYER " + (player+1) + "'S TURN!");
     }
 
     /**
      * Method displays the user interface of the Monopoly Board that takes user input
      */
     public void play() {
-        System.out.println("Welcome to the Monopoly Game!");
+        welcome();
         System.out.println("Enter a command, type 'help' for a list of commands");
         System.out.print(">>> ");
         Scanner sc = new Scanner(System.in);
@@ -157,7 +174,12 @@ public class Board {
             }
             else if(command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll") || command.equalsIgnoreCase("next")) {
                 //notify user that game is starting
-                if(command.equalsIgnoreCase("start")){System.out.println("Let's begin by rolling the dices!");}
+                if(command.equalsIgnoreCase("start")){
+                    System.out.println("Great! I will choose which player will go first!\n");
+                    player = rand.nextInt(players.size());
+                    System.out.println("Player " + (player+1) + " will start");
+                    System.out.println("Let's begin by rolling the dices!\n");
+                }
 
                 System.out.println("Rolling the dices:");
                 dice.roll();
@@ -165,9 +187,11 @@ public class Board {
                 System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
                 players.get(player).move(dice.getRollValue());
                 pieces[players.get(player).getPosition()].displayInfo();
+
                 if(pieces[players.get(player).getPosition()].getType().equals("free parking")){
-                    players.get(player).setMoney(((FreeParking)pieces[players.get(player).getPosition()]).getAmount());
+                    endTurn();
                 }
+
                 else if(pieces[players.get(player).getPosition()].getType().equals("tax")){
                     players.get(player).doTransaction(((Tax)pieces[players.get(player).getPosition()]).getCost());
                     ((FreeParking)pieces[13]).addAmount(((Tax)pieces[players.get(player).getPosition()]).getCost()); //add tax to parking
@@ -181,10 +205,7 @@ public class Board {
             }
             else if(command.equalsIgnoreCase("pass")) {
                 System.out.println("Your turn is now over! Passing to next player.");
-                player++;
-                if(player > players.size()-1){
-                    player = 0;
-                }
+                endTurn();
             }
             else if(command.equalsIgnoreCase("quit")) {
                 System.out.println("Thanks for playing! See you next time :)");
@@ -194,6 +215,7 @@ public class Board {
                 System.out.println("Error: Please enter a valid command");
             }
             System.out.println(" ");
+            System.out.println("Player " + (player+1) + ":");
             System.out.print("Please enter a command >>> ");
             command = sc.nextLine();
             }
@@ -201,11 +223,11 @@ public class Board {
 
 
     public static void main(String[] args) {
-        System.out.print("Please enter your name to begin : ");
-        Scanner sc = new Scanner(System.in);
-        String name = "";
-        name = sc.nextLine();
-        Board b = new Board(name);
+        //System.out.print("Please enter your name to begin : ");
+        //Scanner sc = new Scanner(System.in);
+        //String name = "";
+        //name = sc.nextLine();
+        Board b = new Board();
         b.play();
 
     }
