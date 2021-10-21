@@ -8,6 +8,7 @@ public class Board {
     private Dice dice;
     private BoardSpace[] pieces;
     private int position;
+    private int player;
    ArrayList<Player> players;
 
     private enum boardSquares {
@@ -58,6 +59,7 @@ public class Board {
         dice = new Dice();
         pieces = new BoardSpace[25];
         position = 0;
+        player = 0;
         for (boardSquares s : boardSquares.values()) {
             if (position == 25){continue;}
             else {
@@ -101,6 +103,7 @@ public class Board {
         command = sc.nextLine();
         boolean exit = true;
 
+
         while(true) {
             if(command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
@@ -111,14 +114,14 @@ public class Board {
                 System.out.println("Type 'quit' to quit the game");
             }
             else if(command.equalsIgnoreCase("state")) {
-                System.out.println(players.get(0).toString());
+                System.out.println(players.get(player).toString());
             }
             else if(command.equalsIgnoreCase("buy")) {
-                if (((Property)pieces[players.get(0).getPosition()]).isAvailable()){
-                    players.get(0).doTransaction(((Property)pieces[players.get(0).getPosition()]).getPrice());
-                    players.get(0).addProperty(((Property)pieces[players.get(0).getPosition()]));
-                    ((Property)pieces[players.get(0).getPosition()]).setAvailable(false);
-                    System.out.println(players.get(0).toString()); //for testing rn
+                if (((Property)pieces[players.get(player).getPosition()]).isAvailable()){
+                    players.get(player).doTransaction(((Property)pieces[players.get(player).getPosition()]).getPrice());
+                    players.get(player).addProperty(((Property)pieces[players.get(player).getPosition()]));
+                    ((Property)pieces[players.get(player).getPosition()]).setAvailable(false);
+                    System.out.println(players.get(player).toString()); //for testing rn
                 }
                 else{
                     System.out.println("Unfortunately the property is no longer available for purchase.");
@@ -131,8 +134,8 @@ public class Board {
                 dice.roll();
                 System.out.println("You rolled: " + dice.toString());
                 System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
-                players.get(0).move(dice.getRollValue());
-                pieces[players.get(0).getPosition()].displayInfo();
+                players.get(player).move(dice.getRollValue());
+                pieces[players.get(player).getPosition()].displayInfo();
 
                 // WHAT HAPPENS IF THEY DON'T TYPE PAY?? WHEN THEY NEED TO PAY RENT?? NO LIFEHACKS
                 //HOW DO WE KNOW WHO T F IS PLAYYINNGG???
@@ -142,8 +145,15 @@ public class Board {
                 dice.roll();
                 System.out.println("You rolled: " + dice.toString());
                 System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
-                players.get(0).move(dice.getRollValue());
-                pieces[players.get(0).getPosition()].displayInfo();
+                players.get(player).move(dice.getRollValue());
+                pieces[players.get(player).getPosition()].displayInfo();
+            }
+            else if(command.equalsIgnoreCase("pass")) {
+                System.out.println("Your turn is now over! Passing to next player.");
+                player++;
+                if(player > players.size()-1){
+                    player = 0;
+                }
             }
             else {
                 System.out.println("Error: Please enter a valid command");
