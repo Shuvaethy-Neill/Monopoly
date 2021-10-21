@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * A Tax space on the board
  *
@@ -34,5 +36,38 @@ public class Tax extends BoardSpace {
      */
     @Override
     public void displayInfo() {
+    }
+
+    /**
+     *
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tax tax = (Tax) o;
+        return cost == tax.cost;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(cost);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "Tax{" +
+                "cost=" + cost +
+                '}';
     }
 }

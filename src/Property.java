@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * A property
  *
@@ -132,4 +134,41 @@ public class Property extends BoardSpace {
         }
     }
     //does player pay rent to themselves if they land on their own square???
+    // Answer: Nope! -Evan
+
+    /**
+     *
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Property property = (Property) o;
+        return isAvailable == property.isAvailable && price == property.price && Objects.equals(color, property.color) && Objects.equals(owner, property.owner);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(isAvailable, price, color, owner);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "Property{" +
+                "isAvailable=" + isAvailable +
+                ", price=" + price +
+                ", color='" + color + '\'' +
+                ", owner=" + owner +
+                '}';
+    }
 }

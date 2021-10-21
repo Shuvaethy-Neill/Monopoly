@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 /**
  * A free parking space on the board
  *
@@ -42,5 +44,38 @@ public class FreeParking extends BoardSpace {
     @Override
     public void displayInfo() {
 
+    }
+
+    /**
+     *
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FreeParking that = (FreeParking) o;
+        return amount == that.amount;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(amount);
+    }
+
+    /**
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        return "FreeParking{" +
+                "amount=" + amount +
+                '}';
     }
 }
