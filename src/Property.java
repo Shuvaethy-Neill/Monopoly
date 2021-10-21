@@ -126,7 +126,7 @@ public class Property extends BoardSpace {
         if (isAvailable){
             System.out.println("This property costs $" + getPrice());
             System.out.println("Type 'buy' if you would like to purchase this property");
-            System.out.println("Type 'next' or 'pass' ??? if you would like to purchase this property");
+            System.out.println("Type 'pass' if you do not wish to purchase this property");
         }
         else{
             System.out.println("You must pay rent, taking $ " + getRent() + "from your account");

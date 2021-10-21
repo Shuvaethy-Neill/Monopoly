@@ -12,7 +12,6 @@ public class Board {
     private int position;
     private int player; //curent player
    ArrayList<Player> players;
-
     private enum boardSquares {
         START("START"), //exception for starting purposes
         MEDITERRANEAN_AVENUE("MEDITERRANEAN AVENUE",60,"brown"),
@@ -136,8 +135,6 @@ public class Board {
         Scanner sc = new Scanner(System.in);
         String command = "";
         command = sc.nextLine();
-        boolean exit = true;
-
 
         while(true) {
             if(command.equalsIgnoreCase("help")) {
@@ -172,7 +169,7 @@ public class Board {
                 }
 
             }
-            else if(command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll") || command.equalsIgnoreCase("next")) {
+            else if(command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll")) {
                 //notify user that game is starting
                 if(command.equalsIgnoreCase("start")){
                     System.out.println("Great! I will choose which player will go first!\n");
@@ -191,7 +188,6 @@ public class Board {
                 if(pieces[players.get(player).getPosition()].getType().equals("free parking")){
                     endTurn();
                 }
-
                 else if(pieces[players.get(player).getPosition()].getType().equals("tax")){
                     players.get(player).doTransaction(((Tax)pieces[players.get(player).getPosition()]).getCost());
                     ((FreeParking)pieces[13]).addAmount(((Tax)pieces[players.get(player).getPosition()]).getCost()); //add tax to parking
@@ -200,7 +196,6 @@ public class Board {
                     players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent());
                     //the player who owns the property gets rent
                     ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); //failing
-
                 }
             }
             else if(command.equalsIgnoreCase("pass")) {
@@ -229,6 +224,5 @@ public class Board {
         //name = sc.nextLine();
         Board b = new Board();
         b.play();
-
     }
 }
