@@ -180,7 +180,7 @@ public class Board {
                     endTurn();
                 }
 
-            } else if (command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll") || command.equalsIgnoreCase("next")) {
+            } else if (command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll")) {
                 //notify user that game is starting
                 if (command.equalsIgnoreCase("start")) {
                     System.out.println("Great! I will choose which player will go first!\n");
