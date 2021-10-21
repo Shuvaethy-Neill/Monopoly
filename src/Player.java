@@ -76,9 +76,13 @@ public class Player {
      * given the value of their dice roll
      * @param spaces , the amount of spaces they need to move on the board
      */
-    //pass in Dice.getRollValue as spaces
     public void move (int spaces) {
-        position = position + spaces;
+        if(position + spaces > 25) {
+            position = ((position + spaces) - 25);
+        }
+        else{
+            position += spaces;
+        }
     }
 
     /**
