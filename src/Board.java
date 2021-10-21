@@ -3,7 +3,9 @@ import java.util.Scanner;
 import java.util.Random;
 
 /**
- *
+ * The Board Class that contains the user interface of the Monopoly board
+ * @author
+ * @version 1.0
  */
 public class Board {
     private Random rand;
@@ -90,6 +92,9 @@ public class Board {
         return pieces[i];
     }
 
+    /**
+     * Method displays text on the console to begin the Monopoly game
+     */
     private void welcome(){
         System.out.println("Welcome to the Monopoly Game!");
         System.out.println("How many players are playing? Enter 2, 3, or 4 (Minimum:2, Maximum:4)");
@@ -102,6 +107,10 @@ public class Board {
         }
     }
 
+    /**
+     * Method checks if the Player is bankrupt
+     * @return boolean, true if they are bankrupt, false otherwise
+     */
     private boolean checkBankruptcy(){
         boolean check = false;
         if(pieces[players.get(player).getPosition()].getType().equals("free parking")) {}
@@ -129,6 +138,9 @@ public class Board {
         return check;
     }
 
+    /**
+     * Method passes the turn to the next player in the game
+     */
     private void endTurn(){
         player++;
         if(player > players.size()-1){
@@ -158,7 +170,6 @@ public class Board {
                 System.out.println("Type 'pass' to pass your turn to the next player");
                 System.out.println("Type 'quit' to end the game");
             }
-
             if(checkBankruptcy()){
                 //if bankrupt then it will exit
                 endTurn();
@@ -224,7 +235,6 @@ public class Board {
             command = sc.nextLine();
         }
     }
-
 
     public static void main(String[] args) {
         Board b = new Board();
