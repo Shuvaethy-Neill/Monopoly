@@ -12,8 +12,8 @@ public class Board {
     private Dice dice;
     private BoardSpace[] pieces;
     private int position;
-    private int player; //curent player
-   ArrayList<Player> players;
+    private int player; // current player
+    ArrayList<Player> players;
 
     private enum boardSquares {
         START("START"), //exception for starting purposes
