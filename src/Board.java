@@ -126,7 +126,7 @@ public class Board {
                 System.exit(0);
             }
         }
-        return  check;
+        return check;
     }
 
     private void endTurn(){
@@ -142,22 +142,21 @@ public class Board {
      */
     public void play() {
         welcome();
-        System.out.println("Enter a command, type 'help' for a list of commands");
+        System.out.println("Enter a command...");
+        System.out.println("Type 'help' for a list of commands");
         System.out.print(">>> ");
         Scanner sc = new Scanner(System.in);
         String command = "";
         command = sc.nextLine();
-        boolean exit = true;
-
 
         while (true) {
             if (command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
-                System.out.println("Type 'state' to view your... like stats??");
+                System.out.println("Type 'state' to view your state in the game");
                 System.out.println("Type 'roll' to roll dices on your turn");
                 System.out.println("Type 'buy' to purchase a property");
                 System.out.println("Type 'pass' to pass your turn to the next player");
-                System.out.println("Type 'quit' to quit the game");
+                System.out.println("Type 'quit' to end the game");
             }
 
             if(checkBankruptcy()){
@@ -219,21 +218,15 @@ public class Board {
             } else {
                 System.out.println("Error: Please enter a valid command");
             }
-            System.out.println(" ");
+            System.out.println("");
             System.out.println("Player " + (player + 1) + ":");
-            System.out.print("Please enter a command >>> ");
-
+            System.out.print("Enter a command >>> ");
             command = sc.nextLine();
-
         }
     }
 
 
     public static void main(String[] args) {
-        //System.out.print("Please enter your name to begin : ");
-        //Scanner sc = new Scanner(System.in);
-        //String name = "";
-        //name = sc.nextLine();
         Board b = new Board();
         b.play();
 
