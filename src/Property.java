@@ -135,7 +135,7 @@ public class Property extends BoardSpace {
     }
 
     /**
-     *
+     * Method to check if a property is equivalent to another property
      * @param o
      * @return
      */
@@ -157,10 +157,11 @@ public class Property extends BoardSpace {
     }
 
     /**
-     *
-     * @return
+     * Returns the property name along with the color of the property
+     * @return the property object as a string value
      */
+    @Override
     public String toString() {
-        return this.getName() + " (" + this.getColor() + ")"; //can change this but did it for now to see who owns what 
+        return this.getName() + " (" + this.getColor() + ")";
     }
 }

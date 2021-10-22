@@ -70,7 +70,12 @@ public class Player {
      * This method increments the number of doubles the user has rolled
      */
     public void incrementNumDoublesRolled(){
-        this.numDoublesRolled++;
+        if (numDoublesRolled ==4){ //reset if more than 3 doubles rolled
+            this.numDoublesRolled =0;
+        }
+        else {
+            this.numDoublesRolled++;
+        }
     }
 
     /**

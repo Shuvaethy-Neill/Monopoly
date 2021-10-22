@@ -204,6 +204,9 @@ public class Board {
 
                 System.out.println("Rolling the dices:");
                 dice.roll();
+                if(players.get(player).getNumDoublesRolled() == 3){endTurn();} //if 3 doubles rolled end turn
+                if (dice.isDouble()){players.get(player).incrementNumDoublesRolled();}
+
                 System.out.println("You rolled: " + dice.toString());
                 System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
                 players.get(player).move(dice.getRollValue());
