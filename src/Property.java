@@ -105,6 +105,7 @@ public class Property extends BoardSpace {
             isAvailable = true;
             return true;
         }
+        this.owner = null;
         return false;
     }
 
@@ -132,8 +133,6 @@ public class Property extends BoardSpace {
             System.out.println("You must pay rent, taking $ " + getRent() + " from your account");
         }
     }
-    //does player pay rent to themselves if they land on their own square???
-    // Answer: Nope! -Evan
 
     /**
      *
@@ -161,12 +160,7 @@ public class Property extends BoardSpace {
      *
      * @return
      */
-    /*public String toString() {
-        return "Property{" +
-                "isAvailable=" + isAvailable +
-                ", price=" + price +
-                ", color='" + color + '\'' +
-                ", owner=" + owner.toString() +
-                '}';
-    }*/
+    public String toString() {
+        return this.getName() + " (" + this.getColor() + ")";
+    }
 }

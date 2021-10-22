@@ -128,6 +128,9 @@ public class Board {
         if (check) {
             System.out.println("You have reached bankruptcy :(");
             System.out.println("You are being eliminated from the game");
+            for(int i = 0; i < players.get(player).getProperties().size(); i++) {
+                players.get(player).getProperties().get(i).sell();
+            }
             players.remove(player);
             if (players.size() == 1){
                 System.out.println("GAME OVER! " + players.get(0).getName() + " has won the game! ");
