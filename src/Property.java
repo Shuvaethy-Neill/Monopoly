@@ -161,6 +161,6 @@ public class Property extends BoardSpace {
      * @return
      */
     public String toString() {
-        return this.getName() + " (" + this.getColor() + ")";
+        return this.getName() + " (" + this.getColor() + ")"; //can change this but did it for now to see who owns what 
     }
 }
