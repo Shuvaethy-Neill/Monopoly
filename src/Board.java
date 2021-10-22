@@ -165,17 +165,18 @@ public class Board {
         command = sc.nextLine();
 
         while (true) {
-            if (command.equalsIgnoreCase("help")) {
+            if(checkBankruptcy()){
+                //if bankrupt then it will exit
+                endTurn();
+            }
+
+            else if (command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
                 System.out.println("Type 'state' to view your state in the game");
                 System.out.println("Type 'roll' to roll dices on your turn");
                 System.out.println("Type 'buy' to purchase a property");
                 System.out.println("Type 'pass' to pass your turn to the next player");
                 System.out.println("Type 'quit' to end the game");
-            }
-            if(checkBankruptcy()){
-                //if bankrupt then it will exit
-                endTurn();
             }
             else if (command.equalsIgnoreCase("state")) {
                 System.out.println(players.get(player).toString());
