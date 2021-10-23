@@ -214,7 +214,7 @@ public class Board {
                     System.out.println("Let's begin by rolling the dices!\n");
                 }
 
-                System.out.println("Rolling the dices:");
+                System.out.println("Rolling the dice:");
                 dice.roll();
                 if(players.get(player).getNumDoublesRolled() == 3){endTurn();} //if 3 doubles rolled end turn
                 if (dice.isDouble()){players.get(player).incrementNumDoublesRolled();}
