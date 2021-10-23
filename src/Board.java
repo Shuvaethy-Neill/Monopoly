@@ -96,7 +96,9 @@ public class Board {
      * Method displays text on the console to begin the Monopoly game
      */
     private void welcome(){
+        System.out.println("=============================");
         System.out.println("Welcome to the Monopoly Game!");
+        System.out.println("=============================");
         System.out.println("How many players are playing? Enter 2, 3, or 4 (Minimum:2, Maximum:4)");
         System.out.print(">>> ");
         Scanner sc = new Scanner(System.in);
@@ -169,12 +171,15 @@ public class Board {
                 //if bankrupt then it will exit
                 endTurn();
             }
-            if ((prevCommand.equalsIgnoreCase(command)||prevCommand.equalsIgnoreCase("start")) && !dice.isDouble()){
+            // MUST FIX:
+            // if ((prevCommand.equalsIgnoreCase(command)||prevCommand.equalsIgnoreCase("start")) && !dice.isDouble())
+            // ^^ This line prevents rolling after start but you cant buy or pass or other commands
+            if (prevCommand.equalsIgnoreCase(command) && !dice.isDouble()){
                 System.out.println("Invalid command");
                 System.out.println("Please try again :)");
                 //endTurn();
+                // Should their turn end immediately or give them the chance to buy the property?
             }
-
             else if (command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
                 System.out.println("Type 'state' to view your state in the game");
@@ -194,6 +199,7 @@ public class Board {
                     System.out.println(players.get(player).toString()); //for testing rn
                 } else {
                     System.out.println("Unfortunately the property is no longer available for purchase.");
+                    endTurn();
                 }
                 if (!dice.isDouble()) {
                     endTurn();
@@ -241,9 +247,6 @@ public class Board {
             } else {
                 System.out.println("Error: Please enter a valid command");
             }
-            /*if((prevCommand.equalsIgnoreCase("start") || (prevCommand.equalsIgnoreCase("roll")) && (!dice.isDouble()))) {
-                System.out.println("Invalid command");
-            }*/
 
             prevCommand=command; //update previous command
             System.out.println("");
