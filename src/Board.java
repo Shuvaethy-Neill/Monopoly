@@ -163,8 +163,13 @@ public class Board {
         Scanner sc = new Scanner(System.in);
         String command = "";
         command = sc.nextLine();
-
+        String prevCommand = command;
         while (true) {
+            if (prevCommand.equalsIgnoreCase(command) && !dice.isDouble()){
+                System.out.println("NOOOOO");
+                endTurn();
+            }
+            System.out.println(prevCommand);
             if (command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
                 System.out.println("Type 'state' to view your state in the game");
@@ -235,6 +240,7 @@ public class Board {
             } else {
                 System.out.println("Error: Please enter a valid command");
             }
+            prevCommand=command; //update previous command
             System.out.println("");
             System.out.println("Player " + (player + 1) + ":");
             System.out.print("Enter a command >>> ");
