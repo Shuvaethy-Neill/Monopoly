@@ -2,8 +2,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
-//welcome error handling (works except for this): type 2.3 then 1 then 2.3 again. Why does it print try again twice after the second 2.3
-//should be creating two instances of scanners?
+//welcome error handling (works except for this): type 2.3 then 1 then 2.3 again. i'm lost on why it prints try again twice after the second 2.3
+//should we be creating two instances of scanners or just have one outside of both methods?
+//i think start should become invalid once the game has started? if you type help then start,it rolls (fix might be duplicate code though since start and roll use the same code OR we could just make roll a method and invoke it for both commands)
+//should roll be invalid before the game starts? because if you enter roll then it doesnt choose the starting player randomly, it starts with P1
+//if you land on a property that you can buy but enter roll instead it lets you roll again
+//if you enter buy before starting you get an error
+
 
 /**
  * The Board Class that contains the user interface of the Monopoly board
