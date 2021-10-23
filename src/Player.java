@@ -18,6 +18,7 @@ public class Player {
     private int assets; //monetary value of all the properties you own
     private boolean bankrupt; //state of bankruptcy
     private ArrayList<Property> properties;
+    private Property property;
 
     /**
      * Constructor for Player class

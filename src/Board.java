@@ -165,22 +165,23 @@ public class Board {
         command = sc.nextLine();
         String prevCommand = command;
         while (true) {
-            if (prevCommand.equalsIgnoreCase(command) && !dice.isDouble()){
-                System.out.println("NOOOOO");
+            if(checkBankruptcy()){
+                //if bankrupt then it will exit
                 endTurn();
             }
-            System.out.println(prevCommand);
-            if (command.equalsIgnoreCase("help")) {
+            if ((prevCommand.equalsIgnoreCase(command)||prevCommand.equalsIgnoreCase("start")) && !dice.isDouble()){
+                System.out.println("Invalid command");
+                System.out.println("Please try again :)");
+                //endTurn();
+            }
+
+            else if (command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
                 System.out.println("Type 'state' to view your state in the game");
                 System.out.println("Type 'roll' to roll dices on your turn");
                 System.out.println("Type 'buy' to purchase a property");
                 System.out.println("Type 'pass' to pass your turn to the next player");
                 System.out.println("Type 'quit' to end the game");
-            }
-            if(checkBankruptcy()){
-                //if bankrupt then it will exit
-                endTurn();
             }
             else if (command.equalsIgnoreCase("state")) {
                 System.out.println(players.get(player).toString());
@@ -240,6 +241,10 @@ public class Board {
             } else {
                 System.out.println("Error: Please enter a valid command");
             }
+            /*if((prevCommand.equalsIgnoreCase("start") || (prevCommand.equalsIgnoreCase("roll")) && (!dice.isDouble()))) {
+                System.out.println("Invalid command");
+            }*/
+
             prevCommand=command; //update previous command
             System.out.println("");
             System.out.println("Player " + (player + 1) + ":");
