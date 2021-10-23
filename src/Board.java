@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
+//welcome error handling (works except for this): type 2.3 then 1 then 2.3 again. Why does it print try again twice after the second 2.3
+//should be creating two instances of scanners?
+
 /**
  * The Board Class that contains the user interface of the Monopoly board
  * @author
@@ -95,15 +98,28 @@ public class Board {
     /**
      * Method displays text on the console to begin the Monopoly game
      */
-    private void welcome(){
-        System.out.println("=============================");
-        System.out.println("Welcome to the Monopoly Game!");
-        System.out.println("=============================");
-        System.out.println("How many players are playing? Enter 2, 3, or 4 (Minimum:2, Maximum:4)");
-        System.out.print(">>> ");
+    private void welcome() {
         Scanner sc = new Scanner(System.in);
         int people = 0;
-        people = sc.nextInt();
+        boolean validInput = false;
+        System.out.println("=============================\nWelcome to the Monopoly Game!\n=============================");
+
+        do {
+            System.out.println("How many players are playing? Enter 2, 3, or 4 (Minimum:2, Maximum:4)");
+            System.out.print(">>> ");
+            if (sc.hasNextInt()) {
+                people = sc.nextInt();
+                if((people > 1 && people < 5)) {
+                    validInput = true;
+                }
+            }
+            else{
+                System.out.println("Sorry that is not an integer. Try again!");
+                sc.nextLine();
+            }
+        }
+        while (!validInput);
+
         for(int i = 0; i < people; i++){
             players.add(new Player("Player " + (i + 1)));
         }
@@ -211,7 +227,7 @@ public class Board {
                     System.out.println("Great! I will choose which player will go first!\n");
                     player = rand.nextInt(players.size());
                     System.out.println("Player " + (player + 1) + " will start");
-                    System.out.println("Let's begin by rolling the dices!\n");
+                    System.out.println("Let's begin by rolling the dice!\n");
                 }
 
                 System.out.println("Rolling the dices:");
