@@ -4,11 +4,11 @@ import java.util.Random;
 
 //welcome error handling (works except for this): type 2.3 then 1 then 2.3 again. i'm lost on why it prints try again twice after the second 2.3
 //should we be creating two instances of scanners or just have one outside of both methods?
-//i think start should become invalid once the game has started? if you type help then start,it rolls (fix might be duplicate code though since start and roll use the same code OR we could just make roll a method and invoke it for both commands)
-//should roll be invalid before the game starts? because if you enter roll then it doesnt choose the starting player randomly, it starts with P1
-//if you land on a property that you can buy but enter roll instead it lets you roll again
-//if you enter buy before starting you get an error
+//when its your turn and you enter buy before roll it will end your turn
 //state gives position number not name of square
+//weird bug that won't let you roll after the previous person paid rent (would be roll twice)
+//if you roll and land on an unpurchased property, then enter an invalid input, then roll again it accepts it (it shouldn't let you re-roll)
+// if you land on an unpurchased property, it lets you roll again if you have doubles (should make you buy before rolling )
 
 
 /**
@@ -24,6 +24,7 @@ public class Board {
     private int player; // current player
     private String prevCommand; //keep track of previous command
     ArrayList<Player> players;
+    private Object Property;
 
     private enum boardSquares {
         START("START"), //exception for starting purposes
@@ -106,7 +107,6 @@ public class Board {
      * Method displays text on the console to begin the Monopoly game
      */
     private void welcome() {
-        Scanner sc = new Scanner(System.in);
         int people = 0;
         boolean validInput = false;
         System.out.println("=============================\nWelcome to the Monopoly Game!\n=============================");
@@ -114,6 +114,7 @@ public class Board {
         do {
             System.out.println("How many players are playing? Enter 2, 3, or 4 (Minimum:2, Maximum:4)");
             System.out.print(">>> ");
+            Scanner sc = new Scanner(System.in);
             if (sc.hasNextInt()) {
                 people = sc.nextInt();
                 if((people > 1 && people < 5)) {
@@ -182,12 +183,13 @@ public class Board {
      * Method displays the user interface of the Monopoly Board that takes user input
      */
     public void play() {
+        boolean playing = false;
         welcome();
         System.out.println("Enter a command...");
         System.out.println("Type 'help' for a list of commands");
         System.out.print(">>> ");
         Scanner sc = new Scanner(System.in);
-        String command = "";
+        String command;
         command = sc.nextLine();
         prevCommand = command;
         while (true) {
@@ -195,10 +197,13 @@ public class Board {
                 //if bankrupt then it will exit
                 endTurn();
             }
+            else if(!playing && (!command.equalsIgnoreCase("start") && (!command.equalsIgnoreCase("help")))){
+                System.out.println("Please start a game.");
+            }
             // MUST FIX:
             // if ((prevCommand.equalsIgnoreCase(command)||prevCommand.equalsIgnoreCase("start")) && !dice.isDouble())
             // ^^ This line prevents rolling after start but you cant buy or pass or other commands
-            if (prevCommand.equalsIgnoreCase(command) && !dice.isDouble()){
+            else if (prevCommand.equalsIgnoreCase(command) && !dice.isDouble() && command.equalsIgnoreCase("pass")){
                 System.out.println("Invalid command");
                 System.out.println("Please try again :)");
                 //endTurn();
@@ -216,56 +221,76 @@ public class Board {
             else if (command.equalsIgnoreCase("state")) {
                 System.out.println(players.get(player).toString());
             } else if (command.equalsIgnoreCase("buy")) {
-                if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
-                    players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice());
-                    players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()]));
-                    ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
-                    ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
-                    System.out.println(players.get(player).toString()); //for testing rn
+                if(pieces[players.get(player).getPosition()] instanceof Property){
+                    if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
+                        players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice());
+                        players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()]));
+                        ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
+                        ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
+                        System.out.println(players.get(player).toString()); //for testing rn
+                    }
                 } else {
-                    System.out.println("Unfortunately the property is no longer available for purchase.");
-                    endTurn();
+                    System.out.println("Unfortunately the property is not available for purchase.");
                 }
+
                 if (!dice.isDouble()) {
                     endTurn();
                 }
 
-            } else if (command.equalsIgnoreCase("start") || command.equalsIgnoreCase("roll")) {
-                //notify user that game is starting
-                if (command.equalsIgnoreCase("start")) {
-                    System.out.println("Great! I will choose which player will go first!\n");
+            } else if (command.equalsIgnoreCase("start")){
+                if(!playing) {
+                    //notify user that game is starting
+                    System.out.println("\nGreat! I will choose which player will go first!");
                     player = rand.nextInt(players.size());
                     System.out.println("Player " + (player + 1) + " will start");
-                    System.out.println("Let's begin by rolling the dice!\n");
+                    playing = true;
                 }
+                else{
+                    System.out.println("The game has already started. Please enter a valid command for your turn.");
+                }
+            }
+            else if (command.equalsIgnoreCase("roll")){
+                if(!playing){
+                    System.out.println("Please start a game first.");
+                }
+                else {
 
-                System.out.println("Rolling the dice:");
-                dice.roll();
-                if(players.get(player).getNumDoublesRolled() == 3){endTurn();} //if 3 doubles rolled end turn
-                if (dice.isDouble()){players.get(player).incrementNumDoublesRolled();}
-
-                System.out.println("You rolled: " + dice.toString());
-                System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
-                players.get(player).move(dice.getRollValue());
-                pieces[players.get(player).getPosition()].displayInfo();
-
-                if (pieces[players.get(player).getPosition()].getType().equals("free parking")) {
-                    if (!dice.isDouble()){endTurn();}
-                } else if (pieces[players.get(player).getPosition()].getType().equals("tax")) {
-                    players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
-                    ((FreeParking) pieces[13]).addAmount(((Tax) pieces[players.get(player).getPosition()]).getCost()); //add tax to parking
-                    if (!dice.isDouble()){endTurn();}
-                } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property is not available
-                    players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent());
-                    //the player who owns the property gets rent
-                    if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))){ //if the player lands on themselves, do nothing
-                        continue;
-                    }
-                    else {
-                        ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent());
-                    }
-                    if (!checkBankruptcy() && !dice.isDouble()) {
+                    System.out.println("Rolling the dice:");
+                    dice.roll();
+                    if (players.get(player).getNumDoublesRolled() == 3) {
                         endTurn();
+                    } //if 3 doubles rolled end turn
+                    if (dice.isDouble()) {
+                        players.get(player).incrementNumDoublesRolled();
+                    }
+
+                    System.out.println("You rolled: " + dice.toString());
+                    System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
+                    players.get(player).move(dice.getRollValue());
+                    pieces[players.get(player).getPosition()].displayInfo();
+
+                    if (pieces[players.get(player).getPosition()].getType().equals("free parking")) {
+                        if (!dice.isDouble()) {
+                            endTurn();
+                        }
+                    } else if (pieces[players.get(player).getPosition()].getType().equals("tax")) {
+                        players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
+                        ((FreeParking) pieces[13]).addAmount(((Tax) pieces[players.get(player).getPosition()]).getCost()); //add tax to parking
+                        if (!dice.isDouble()) {
+                            endTurn();
+                        }
+                    } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property is not available
+                        players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent());
+                        //the player who owns the property gets rent
+                        if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { //if the player lands on themselves, do nothing
+                            System.out.println("You do not need to pay rent since you own this property.");
+                        } else {
+                            ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent());
+                        }
+
+                        if (!checkBankruptcy() && !dice.isDouble()) {
+                            endTurn();
+                        }
                     }
                 }
             } else if (command.equalsIgnoreCase("pass")) {
@@ -278,7 +303,7 @@ public class Board {
                 System.out.println("Error: Please enter a valid command");
             }
 
-            prevCommand=command; //update previous command
+            prevCommand = command; //update previous command
             System.out.println("");
             System.out.println("Player " + (player + 1) + ":");
             System.out.print("Enter a command >>> ");
@@ -289,6 +314,5 @@ public class Board {
     public static void main(String[] args) {
         Board b = new Board();
         b.play();
-
     }
 }
