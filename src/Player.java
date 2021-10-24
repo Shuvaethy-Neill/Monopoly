@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * The Player class represents a player in the game
@@ -149,5 +150,18 @@ public class Player {
                 + "\nYou're currently located at: " + position //position will return a number not a place on the board..
                 + "\nYou have $" + money + " in your account"
                 + "\nYour properties are: " + properties.toString();
+    }
+
+    /**
+     * Method to check if a player is equivalent to another player
+     * @param o
+     * @return
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return name == player.name && money == player.money && position==player.position && Objects.equals(properties, player.properties);
     }
 }

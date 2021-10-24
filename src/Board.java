@@ -201,6 +201,7 @@ public class Board {
                 System.out.println("Please try again :)");
                 //endTurn();
                 // Should their turn end immediately or give them the chance to buy the property?
+                // ^ this assumes the previous command was the same, so let them try again?
             }
             else if (command.equalsIgnoreCase("help")) {
                 System.out.println("Type 'start' to start the game");
@@ -255,7 +256,12 @@ public class Board {
                 } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property is not available
                     players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent());
                     //the player who owns the property gets rent
-                    ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); //failing
+                    if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))){ //if the player lands on themselves, do nothing
+                        continue;
+                    }
+                    else {
+                        ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent());
+                    }
                     if (!checkBankruptcy() && !dice.isDouble()) {
                         endTurn();
                     }
