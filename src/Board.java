@@ -8,6 +8,7 @@ import java.util.Random;
 //should roll be invalid before the game starts? because if you enter roll then it doesnt choose the starting player randomly, it starts with P1
 //if you land on a property that you can buy but enter roll instead it lets you roll again
 //if you enter buy before starting you get an error
+//state gives position number not name of square
 
 
 /**
