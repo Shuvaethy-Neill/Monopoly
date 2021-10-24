@@ -22,6 +22,7 @@ public class Board {
     private BoardSpace[] pieces;
     private int position;
     private int player; // current player
+    private String prevCommand; //keep track of previous command
     ArrayList<Player> players;
 
     private enum boardSquares {
@@ -169,6 +170,7 @@ public class Board {
      * Method passes the turn to the next player in the game
      */
     private void endTurn(){
+        prevCommand = " ";
         player++;
         if(player > players.size()-1){
             player = 0;
@@ -187,7 +189,7 @@ public class Board {
         Scanner sc = new Scanner(System.in);
         String command = "";
         command = sc.nextLine();
-        String prevCommand = command;
+        prevCommand = command;
         while (true) {
             if(checkBankruptcy()){
                 //if bankrupt then it will exit
