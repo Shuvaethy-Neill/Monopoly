@@ -12,8 +12,10 @@ import java.util.Random;
 
 /**
  * The Board Class that contains the user interface of the Monopoly board
+ *
  * @author
  * @version 1.0
+ * @since 2021-10-22
  */
 public class Board {
     private Random rand;
@@ -308,6 +310,11 @@ public class Board {
         }
     }
 
+    /**
+     * The main method
+     *
+     * @param args String[], command line arguments
+     */
     public static void main(String[] args) {
         Board b = new Board();
         b.play();
