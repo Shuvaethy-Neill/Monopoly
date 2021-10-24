@@ -130,7 +130,7 @@ public class Property extends BoardSpace {
             System.out.println("Type 'pass' if you would not like to purchase this property");
         }
         else{
-            System.out.println("You must pay rent, taking $ " + getRent() + " from your account");
+            System.out.println("The rent for this property is $" + getRent() + ".");
         }
     }
 
