@@ -3,9 +3,9 @@ import java.util.Random;
 /**
  * The Dice class manages the user's dice roll
  *
- * @author
+ * @author Shuvaethy Neill
  * @version 1.0
- * @since 2021-10-19
+ * @since 2021-10-24
  */
 
 public class Dice {
@@ -22,15 +22,11 @@ public class Dice {
         dice = new int [NUM_DICE];
     }
 
-    //could be void or return the value
-    //could just be two statements as well
     /**
      * This method handles the user's dice roll by generating two
      * random numbers between 1-6 and storing each in the dice array
      */
     public void roll () {
-        //dice[0] = 1 + random.nextInt(6);
-        //dice[1] = 1 + random.nextInt(6);
         for (int i=0; i<NUM_DICE; i++) {
             dice[i] = 1 + random.nextInt(6);
         }
