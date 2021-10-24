@@ -139,18 +139,18 @@ public class Board {
      */
     private boolean checkBankruptcy(){
         boolean check = false;
-        if(pieces[players.get(player).getPosition()].getType().equals("free parking")) {}
 
-        else if (pieces[players.get(player).getPosition()].getType().equals("tax")) {
+        if (pieces[players.get(player).getPosition()] instanceof Tax) {
             check = players.get(player).isBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
         }
-        else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()){ //property not available
-            check = players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
+        else if (pieces[players.get(player).getPosition()] instanceof Property) {
+            if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property not available
+                check = players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
+            } else {
+                check = (players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice()));
+            }
+        }
 
-        }
-        else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()){
-            check = players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice());
-        }
         if (check) {
             System.out.println("You have reached bankruptcy :(");
             System.out.println("You are being eliminated from the game");
@@ -287,7 +287,6 @@ public class Board {
                         } else {
                             ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent());
                         }
-
                         if (!checkBankruptcy() && !dice.isDouble()) {
                             endTurn();
                         }
