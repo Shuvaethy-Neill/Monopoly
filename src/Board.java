@@ -87,8 +87,9 @@ public class Board {
     }
 
     /**
+     * Get the board space pieces
      *
-     * @return
+     * @return BoardSpace[], The array of boardspace pieces
      */
     public BoardSpace[] getPieces() {
         return pieces;

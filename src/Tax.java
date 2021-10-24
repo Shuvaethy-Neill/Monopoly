@@ -5,11 +5,12 @@ import java.util.Objects;
  *
  * @author e
  * @version 1.0
+ * @since 2021-10-22
  */
 public class Tax extends BoardSpace {
 
     /**
-     *
+     * The cost of landing on the Tax BoardSpace
      */
     private final int cost;
 
