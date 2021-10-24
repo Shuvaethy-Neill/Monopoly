@@ -3,8 +3,9 @@ import java.util.Objects;
 /**
  * A property
  *
- * @author e
+ * @author
  * @version 1.0
+ * @since 2021-10-22
  */
 public class Property extends BoardSpace {
     /**
@@ -49,6 +50,7 @@ public class Property extends BoardSpace {
 
     /**
      * sets the owner of the property
+     *
      * @param p player who owns the property
      */
     public void setOwner(Player p){
@@ -135,9 +137,10 @@ public class Property extends BoardSpace {
     }
 
     /**
-     * Method to check if a property is equivalent to another property
-     * @param o
-     * @return
+     * Determines if a property is equivalent to another property
+     *
+     * @param o, Object,
+     * @return boolean, whether an object is equivalent to another object
      */
     @Override
     public boolean equals(Object o) {
@@ -148,17 +151,9 @@ public class Property extends BoardSpace {
     }
 
     /**
-     *
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(isAvailable, price, color, owner);
-    }
-
-    /**
      * Returns the property name along with the color of the property
-     * @return the property object as a string value
+     *
+     * @return Stirng, the property object as a string value
      */
     @Override
     public String toString() {
