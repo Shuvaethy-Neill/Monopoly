@@ -139,8 +139,8 @@ public class Property extends BoardSpace {
     /**
      * Determines if a property is equivalent to another property
      *
-     * @param o, Object,
-     * @return boolean, whether an object is equivalent to another object
+     * @param o Object, the object to be compared with the object this method is called on
+     * @return boolean, if the objects are equivalent
      */
     @Override
     public boolean equals(Object o) {
@@ -151,9 +151,9 @@ public class Property extends BoardSpace {
     }
 
     /**
-     * Returns the property name along with the color of the property
+     * Returns a String representation of the Property object
      *
-     * @return Stirng, the property object as a string value
+     * @return String, the property object as a string value
      */
     @Override
     public String toString() {

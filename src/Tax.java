@@ -16,8 +16,9 @@ public class Tax extends BoardSpace {
 
     /**
      * Constructor for the Tax Class
-     * @param name
-     * @param cost
+     *
+     * @param name, the name of the tax space
+     * @param cost, the cost of landing on the tax space
      */
     public Tax(String name, int cost) {
         super(name, "tax");
@@ -25,15 +26,16 @@ public class Tax extends BoardSpace {
     }
 
     /**
+     * Getter for the cost of landing on the tax space
      *
-     * @return
+     * @return int, the cost of landing on the tax space
      */
     public int getCost() {
         return this.cost;
     }
 
     /**
-     *
+     * A method for displaying information about the tax space
      */
     @Override
     public void displayInfo() {
@@ -42,9 +44,10 @@ public class Tax extends BoardSpace {
     }
 
     /**
+     * Determines if an instance of Tax is equivalent to another instance of Tax
      *
      * @param o
-     * @return
+     * @return boolean, if the objects are equivalent
      */
     @Override
     public boolean equals(Object o) {
@@ -55,17 +58,9 @@ public class Tax extends BoardSpace {
     }
 
     /**
+     * Returns a String representation of the Tax object
      *
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(cost);
-    }
-
-    /**
-     *
-     * @return
+     * @return String, representation of the Tax object
      */
     @Override
     public String toString() {

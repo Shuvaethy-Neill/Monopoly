@@ -61,8 +61,7 @@ public class Dice {
     }
 
     /**
-     * This method overrides the toString method in the Object
-     * class and provides a more accurate String representation
+     * Returns a String representation of the Dice object
      *
      * @return String, a statement of the two separate dice values
      */

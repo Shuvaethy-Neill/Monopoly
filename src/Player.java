@@ -3,12 +3,10 @@ import java.util.Objects;
 
 /**
  * The Player class represents a player in the game
+ *
  * @author s
- *
  * @version 1.0
- *
  * @since 2021-10-19
- *
  */
 public class Player {
 
@@ -142,6 +140,7 @@ public class Player {
      * This method overrides the toString method in the Object class
      * and provides a more accurate String representation of the whole
      * state of the player (name, position, money, properties owned)
+     *
      * @return String, state of player
      */
     @Override
@@ -154,8 +153,9 @@ public class Player {
 
     /**
      * Method to check if a player is equivalent to another player
-     * @param o
-     * @return
+     *
+     * @param o Object, the object being compared with the object the method is called on
+     * @return boolean, if the objects are equivalent
      */
     @Override
     public boolean equals(Object o) {

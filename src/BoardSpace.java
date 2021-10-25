@@ -26,23 +26,25 @@ public abstract class BoardSpace {
     }
 
     /**
+     * Getter for the name of the board space
      *
-     * @return
+     * @return String, name of the board space
      */
     public String getName() {
         return this.name;
     }
 
     /**
+     * Getter for the type of the board space
      *
-     * @return
+     * @return String, type of the board space
      */
     public String getType() {
         return this.type;
     }
 
     /**
-     *
+     * An abstract method for displaying information about the board space
      */
     public abstract void displayInfo();
 }

@@ -1,21 +1,21 @@
-import java.util.Objects;
-
 /**
  * A free parking space on the board
  *
  * @author
  * @verion 1.0
+ * @since 2021-10-22
  */
 public class FreeParking extends BoardSpace {
 
     /**
-     *
+     * The amount of money currently at free parking
      */
     private int amount;
 
     /**
-     * FreeParking class constructor
-     * @param name
+     * FreeParking constructor
+     *
+     * @param name String, the name of the free parking space
      */
     public FreeParking(String name) {
         super(name, "free parking");
@@ -23,23 +23,25 @@ public class FreeParking extends BoardSpace {
     }
 
     /**
+     * A method to add an amount of money to free parking
      *
-     * @param amount
+     * @param amount int, the amount of money to add
      */
     public void addAmount(int amount) {
         this.amount += amount;
     }
 
     /**
+     * A getter for the amount of money currently at free parking
      *
-     * @return
+     * @return int, the amount of money currently at free parking
      */
     public int getAmount() {
         return this.amount;
     }
 
     /**
-     *
+     * A method for displaying information about the free parking space
      */
     @Override
     public void displayInfo() {
@@ -48,9 +50,10 @@ public class FreeParking extends BoardSpace {
     }
 
     /**
+     * Method to check if a FreeParking object is equivalent to another FreeParking object
      *
-     * @param o
-     * @return
+     * @param o Object, the object to be compared with the object this method is called on
+     * @return boolean, if the objects are equivalent
      */
     @Override
     public boolean equals(Object o) {
@@ -61,17 +64,9 @@ public class FreeParking extends BoardSpace {
     }
 
     /**
+     * Returns a String representation of this instance of the property object
      *
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(amount);
-    }
-
-    /**
-     *
-     * @return
+     * @return String, string representation of the property object
      */
     @Override
     public String toString() {
