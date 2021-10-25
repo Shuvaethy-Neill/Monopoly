@@ -4,8 +4,6 @@ import java.util.Random;
 
 //should we be creating two instances of scanners or just have one outside of both methods?
 //state gives position number not name of square
-        //weird bug that won't let you roll after the previous person paid rent (would be roll twice) -no longer an issue with reset fix
-        //if you roll and land on an unpurchased property, then enter an invalid input, then roll again it accepts it (it shouldn't let you re-roll) -fixed
 
 /**
  * The Board Class that contains the user interface of the Monopoly board
@@ -21,7 +19,6 @@ public class Board {
     private int position;
     private int player; // current player
     ArrayList<Player> players;
-    private Object Property;
 
     private enum boardSquares {
         START("START"), //exception for starting purposes
@@ -193,7 +190,6 @@ public class Board {
         String prevCommand = command;
 
         while (true) {
-            System.out.println("previous command: " + prevCommand); // testing! something wrong: it does not reset the prevCommand on a new turn
 
             if(checkBankruptcy()){
                 //if bankrupt then it will exit
@@ -230,7 +226,6 @@ public class Board {
                         ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
                         ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
                         System.out.println("Successfully purchased!");
-                        System.out.println(players.get(player).toString()); //for testing rn
                     }
                 } else {
                     System.out.println("Unfortunately the property you are on is not available for purchase.");
