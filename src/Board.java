@@ -5,7 +5,7 @@ import java.util.Random;
 //should we be creating two instances of scanners or just have one outside of both methods?
 //state gives position number not name of square
         //weird bug that won't let you roll after the previous person paid rent (would be roll twice) -no longer an issue with reset fix
-        //if you roll and land on an unpurchased property, then enter an invalid input, then roll again it accepts it (it shouldn't let you re-roll)
+        //if you roll and land on an unpurchased property, then enter an invalid input, then roll again it accepts it (it shouldn't let you re-roll) -fixed
 
 /**
  * The Board Class that contains the user interface of the Monopoly board
@@ -182,6 +182,7 @@ public class Board {
      */
     public void play() {
         boolean playing = false;
+        boolean validInput = false;
         welcome();
         System.out.println("Enter a command...");
         System.out.println("Type 'help' for a list of commands");
@@ -206,6 +207,7 @@ public class Board {
                 System.out.println("Please try again :)");
             }
             else if (command.equalsIgnoreCase("help")) {
+                validInput = true;
                 System.out.println("Type 'start' to start the game");
                 System.out.println("Type 'state' to view your state in the game");
                 System.out.println("Type 'roll' to roll dices on your turn");
@@ -214,8 +216,10 @@ public class Board {
                 System.out.println("Type 'quit' to end the game");
             }
             else if (command.equalsIgnoreCase("state")) {
+                validInput = true;
                 System.out.println(players.get(player).toString());
             } else if (command.equalsIgnoreCase("buy")) {
+                validInput = true;
                 if (prevCommand.equalsIgnoreCase("reset")){
                     System.out.println("Oops you haven't rolled! Type 'roll' to roll the dice!");
                 }
@@ -237,6 +241,7 @@ public class Board {
                 }
 
             } else if (command.equalsIgnoreCase("start")){
+                validInput = true;
                 if(!playing) {
                     //notify user that game is starting
                     System.out.println("\nGreat! I will choose which player will go first!");
@@ -249,7 +254,7 @@ public class Board {
                 }
             }
             else if (command.equalsIgnoreCase("roll")){
-
+                validInput= true;
                 if((players.get(player).getNumDoublesRolled() == 0) && prevCommand.equalsIgnoreCase("roll")){
                     System.out.println("Invalid! You already rolled!");
                 }
@@ -293,16 +298,17 @@ public class Board {
                 }
             }
              else if (command.equalsIgnoreCase("pass")) {
+                 validInput = true;
                 System.out.println("Your turn is now over! Passing to next player.");
                 command=endTurn();
             } else if (command.equalsIgnoreCase("quit")) {
                 System.out.println("Thanks for playing! See you next time :)");
                 System.exit(0);
             } else {
+                 validInput= false;
                 System.out.println("Error: Please enter a valid command");
             }
-
-            prevCommand = command; //update previous command
+            if (validInput){prevCommand = command;} //update previous command
 
             System.out.println("");
             System.out.println("Player " + (player + 1) + ":");
