@@ -14,7 +14,6 @@ public class Player {
     private double money; //how much money player has
     private int position; //position of the player on the board
     private int numDoublesRolled;
-    private int assets; //monetary value of all the properties you own
     private boolean bankrupt; //state of bankruptcy
     private ArrayList<Property> properties;
     private Property property;
@@ -27,7 +26,6 @@ public class Player {
         this.name = name;
         this.money = 1500.00;
         this.position = 0;
-        this.assets=0;
         this.numDoublesRolled = 0;
         this.bankrupt = false;
         this.properties = new ArrayList<Property>();
@@ -125,7 +123,6 @@ public class Player {
      */
     public void addProperty (Property property) {
         properties.add(property);
-        assets += property.getPrice();
     }
 
     /**
