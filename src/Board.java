@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * The Board Class that contains the user interface of the Monopoly board
  *
- * @author
+ * @author Harismran Kanwar, Dorothy Tran, and Shuvaethy Neill
  * @version 1.0
  * @since 2021-10-22
  */
@@ -81,18 +81,18 @@ public class Board {
     }
 
     /**
-     * Get the board space pieces
+     * Method gets the board space pieces
      *
-     * @return BoardSpace[], The array of boardspace pieces
+     * @return BoardSpace[], The array of BoardSpace pieces
      */
     public BoardSpace[] getPieces() {
         return pieces;
     }
 
     /**
-     *
-     * @param i
-     * @return
+     * Method gets the BoardSpace piece position
+     * @param i, the index of the BoardSpace piece
+     * @return BoardSpace, the board space piece
      */
     public BoardSpace getP(int i){
         return pieces[i];
@@ -190,16 +190,17 @@ public class Board {
         String prevCommand = command;
 
         while (true) {
-
+            // If the player is bankrupt, end their turn
             if(checkBankruptcy()){
-                //if bankrupt then it will exit
                 command = endTurn();
             }
             else if(!playing && (!command.equalsIgnoreCase("start") && (!command.equalsIgnoreCase("help")))){
                 System.out.println("Please start a game.");
             }
+
+            // Prevents the player from inputting the same command more the once if the rolled dice values are not doubles
             else if (prevCommand.equalsIgnoreCase(command) && !dice.isDouble() && command.equalsIgnoreCase("pass")){
-                System.out.println("Invalid command");
+               System.out.println("Invalid command");
                 System.out.println("Please try again :)");
             }
             else if (command.equalsIgnoreCase("help")) {
@@ -214,15 +215,20 @@ public class Board {
             else if (command.equalsIgnoreCase("state")) {
                 validInput = true;
                 System.out.println(players.get(player).toString());
-            } else if (command.equalsIgnoreCase("buy")) {
+            }
+            else if (command.equalsIgnoreCase("buy")) {
                 validInput = true;
+
+                // Notifies the player that they must roll first when it is their turn to play if they input a different command
                 if (prevCommand.equalsIgnoreCase("reset")){
                     System.out.println("Oops you haven't rolled! Type 'roll' to roll the dice!");
                 }
+
+                // The situation when the player purchases a property
                 else if(pieces[players.get(player).getPosition()] instanceof Property && prevCommand.equalsIgnoreCase("roll")){
                     if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
-                        players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice());
-                        players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()]));
+                        players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted frm player's account
+                        players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
                         ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
                         ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
                         System.out.println("Successfully purchased!");
@@ -232,15 +238,16 @@ public class Board {
                 }
 
                 if (!dice.isDouble() && prevCommand.equalsIgnoreCase("roll")) {
-                    command =endTurn();
+                    command = endTurn();
                 }
 
-            } else if (command.equalsIgnoreCase("start")){
+            }
+            else if (command.equalsIgnoreCase("start")){
                 validInput = true;
                 if(!playing) {
                     //notify user that game is starting
                     System.out.println("\nGreat! I will choose which player will go first!");
-                    player = rand.nextInt(players.size());
+                    player = rand.nextInt(players.size()); // randomly selects a player
                     System.out.println("Player " + (player + 1) + " will start");
                     playing = true;
                 }
@@ -249,7 +256,8 @@ public class Board {
                 }
             }
             else if (command.equalsIgnoreCase("roll")){
-                validInput= true;
+                validInput = true;
+                // Error handling if the current player inputs the roll command multiple times if their rolled dice were not doubles
                 if((players.get(player).getNumDoublesRolled() == 0) && prevCommand.equalsIgnoreCase("roll")){
                     System.out.println("Invalid! You already rolled!");
                 }
@@ -257,8 +265,8 @@ public class Board {
                     System.out.println("Rolling the dice:");
                     dice.roll();
                     if (players.get(player).getNumDoublesRolled() == 3) {
-                        command=endTurn();
-                    } //if 3 doubles rolled end turn
+                        command = endTurn();
+                    } // If 3 doubles rolled end turn
                     if (dice.isDouble()) {
                         players.get(player).incrementNumDoublesRolled();
                     }
@@ -270,21 +278,21 @@ public class Board {
 
                     if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
                         if (!dice.isDouble()) {
-                            command=endTurn();
+                            command=endTurn(); // Player lands on the Free Parking space, end their turn if doubles are rolled
                         }
                     } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
                         players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
                         if (!dice.isDouble()) {
-                            command=endTurn();
+                            command=endTurn(); // Player lands on the Tax space, end their turn if doubles are rolled
                         }
-                    } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property is not available
-                        //the player who owns the property gets rent
-                        if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { //if the player lands on themselves, do nothing
+                    } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
+                        // Player who owns the property gets rent
+                        if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
                             System.out.println("You do not need to pay rent since you own this property.");
                         } else {
                             System.out.println("Taking the money from your account");
-                            players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent());
-                            ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent());
+                            players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
+                            ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
                         }
                         if (!checkBankruptcy() && !dice.isDouble()) {
                             command=endTurn();
@@ -294,8 +302,8 @@ public class Board {
             }
              else if (command.equalsIgnoreCase("pass")) {
                  validInput = true;
-                System.out.println("Your turn is now over! Passing to next player.");
-                command=endTurn();
+                 System.out.println("Your turn is now over! Passing to next player.");
+                 command=endTurn();
             } else if (command.equalsIgnoreCase("quit")) {
                 System.out.println("Thanks for playing! See you next time :)");
                 System.exit(0);
@@ -304,7 +312,6 @@ public class Board {
                 System.out.println("Error: Please enter a valid command");
             }
             if (validInput){prevCommand = command;} //update previous command
-
             System.out.println("");
             System.out.println("Player " + (player + 1) + ":");
             System.out.print("Enter a command >>> ");
