@@ -7,7 +7,7 @@ import java.util.Random;
  *
  * @author Harismran Kanwar, Dorothy Tran, and Shuvaethy Neill
  * @version 1.0
- * @since 2021-10-22
+ * @since 2021-10-24
  */
 public class Board {
     private Random rand;

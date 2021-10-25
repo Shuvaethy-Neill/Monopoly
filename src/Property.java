@@ -1,9 +1,10 @@
 import java.util.Objects;
 
 /**
- * A property
+ * The Property class extends BoardSpace and represents
+ * a space that is specifically a property
  *
- * @author
+ * @author Evan Smedley
  * @version 1.0
  * @since 2021-10-22
  */

@@ -1,7 +1,8 @@
 /**
- * A space on the monopoly board
+ * The BoardSpace class is an abstract class that
+ * represents a space on the board
  *
- * @author
+ * @author Evan Smedley
  * @version 1.0
  * @since 2021-10-22
  */

@@ -1,7 +1,8 @@
 /**
- * A free parking space on the board
+ * The FreeParking class extends BoardSpace and represents
+ * a space that is specifically free parking
  *
- * @author
+ * @author EVan Smedley
  * @verion 1.0
  * @since 2021-10-22
  */
