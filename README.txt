@@ -8,14 +8,14 @@ AUTHORS
 =======
 
 Contact Name:		
-                Shuvaethy Neill	  101143478
-			          Dorothy Tran	    101141902
-			          Harsimran Kanwar	101143556
-			          Evan Smedley	    100148695
+		Shuvaethy Neill, 101143478
+		Dorothy Tran, 101141902
+		Harsimran Kanwar, 101143556
+		Evan Smedley, 100148695
 
 Affiliation: 		
-                Carleton University - Systems and Computer Engineering
-			          SYSC3110 Software Development Project
+		Carleton University - Systems and Computer Engineering
+		SYSC3110 Software Development Project
 
 
 
@@ -29,8 +29,9 @@ DESCRIPTION
 - The milestone is composed of the following files:
 
 	Monopoly.jar
-	SYSC3110_M1_documentation.pdf
+	SYSC3110_M1_Documentation.pdf
 	SYSC3110_M1_UML.png
+	SequenceDiagram_PlayMethod.png
 
 - The jar file has '.java' and '.class' files for the following classes
 
