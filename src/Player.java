@@ -13,10 +13,9 @@ public class Player {
     private String name; //name of player
     private double money; //how much money player has
     private int position; //position of the player on the board
-    private int numDoublesRolled;
+    private int numDoublesRolled; //count of how many doubles rolled in a turn
     private boolean bankrupt; //state of bankruptcy
-    private ArrayList<Property> properties;
-    private Property property;
+    private ArrayList<Property> properties; //list of properties player owns
 
     /**
      * Constructor for Player class
@@ -83,7 +82,7 @@ public class Player {
      */
     public void move (int spaces) {
         if(position + spaces >= 25) {
-            position = ((position + spaces) - 25);
+            position = ((position + spaces) - 25); //loops around the board
         }
         else{
             position += spaces;
@@ -143,7 +142,7 @@ public class Player {
     @Override
     public String toString() {
         return "You are player: " + name
-                + "\nYou're currently located at: " + position //position will return a number not a place on the board..
+                + "\nYou're currently located at: " + position
                 + "\nYou have $" + money + " in your account"
                 + "\nYour properties are: " + properties.toString();
     }

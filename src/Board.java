@@ -227,7 +227,7 @@ public class Board {
                 // The situation when the player purchases a property
                 else if(pieces[players.get(player).getPosition()] instanceof Property && prevCommand.equalsIgnoreCase("roll")){
                     if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
-                        players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted frm player's account
+                        players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account
                         players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
                         ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
                         ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
