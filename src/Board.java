@@ -2,9 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
 
-//should we be creating two instances of scanners or just have one outside of both methods?
-//state gives position number not name of square
-
 /**
  * The Board Class that contains the user interface of the Monopoly board
  *
