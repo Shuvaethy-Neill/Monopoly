@@ -274,6 +274,7 @@ public class Board {
                     System.out.println("You rolled: " + dice.toString());
                     System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
                     players.get(player).move(dice.getRollValue());
+                    players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
                     pieces[players.get(player).getPosition()].displayInfo();
 
                     if (pieces[players.get(player).getPosition()] instanceof FreeParking) {

@@ -13,6 +13,7 @@ public class Player {
     private String name; //name of player
     private double money; //how much money player has
     private int position; //position of the player on the board
+    private String positionName; //name of the position the player is on
     private int numDoublesRolled; //count of how many doubles rolled in a turn
     private boolean bankrupt; //state of bankruptcy
     private ArrayList<Property> properties; //list of properties player owns
@@ -25,6 +26,7 @@ public class Player {
         this.name = name;
         this.money = 1500.00;
         this.position = 0;
+        this.positionName="";
         this.numDoublesRolled = 0;
         this.bankrupt = false;
         this.properties = new ArrayList<Property>();
@@ -52,6 +54,14 @@ public class Player {
      */
     public int getPosition(){
         return position;
+    }
+
+    /**
+     * This method sets the position name of the player after being moved
+     * @return String, position name relative to board squares
+     */
+    public void setPositionName(String newPosition){
+        this.positionName = newPosition;
     }
 
     /**
@@ -142,7 +152,7 @@ public class Player {
     @Override
     public String toString() {
         return "You are player: " + name
-                + "\nYou're currently located at: " + position
+                + "\nYou're currently located at: " + positionName
                 + "\nYou have $" + money + " in your account"
                 + "\nYour properties are: " + properties.toString();
     }
