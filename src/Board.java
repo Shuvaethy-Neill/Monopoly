@@ -4,10 +4,7 @@ import java.util.Random;
 
 //should we be creating two instances of scanners or just have one outside of both methods?
 //state gives position number not name of square
-//prevCommand does not reset when you endTurn
-    //issues this creates:
-        //when its your turn and you enter buy before roll it will end your turn Y
-        //weird bug that won't let you roll after the previous person paid rent (would be roll twice)
+        //weird bug that won't let you roll after the previous person paid rent (would be roll twice) -no longer an issue with reset fix
         //if you roll and land on an unpurchased property, then enter an invalid input, then roll again it accepts it (it shouldn't let you re-roll)
 
 /**
@@ -199,7 +196,7 @@ public class Board {
 
             if(checkBankruptcy()){
                 //if bankrupt then it will exit
-                endTurn();
+                command = endTurn();
             }
             else if(!playing && (!command.equalsIgnoreCase("start") && (!command.equalsIgnoreCase("help")))){
                 System.out.println("Please start a game.");
@@ -219,7 +216,10 @@ public class Board {
             else if (command.equalsIgnoreCase("state")) {
                 System.out.println(players.get(player).toString());
             } else if (command.equalsIgnoreCase("buy")) {
-                if(pieces[players.get(player).getPosition()] instanceof Property && prevCommand.equalsIgnoreCase("roll")){
+                if (prevCommand.equalsIgnoreCase("reset")){
+                    System.out.println("Oops you haven't rolled! Type 'roll' to roll the dice!");
+                }
+                else if(pieces[players.get(player).getPosition()] instanceof Property && prevCommand.equalsIgnoreCase("roll")){
                     if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
                         players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice());
                         players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()]));
@@ -233,7 +233,7 @@ public class Board {
                 }
 
                 if (!dice.isDouble() && prevCommand.equalsIgnoreCase("roll")) {
-                    endTurn();
+                    command =endTurn();
                 }
 
             } else if (command.equalsIgnoreCase("start")){
