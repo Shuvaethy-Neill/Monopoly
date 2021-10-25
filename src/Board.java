@@ -6,7 +6,7 @@ import java.util.Random;
 //state gives position number not name of square
 //prevCommand does not reset when you endTurn
     //issues this creates:
-        //when its your turn and you enter buy before roll it will end your turn
+        //when its your turn and you enter buy before roll it will end your turn Y
         //weird bug that won't let you roll after the previous person paid rent (would be roll twice)
         //if you roll and land on an unpurchased property, then enter an invalid input, then roll again it accepts it (it shouldn't let you re-roll)
 
@@ -21,7 +21,6 @@ public class Board {
     private BoardSpace[] pieces;
     private int position;
     private int player; // current player
-    private String prevCommand; //keep track of previous command
     ArrayList<Player> players;
     private Object Property;
 
@@ -75,7 +74,6 @@ public class Board {
         pieces = new BoardSpace[25];
         position = 0;
         player = 0;
-        prevCommand = "";
         for (boardSquares s : boardSquares.values()) {
             if (position == 25){continue;}
             else {
@@ -171,13 +169,13 @@ public class Board {
     /**
      * Method passes the turn to the next player in the game
      */
-    private void endTurn(){
+    private String endTurn(){
         player++;
         if(player > players.size()-1){
             player = 0;
         }
-        this.prevCommand = "";
         System.out.println("\nPLAYER " + (player+1) + "'S TURN!");
+        return "reset";
     }
 
     /**
@@ -192,9 +190,11 @@ public class Board {
         Scanner sc = new Scanner(System.in);
         String command;
         command = sc.nextLine();
-        prevCommand = command;
+        String prevCommand = command;
+
         while (true) {
             System.out.println("previous command: " + prevCommand); // testing! something wrong: it does not reset the prevCommand on a new turn
+
             if(checkBankruptcy()){
                 //if bankrupt then it will exit
                 endTurn();
@@ -255,7 +255,7 @@ public class Board {
                     System.out.println("Rolling the dice:");
                     dice.roll();
                     if (players.get(player).getNumDoublesRolled() == 3) {
-                        endTurn();
+                        command=endTurn();
                     } //if 3 doubles rolled end turn
                     if (dice.isDouble()) {
                         players.get(player).incrementNumDoublesRolled();
@@ -268,12 +268,12 @@ public class Board {
 
                     if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
                         if (!dice.isDouble()) {
-                            endTurn();
+                            command=endTurn();
                         }
                     } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
                         players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
                         if (!dice.isDouble()) {
-                            endTurn();
+                            command=endTurn();
                         }
                     } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property is not available
                         //the player who owns the property gets rent
@@ -285,14 +285,14 @@ public class Board {
                             ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent());
                         }
                         if (!checkBankruptcy() && !dice.isDouble()) {
-                            endTurn();
+                            command=endTurn();
                         }
                     }
                 }
             }
              else if (command.equalsIgnoreCase("pass")) {
                 System.out.println("Your turn is now over! Passing to next player.");
-                endTurn();
+                command=endTurn();
             } else if (command.equalsIgnoreCase("quit")) {
                 System.out.println("Thanks for playing! See you next time :)");
                 System.exit(0);
@@ -301,6 +301,7 @@ public class Board {
             }
 
             prevCommand = command; //update previous command
+
             System.out.println("");
             System.out.println("Player " + (player + 1) + ":");
             System.out.print("Enter a command >>> ");
