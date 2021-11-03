@@ -6,6 +6,8 @@ public class MonopolyClient {
      */
     public static void main(String[] args) {
         MonopolyModel b = new MonopolyModel();
-        b.play();
+        BoardPanel bp = new BoardPanel(b);
+        PlayerPanel pp = new PlayerPanel(b);
+        MonopolyFrame mf = new MonopolyFrame(b, bp, pp);
     }
 }

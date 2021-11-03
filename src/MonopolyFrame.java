@@ -14,8 +14,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-
-
+        this.add(board, BorderLayout.LINE_START);
+        this.add(player, BorderLayout.LINE_END);
 
         this.setVisible(true);
     }
