@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -10,53 +11,15 @@ import java.util.Random;
  * @since 2021-10-24
  */
 public class MonopolyModel {
+
+    private List<MonopolyView> monopolyViews;
+
     private Random rand;
     private Dice dice;
     private BoardSpace[] pieces;
     private int position;
     private int player; // current player
     private ArrayList<Player> players;
-
-    private enum boardSquares {
-        START("START"), //exception for starting purposes
-        MEDITERRANEAN_AVENUE("MEDITERRANEAN AVENUE",60,"brown"),
-        BALTIC_AVENUE("BALTIC AVENUE",60,"brown"),
-        INCOME_TAX("INCOME TAX", 200),
-        ORIENTAL_AVENUE("ORIENTAL AVENUE",100,"light blue"),
-        VERMONT_AVENUE("VERMONT AVENUE",100,"light blue"),
-        CONNECTICUT_AVENUE("CONNECTICUT AVENUE",120,"light blue"),
-        ST_CHARLES_PLACE("ST. CHARLES PLACE",140,"magenta"),
-        STATES_AVENUE("STATES AVENUE",140,"magenta"),
-        VIRGINIA_AVENUE("VIRGINIA AVENUE",160,"magenta"),
-        ST_JAMES_PLACE("ST. JAMES PLACE",180,"orange"),
-        TENNESSEE("TENNESSEE",180,"orange"),
-        NEW_YORK_AVENUE("NEW YORK AVENUE",200,"orange"),
-        FREE_PARKING("FREE PARKING"),
-        KENTUCKY_AVENUE("KENTUCKY AVENUE",220,"red"),
-        INDIANA_AVENUE("INDIANA AVENUE",220,"red"),
-        ILLINOIS_AVENUE("ILLINOIS AVENUE",240,"red"),
-        ATLANTIC_AVENUE("ATLANTIC AVENUE",260,"yellow"),
-        VENTNOR_AVENUE("VENTNOR AVENUE",260,"yellow"),
-        MARVIN_GARDENS("MARVIN GARDENS",280,"yellow"),
-        PACIFIC_AVENUE("PACIFIC AVENUE",300,"green"),
-        NORTH_CAROLINA_AVENUE("NORTH CAROLINA AVENUE",300,"green"),
-        PENNSYLVANIA_AVENUE("PENNSYLVANIA AVENUE",320,"green"),
-        PARK_PLACE("PARK PLACE",350,"blue"),
-        LUXURY_TAX("LUXURY TAX", 100),
-        BOARDWALK("BOARDWALK",400,"blue");
-
-        private BoardSpace boardSpace;
-
-        boardSquares(String name, int price , String color) {
-          this.boardSpace = new Property(name, price, color);
-        }
-        boardSquares(String name, int cost) {
-            this.boardSpace = new Tax(name, cost);
-        }
-        boardSquares(String name) {
-            this.boardSpace = new FreeParking(name);
-        }
-    }
 
     /**
      * Constructor for the Board Class
@@ -67,7 +30,7 @@ public class MonopolyModel {
         pieces = new BoardSpace[25];
         position = 0;
         player = 0;
-        for (boardSquares s : boardSquares.values()) {
+        for (BoardSquares s : BoardSquares.values()) {
             if (position == 25){continue;}
             else {
                 pieces[position] = s.boardSpace;
@@ -75,6 +38,30 @@ public class MonopolyModel {
             position += 1;
         }
         players = new ArrayList<>();
+
+        monopolyViews = new ArrayList<>();
+    }
+
+    /**
+     *
+     * @param view
+     */
+    public void addView(MonopolyView view) {
+        this.monopolyViews.add(view);
+    }
+
+    /**
+     *
+     * @param viewIndex
+     */
+    public void removeView(int viewIndex) {
+        this.monopolyViews.remove(viewIndex);
+    }
+
+    public void notifyViews() {
+        for (MonopolyView v : monopolyViews) {
+            v.update();
+        }
     }
 
     /**
@@ -315,15 +302,5 @@ public class MonopolyModel {
             System.out.print("Enter a command >>> ");
             command = sc.nextLine();
         }
-    }
-
-    /**
-     * The main method
-     *
-     * @param args String[], command line arguments
-     */
-    public static void main(String[] args) {
-        MonopolyModel b = new MonopolyModel();
-        b.play();
     }
 }

@@ -68,5 +68,4 @@ public class Dice {
     public String toString () {
         return "["+ dice[0]+ "]" + " " + "["+ dice[1] +"]";
     }
-
 }
