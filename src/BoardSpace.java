@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * The BoardSpace class is an abstract class that
@@ -8,7 +9,7 @@ import javax.swing.*;
  * @version 1.0
  * @since 2021-10-22
  */
-public abstract class BoardSpace {
+public abstract class BoardSpace extends JPanel {
 
     /**
      * The name of the board space
@@ -21,18 +22,14 @@ public abstract class BoardSpace {
     private final String type;
 
     /**
-     *
-     */
-    private JPanel boardSpacePanel;
-
-    /**
      * The constructor for a BoardSpace object
      */
     public BoardSpace(String name, String type) {
+        super();
         this.name = name;
         this.type = type;
 
-
+        this.add(new JLabel(name, JLabel.CENTER), BorderLayout.PAGE_START);
     }
 
     /**
@@ -57,4 +54,6 @@ public abstract class BoardSpace {
      * An abstract method for displaying information about the board space
      */
     public abstract void displayInfo();
+
+    public abstract void updatePanel();
 }

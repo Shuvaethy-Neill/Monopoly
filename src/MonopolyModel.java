@@ -58,11 +58,19 @@ public class MonopolyModel {
         this.monopolyViews.remove(viewIndex);
     }
 
+    /**
+     *
+     */
     public void notifyViews() {
         for (MonopolyView v : monopolyViews) {
             v.update();
         }
     }
+
+
+    // Every thing above this works for MVC
+
+
 
     /**
      * Method gets the board space pieces

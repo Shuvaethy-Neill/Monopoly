@@ -138,6 +138,14 @@ public class Property extends BoardSpace {
     }
 
     /**
+     *
+     */
+    @Override
+    public void updatePanel() {
+
+    }
+
+    /**
      * Determines if a property is equivalent to another property
      *
      * @param o Object, the object to be compared with the object this method is called on

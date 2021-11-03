@@ -9,19 +9,15 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
      *
      * @param model
      */
-    public MonopolyFrame(MonopolyModel model) {
+    public MonopolyFrame(MonopolyModel model, BoardPanel board, PlayerPanel player) {
         super("Monopoly");
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.getContentPane().add();
+        this.setLayout(new BorderLayout());
 
-        update();
+
 
         this.setVisible(true);
-    }
-
-    private int getNumPlayers() {
-
     }
 
     /**
@@ -29,11 +25,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
      */
     @Override
     public void update() {
-
-    }
-
-    @Override
-    public void handleMonopolyStatusUpdate() {
 
     }
 }

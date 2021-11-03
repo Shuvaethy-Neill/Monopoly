@@ -1,5 +1,3 @@
-import java.util.Objects;
-
 /**
  * The Tax class extends BoardSpace and represents
  * a space that is specifically tax
@@ -42,6 +40,14 @@ public class Tax extends BoardSpace {
     public void displayInfo() {
         System.out.println("You are now located at: " + getName());
         System.out.println("You must pay tax! Extracting $" + cost + " from account.");
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void updatePanel() {
+
     }
 
     /**

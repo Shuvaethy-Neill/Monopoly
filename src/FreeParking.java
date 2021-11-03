@@ -47,6 +47,10 @@ public class FreeParking extends BoardSpace {
     @Override
     public void displayInfo() {
         System.out.println("You are now located at: " + getName() + "\nThis is a free space!");
+    }
+
+    @Override
+    public void updatePanel() {
 
     }
 
