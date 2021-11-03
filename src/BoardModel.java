@@ -9,7 +9,7 @@ import java.util.Random;
  * @version 1.0
  * @since 2021-10-24
  */
-public class Board {
+public class BoardModel {
     private Random rand;
     private Dice dice;
     private BoardSpace[] pieces;
@@ -61,7 +61,7 @@ public class Board {
     /**
      * Constructor for the Board Class
      */
-    public Board(){
+    public BoardModel(){
         rand = new Random();
         dice = new Dice();
         pieces = new BoardSpace[25];
@@ -323,7 +323,7 @@ public class Board {
      * @param args String[], command line arguments
      */
     public static void main(String[] args) {
-        Board b = new Board();
+        BoardModel b = new BoardModel();
         b.play();
     }
 }
