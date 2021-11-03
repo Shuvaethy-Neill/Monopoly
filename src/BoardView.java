@@ -1,2 +1,2 @@
-public class BoardView {
+public interface BoardView {
 }

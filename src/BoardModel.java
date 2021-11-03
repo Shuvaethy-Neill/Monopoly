@@ -15,7 +15,7 @@ public class BoardModel {
     private BoardSpace[] pieces;
     private int position;
     private int player; // current player
-    ArrayList<Player> players;
+    private ArrayList<Player> players;
 
     private enum boardSquares {
         START("START"), //exception for starting purposes
