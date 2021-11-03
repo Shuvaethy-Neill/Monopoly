@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class MonopolyFrame extends JFrame implements MonopolyView {
 
@@ -9,7 +10,18 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
      * @param model
      */
     public MonopolyFrame(MonopolyModel model) {
+        super("Monopoly");
         this.model = model;
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.getContentPane().add();
+
+        update();
+
+        this.setVisible(true);
+    }
+
+    private int getNumPlayers() {
+
     }
 
     /**

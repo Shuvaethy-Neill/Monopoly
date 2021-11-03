@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * The BoardSpace class is an abstract class that
  * represents a space on the board
@@ -19,11 +21,18 @@ public abstract class BoardSpace {
     private final String type;
 
     /**
+     *
+     */
+    private JPanel boardSpacePanel;
+
+    /**
      * The constructor for a BoardSpace object
      */
     public BoardSpace(String name, String type) {
         this.name = name;
         this.type = type;
+
+
     }
 
     /**
