@@ -93,6 +93,13 @@ public class MonopolyModel {
         }
     }
 
+    public void addPlayer(Player player) {
+        players.add(player);
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return this.players;
+    }
 
     // Every thing above this works for MVC
 

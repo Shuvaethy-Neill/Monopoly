@@ -71,8 +71,6 @@ public class Tax extends BoardSpace {
      */
     @Override
     public String toString() {
-        return "Tax{" +
-                "cost=" + cost +
-                '}';
+        return "Name: " + getName() + ", Cost: " + cost;
     }
 }

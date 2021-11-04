@@ -90,7 +90,7 @@ public class Player {
      * given the value of their dice roll
      * @param spaces , the amount of spaces they need to move on the board
      */
-    public void move (int spaces) {
+    public void move(int spaces) {
         if(position + spaces >= 25) {
             position = ((position + spaces) - 25); //loops around the board
         }

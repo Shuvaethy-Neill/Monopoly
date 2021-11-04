@@ -28,8 +28,10 @@ public abstract class BoardSpace extends JPanel {
         super();
         this.name = name;
         this.type = type;
+        this.setMinimumSize(new Dimension(50,50));
 
-        this.add(new JLabel(name, JLabel.CENTER), BorderLayout.PAGE_START);
+        JLabel nameLabel = new JLabel(this.toString(), JLabel.CENTER);
+        this.add(nameLabel, BorderLayout.PAGE_START);
     }
 
     /**

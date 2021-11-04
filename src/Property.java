@@ -166,6 +166,6 @@ public class Property extends BoardSpace {
      */
     @Override
     public String toString() {
-        return this.getName() + " (" + this.getColor() + ")";
+        return "Name: " + this.getName() + ", Color: " + this.getColor() + ", Price: " + this.getPrice();
     }
 }

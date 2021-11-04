@@ -5,9 +5,11 @@ public class MonopolyClient {
      * @param args String[], command line arguments
      */
     public static void main(String[] args) {
-        MonopolyModel b = new MonopolyModel();
-        BoardPanel bp = new BoardPanel(b);
-        PlayerPanel pp = new PlayerPanel(b);
-        MonopolyFrame mf = new MonopolyFrame(b, bp, pp);
+        MonopolyModel model = new MonopolyModel();
+        MonopolyFrame monopolyFrame = new MonopolyFrame(model);
+        MonopolyController mc = new MonopolyController(model,monopolyFrame);
+        BoardPanel boardPanel = new BoardPanel(model);
+        PlayerPanel playerPanel = new PlayerPanel(model);
+        monopolyFrame.addPanels(boardPanel, playerPanel);
     }
 }

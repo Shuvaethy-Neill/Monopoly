@@ -75,8 +75,6 @@ public class FreeParking extends BoardSpace {
      */
     @Override
     public String toString() {
-        return "FreeParking{" +
-                "amount=" + amount +
-                '}';
+        return "Name: " + getName() + ", Amount: " + amount;
     }
 }
