@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class PlayerPanel extends JTabbedPane implements MonopolyView {
 
@@ -9,6 +10,8 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
     public PlayerPanel(MonopolyModel model) {
         super();
         this.model = model;
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        this.model.addView(this);
 
         initializeLayout();
         update();
@@ -21,6 +24,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
         individualPlayerPanels = new JPanel[model.getPlayers().size()];
         for (int i = 0; i < model.getPlayers().size(); i++) {
             individualPlayerPanels[i] = new JPanel();
+            individualPlayerPanels[i].setPreferredSize(new Dimension(200,1400));
             individualPlayerPanels[i].setLayout(new BoxLayout(individualPlayerPanels[i], BoxLayout.PAGE_AXIS));
             updatePlayerList(i);
             this.addTab(model.getPlayers().get(i).getName(), individualPlayerPanels[i]);

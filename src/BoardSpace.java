@@ -25,13 +25,14 @@ public abstract class BoardSpace extends JPanel {
      * The constructor for a BoardSpace object
      */
     public BoardSpace(String name, String type) {
-        super();
+        super(new BorderLayout());
         this.name = name;
         this.type = type;
-        this.setMinimumSize(new Dimension(50,50));
+        this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        JLabel nameLabel = new JLabel(this.toString(), JLabel.CENTER);
+        JLabel nameLabel = new JLabel(name, JLabel.CENTER);
         this.add(nameLabel, BorderLayout.PAGE_START);
+        this.setPreferredSize(new Dimension(50, 50));
     }
 
     /**
