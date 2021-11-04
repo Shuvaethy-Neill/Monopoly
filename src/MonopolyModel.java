@@ -12,39 +12,18 @@ import java.util.Random;
  */
 public class MonopolyModel {
 
-    /**
-     *
-     */
     private List<MonopolyView> monopolyViews;
 
-    /**
-     *
-     */
     private Random rand;
 
-    /**
-     *
-     */
     private Dice dice;
 
-    /**
-     *
-     */
     private BoardSpace[] pieces;
 
-    /**
-     *
-     */
     private int position;
 
-    /**
-     *
-     */
     private int player; // current player
 
-    /**
-     *
-     */
     private ArrayList<Player> players;
 
     /**

@@ -12,6 +12,7 @@ public class MonopolyController {
         this.model = model;
         this.view = view;
         this.numPlayers = getNumPlayers();
+        System.out.println(numPlayers);
         for (int i = 0; i < numPlayers; i++) {
             model.addPlayer(getPlayerInformation());
         }
@@ -19,12 +20,12 @@ public class MonopolyController {
 
     private int getNumPlayers() {
         Object[] options = new Object[MAX_PLAYERS];
-        for (int i = 0; i < MAX_PLAYERS; i++) {
-            options[i] = i + 1;
+        for (int i = 0; i < MAX_PLAYERS - 1; i++) {
+            options[i] = i + 2;
         }
         return (int) JOptionPane.showInputDialog(
                 view, "How many players are there?", "Player Selection",
-                JOptionPane.PLAIN_MESSAGE, null, options, 1
+                JOptionPane.PLAIN_MESSAGE, null, options, 2
         );
     }
 

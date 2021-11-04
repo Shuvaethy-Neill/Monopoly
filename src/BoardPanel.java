@@ -6,29 +6,14 @@ import java.awt.*;
  */
 public class BoardPanel extends JPanel implements MonopolyView {
 
-    /**
-     *
-     */
     private MonopolyModel model;
 
-    /**
-     *
-     */
     private JLabel monopolyLabel;
 
-    /**
-     *
-     */
     private int dimension;
 
-    /**
-     *
-     */
     private GridBagConstraints monopolyLabelConstraints;
 
-    /**
-     *
-     */
     private GridBagConstraints[] boardSpaceConstraints;
 
     /**
