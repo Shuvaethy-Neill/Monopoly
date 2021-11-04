@@ -12,7 +12,6 @@ public class MonopolyController {
         this.model = model;
         this.view = view;
         this.numPlayers = getNumPlayers();
-        System.out.println(numPlayers);
         for (int i = 0; i < numPlayers; i++) {
             model.addPlayer(getPlayerInformation());
         }
