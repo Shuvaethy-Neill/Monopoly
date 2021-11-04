@@ -93,10 +93,18 @@ public class MonopolyModel {
         }
     }
 
+    /**
+     *
+     * @param player
+     */
     public void addPlayer(Player player) {
         players.add(player);
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Player> getPlayers() {
         return this.players;
     }
