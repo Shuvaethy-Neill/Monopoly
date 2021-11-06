@@ -236,7 +236,7 @@ public class MonopolyModel {
         else if (!dice.isDouble() && command.equalsIgnoreCase("pass")) {
             System.out.println("Invalid command");
             System.out.println("Please try again :)");
-        } else if (command.equalsIgnoreCase("help")) {
+        } else if (command.equalsIgnoreCase("Help")) {
             //validInput = true;
             System.out.println("Type 'start' to start the game");
             System.out.println("Type 'state' to view your state in the game");

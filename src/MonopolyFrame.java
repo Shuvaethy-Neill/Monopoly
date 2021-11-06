@@ -15,7 +15,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JPanel instructionPanel;
     private JPanel buttonPanel;
     private static final int MAX_PLAYERS = 4;
-    private JButton rollButton, buyButton, rentButton, passButton;
+    private JButton rollButton, buyButton, helpButton, passButton;
     private JTextArea instructionInfo;
 
     /**
@@ -40,10 +40,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buyButton.addActionListener( e -> model.play(buyButton.getText()));
 
         //goes with buy functionality
-        rentButton = new JButton("Pay Rent");
-        buyButton.setPreferredSize(new Dimension(250, 50));
-        buyButton.addActionListener( e -> {
-        });
+        helpButton = new JButton("Help");
+        helpButton.setPreferredSize(new Dimension(250, 50));
+        helpButton.addActionListener( e -> model.play(helpButton.getText()));
 
         passButton = new JButton("Pass");
         passButton.setPreferredSize(new Dimension(250, 50));
@@ -53,7 +52,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buttonPanel = new JPanel(new GridLayout(2, 2));
         buttonPanel.add(rollButton);
         buttonPanel.add(buyButton);
-        buttonPanel.add(rentButton);
+        buttonPanel.add(helpButton);
         buttonPanel.add(passButton);
 
         instructionPanel = new JPanel(new GridLayout(1, 2));
