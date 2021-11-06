@@ -32,11 +32,11 @@ public class MonopolyModel {
     public MonopolyModel() {
         rand = new Random();
         dice = new Dice();
-        pieces = new BoardSpace[25];
+        pieces = new BoardSpace[BoardSquares.values().length];
         position = 0;
         player = 0;
         for (BoardSquares s : BoardSquares.values()) {
-            if (position == 25) {
+            if (position == BoardSquares.values().length) {
                 continue;
             } else {
                 pieces[position] = s.boardSpace;
