@@ -88,6 +88,10 @@ public class MonopolyModel {
         return this.players;
     }
 
+    public int getPlayer(){
+        return this.player;
+    }
+
     // Every thing above this works for MVC
 
 
@@ -110,34 +114,9 @@ public class MonopolyModel {
         return pieces[i];
     }
 
-    /**
-     * Method displays text on the console to begin the Monopoly game
-     */
-    private void welcome() {
-        int people = 0;
-        boolean validInput = false;
-        System.out.println("=============================\nWelcome to the Monopoly Game!\n=============================");
-
-        do {
-            System.out.println("How many players are playing? Enter 2, 3, or 4 (Minimum:2, Maximum:4)");
-            System.out.print(">>> ");
-            Scanner sc = new Scanner(System.in);
-            if (sc.hasNextInt()) {
-                people = sc.nextInt();
-                if((people > 1 && people < 5)) {
-                    validInput = true;
-                }
-            }
-            else{
-                System.out.println("Sorry that is not an integer. Try again!");
-                sc.nextLine();
-            }
-        }
-        while (!validInput);
-
-        for(int i = 0; i < people; i++){
-            players.add(new Player("Player " + (i + 1)));
-        }
+    public int start(){
+        player = rand.nextInt(players.size());
+        return player;
     }
 
     private void roll() {
@@ -245,7 +224,6 @@ public class MonopolyModel {
     public void play() {
         boolean playing = false;
         boolean validInput = false;
-        welcome();
         System.out.println("Enter a command...");
         System.out.println("Type 'help' for a list of commands");
         System.out.print(">>> ");
@@ -294,10 +272,7 @@ public class MonopolyModel {
             else if (command.equalsIgnoreCase("start")){
                 validInput = true;
                 if(!playing) {
-                    //notify user that game is starting
-                    System.out.println("\nGreat! I will choose which player will go first!");
-                    player = rand.nextInt(players.size()); // randomly selects a player
-                    System.out.println("Player " + (player + 1) + " will start");
+                    start();
                     playing = true;
                 }
                 else{

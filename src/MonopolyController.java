@@ -1,5 +1,6 @@
 import javax.swing.*;
 
+
 public class MonopolyController {
     private MonopolyModel model;
     private MonopolyFrame view;
@@ -15,6 +16,7 @@ public class MonopolyController {
         for (int i = 0; i < numPlayers; i++) {
             model.addPlayer(getPlayerInformation());
         }
+        chooseFirstPlayer();
     }
 
     private int getNumPlayers() {
@@ -36,5 +38,10 @@ public class MonopolyController {
         );
         playerName = playerName.substring(0, Math.min(playerName.length(), 10));
         return new Player(playerName);
+    }
+
+    private void chooseFirstPlayer(){
+        JOptionPane.showMessageDialog(view, new JLabel(this.model.getPlayers().get(this.model.start()).getName() + " will start!", JLabel.CENTER),
+                "Let's Start!", JOptionPane.PLAIN_MESSAGE, null);
     }
 }
