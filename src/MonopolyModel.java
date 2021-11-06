@@ -159,7 +159,6 @@ public class MonopolyModel {
                     endTurn();
                 }
             }
-
     }
 
     /**
@@ -265,13 +264,6 @@ public class MonopolyModel {
             roll();
             //validInput = true;
             // Error handling if the current player inputs the roll command multiple times if their rolled dice were not doubles
-            /*
-            if ((players.get(player).getNumDoublesRolled() == 0)) {
-                System.out.println("Invalid! You already rolled!");
-
-
-            }
-            */
         } else if (command.equalsIgnoreCase("Pass")) {
             //validInput = true;
             System.out.println("Your turn is now over! Passing to next player.");
@@ -285,13 +277,9 @@ public class MonopolyModel {
                 //validInput = false;
                 System.out.println("Error: Please enter a valid command");
 
-             */
-            /*
             if (validInput) {
                 prevCommand = command;
 
              */
     }
-
-
 }
