@@ -18,7 +18,7 @@ public class MonopolyController {
     }
 
     private int getNumPlayers() {
-        Object[] options = new Object[MAX_PLAYERS];
+        Object[] options = new Object[MAX_PLAYERS-1];
         for (int i = 0; i < MAX_PLAYERS - 1; i++) {
             options[i] = i + 2;
         }
