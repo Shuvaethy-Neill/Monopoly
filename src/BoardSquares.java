@@ -1,3 +1,6 @@
+/**
+ * Represents each board square on the Monopoly board
+ */
 public enum BoardSquares {
     GO("GO", "images/Go.jpg"), //exception for starting purposes
     MEDITERRANEAN_AVENUE("MEDITERRANEAN AVENUE",60,"brown", "images/mediterranean-avenue.jpg"),

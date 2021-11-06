@@ -4,9 +4,9 @@ import java.util.Scanner;
 import java.util.Random;
 
 /**
- * The Board Class that contains the user interface of the Monopoly board
+ * The MonopolyModel Class that contains the MVC Model of the Monopoly board
  *
- * @author Harismran Kanwar, Dorothy Tran, and Shuvaethy Neill
+ * @author Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill, and Evan Smedley
  * @version 1.0
  * @since 2021-10-24
  */

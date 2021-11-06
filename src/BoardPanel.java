@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- *
+ * BoardPanel Class that extends from the JPanel Class and implements the MonopolyView Interface
  */
 public class BoardPanel extends JPanel implements MonopolyView {
 
@@ -17,8 +17,9 @@ public class BoardPanel extends JPanel implements MonopolyView {
     private GridBagConstraints[] boardSpaceConstraints;
 
     /**
+     * Constructor for the BoardPanel Class
      *
-     * @param model
+     * @param model MonopolyModel, MVC MonopolyModel of the Monopoly Board
      */
     public BoardPanel(MonopolyModel model) {
         super(new GridBagLayout());
@@ -31,7 +32,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
     }
 
     /**
-     *
+     * Method that creates the layout of the Monopoly Board
      */
     private void initializeLayout() {
         BoardSpace[] boardSpaces = model.getPieces();

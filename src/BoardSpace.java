@@ -70,5 +70,8 @@ public abstract class BoardSpace extends JPanel {
      */
     public abstract void displayInfo();
 
+    /**
+     *
+     */
     public abstract void updatePanel();
 }
