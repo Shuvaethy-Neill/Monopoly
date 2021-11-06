@@ -90,11 +90,6 @@ public class Property extends BoardSpace {
         return owner;
     }
 
-    public ImageIcon getImage(){
-        //return square.getImage().getScaledInstance(96, 135, Image.SCALE_SMOOTH);
-        return square;
-    }
-
     /**
      * Purchase a property by setting the isAvailable attribute to false
      *
