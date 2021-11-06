@@ -25,7 +25,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
         individualPlayerPanels = new JPanel[model.getPlayers().size()];
         for (int i = 0; i < model.getPlayers().size(); i++) {
             individualPlayerPanels[i] = new JPanel();
-            individualPlayerPanels[i].setPreferredSize(new Dimension(200,1400));
+            individualPlayerPanels[i].setPreferredSize(new Dimension(200,800));
             individualPlayerPanels[i].setLayout(new BoxLayout(individualPlayerPanels[i], BoxLayout.PAGE_AXIS));
             individualPlayerPanels[i].setBackground(colours[i]);
             updatePlayerList(i);

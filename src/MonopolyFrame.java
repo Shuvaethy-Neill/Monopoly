@@ -28,7 +28,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(1600,1600));
+        this.setPreferredSize(new Dimension(1000,1000));
         this.model.addView(this);
 
         rollButton = new JButton("Roll Dice");
@@ -61,7 +61,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buttonPanel.add(passButton);
 
         instructionPanel = new JPanel(new GridLayout(1, 2));
-        instructionPanel.setPreferredSize(new Dimension(1600,200));
+        instructionPanel.setPreferredSize(new Dimension(1000,200));
         instructionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Instruction box that will continuously update when a user makes a move

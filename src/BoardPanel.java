@@ -24,7 +24,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
     public BoardPanel(MonopolyModel model) {
         super(new GridBagLayout());
         this.model = model;
-        this.setPreferredSize(new Dimension(1200, 1200));
+        this.setPreferredSize(new Dimension(800, 800));
         this.model.addView(this);
 
         initializeLayout();
