@@ -33,13 +33,11 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         rollButton = new JButton("Roll Dice");
         rollButton.setPreferredSize(new Dimension(250, 50));
-        rollButton.addActionListener( e -> {
-        });
+        rollButton.addActionListener( e -> model.play(rollButton.getText()));
 
         buyButton = new JButton("Buy Property");
         buyButton.setPreferredSize(new Dimension(250, 50));
-        buyButton.addActionListener( e -> {
-        });
+        buyButton.addActionListener( e -> model.play(buyButton.getText()));
 
         //goes with buy functionality
         rentButton = new JButton("Pay Rent");
@@ -49,9 +47,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         passButton = new JButton("Pass");
         passButton.setPreferredSize(new Dimension(250, 50));
-        passButton.addActionListener( e -> {
-        });
-
+        passButton.addActionListener( e -> model.play(passButton.getText()));
 
 
         buttonPanel = new JPanel(new GridLayout(2, 2));
