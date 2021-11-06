@@ -34,18 +34,18 @@ public abstract class BoardSpace extends JPanel {
         this.square = new ImageIcon(path);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        /*
         JLabel nameLabel = new JLabel(name, JLabel.CENTER);
         this.add(nameLabel, BorderLayout.PAGE_START);
-
-         */
 
         //for some reason not working, it shows up then disappears after 0.5 seconds?? :(
         //probs has something to do with size?
 
+        /*
         this.square.getImage().getScaledInstance(10, 20, Image.SCALE_SMOOTH);
         JLabel picLabel = new JLabel(this.square, JLabel.CENTER);
         this.add(picLabel, BorderLayout.PAGE_START);
+
+         */
 
         this.setPreferredSize(new Dimension(50, 50));
     }
