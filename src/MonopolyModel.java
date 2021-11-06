@@ -88,10 +88,6 @@ public class MonopolyModel {
         return this.players;
     }
 
-    public int getPlayer(){
-        return this.player;
-    }
-
     // Every thing above this works for MVC
 
 
