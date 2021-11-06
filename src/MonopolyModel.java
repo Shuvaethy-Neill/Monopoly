@@ -140,6 +140,45 @@ public class MonopolyModel {
         }
     }
 
+    private void roll() {
+        System.out.println("Rolling the dice:");
+        dice.roll();
+        if (players.get(player).getNumDoublesRolled() == 3) {
+            // if 3 doubles rolled then end players turn
+            //we can either disable all buttons except for the pass button
+            //or auto pass to the next player and just leave the pass button for scenarios where they voluntarily give up their turn
+        }
+        if (dice.isDouble()) {
+            players.get(player).incrementNumDoublesRolled();
+        }
+
+        System.out.println("You rolled: " + dice.toString());
+        System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
+        players.get(player).move(dice.getRollValue());
+        players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
+        pieces[players.get(player).getPosition()].displayInfo();
+
+        if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
+            if (!dice.isDouble()) {
+                // Player lands on the Free Parking space, end their turn if doubles are rolled
+            }
+        } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
+            players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
+            if (!dice.isDouble()) {
+                // Player lands on the Tax space, end their turn if doubles are rolled
+            }
+        } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
+            // Player who owns the property gets rent
+            if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
+                System.out.println("You do not need to pay rent since you own this property.");
+            } else {
+                System.out.println("Taking the money from your account");
+                players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
+                ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
+            }
+        }
+    }
+
     /**
      * Method checks if the Player is bankrupt
      * @return boolean, true if they are bankrupt, false otherwise
@@ -172,6 +211,20 @@ public class MonopolyModel {
             }
         }
         return check;
+    }
+
+    private void buy(){
+        if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
+            players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account
+            players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
+            ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
+            ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
+            System.out.println("Successfully purchased!");
+        }
+        //button should be disabled at this point (have to check availability when player lands not when they click buy)
+         else {
+            System.out.println("Unfortunately the property you are on is not available for purchase.");
+        }
     }
 
     /**
@@ -224,29 +277,13 @@ public class MonopolyModel {
                 System.out.println("Type 'pass' to pass your turn to the next player");
                 System.out.println("Type 'quit' to end the game");
             }
-            else if (command.equalsIgnoreCase("state")) {
-                validInput = true;
-                System.out.println(players.get(player).toString());
-            }
+
             else if (command.equalsIgnoreCase("buy")) {
                 validInput = true;
 
-                // Notifies the player that they must roll first when it is their turn to play if they input a different command
-                if (prevCommand.equalsIgnoreCase("reset")){
-                    System.out.println("Oops you haven't rolled! Type 'roll' to roll the dice!");
-                }
-
                 // The situation when the player purchases a property
-                else if(pieces[players.get(player).getPosition()] instanceof Property && prevCommand.equalsIgnoreCase("roll")){
-                    if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
-                        players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account
-                        players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
-                        ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
-                        ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
-                        System.out.println("Successfully purchased!");
-                    }
-                } else {
-                    System.out.println("Unfortunately the property you are on is not available for purchase.");
+                if(pieces[players.get(player).getPosition()] instanceof Property && prevCommand.equalsIgnoreCase("roll")) {
+                    buy();
                 }
 
                 if (!dice.isDouble() && prevCommand.equalsIgnoreCase("roll")) {
@@ -274,45 +311,13 @@ public class MonopolyModel {
                     System.out.println("Invalid! You already rolled!");
                 }
                 else {
-                    System.out.println("Rolling the dice:");
-                    dice.roll();
-                    if (players.get(player).getNumDoublesRolled() == 3) {
-                        command = endTurn();
-                    } // If 3 doubles rolled end turn
-                    if (dice.isDouble()) {
-                        players.get(player).incrementNumDoublesRolled();
-                    }
-
-                    System.out.println("You rolled: " + dice.toString());
-                    System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
-                    players.get(player).move(dice.getRollValue());
-                    players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
-                    pieces[players.get(player).getPosition()].displayInfo();
-
-                    if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
-                        if (!dice.isDouble()) {
-                            command=endTurn(); // Player lands on the Free Parking space, end their turn if doubles are rolled
-                        }
-                    } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
-                        players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
-                        if (!dice.isDouble()) {
-                            command=endTurn(); // Player lands on the Tax space, end their turn if doubles are rolled
-                        }
-                    } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
-                        // Player who owns the property gets rent
-                        if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
-                            System.out.println("You do not need to pay rent since you own this property.");
-                        } else {
-                            System.out.println("Taking the money from your account");
-                            players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
-                            ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
-                        }
+                    roll();
                         if (!checkBankruptcy() && !dice.isDouble()) {
                             command=endTurn();
                         }
                     }
                 }
-            }
+            //have to make pass and quit constants??
              else if (command.equalsIgnoreCase("pass")) {
                  validInput = true;
                  System.out.println("Your turn is now over! Passing to next player.");
