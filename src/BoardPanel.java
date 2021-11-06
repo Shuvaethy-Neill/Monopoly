@@ -74,7 +74,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
         monopolyLabelConstraints.gridx = 1;
         monopolyLabelConstraints.gridy = 1;
 
-        monopolyLabel = new JLabel("MONOPOLY", JLabel.CENTER);
+        monopolyLabel = new JLabel(new ImageIcon("images/logo.jpg"), JLabel.CENTER);
     }
 
     /**
