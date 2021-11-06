@@ -12,15 +12,10 @@ import java.awt.*;
 public class MonopolyFrame extends JFrame implements MonopolyView {
 
     private MonopolyModel model;
-
     private JPanel instructionPanel;
-
     private JPanel buttonPanel;
-
     private static final int MAX_PLAYERS = 4;
-
     private JButton rollButton, buyButton, passButton;
-
     private JTextArea instructionInfo;
 
     /**
@@ -49,6 +44,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         passButton = new JButton("Pass");
         passButton.setPreferredSize(new Dimension(150, 50));
         passButton.addActionListener( e -> {
+
         });
 
         buttonPanel = new JPanel();
@@ -64,12 +60,14 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         // Instruction box that will continuously update when a user makes a move
         instructionInfo = new JTextArea();
-        instructionInfo.setColumns(30);
-        instructionInfo.setColumns(5);
+        instructionInfo.setColumns(20);
+        instructionInfo.setRows(5);
         instructionInfo.setEditable(false);
         instructionInfo.setPreferredSize(new Dimension(500, 50));
         instructionInfo.setText("This is where instructions and buttons to make decisions will appear!");
-        // Unfinished - need to put the text area underneath the buttons
+
+        // need to make console info box to go underneath buttons
+        instructionPanel.add(instructionInfo, BorderLayout.SOUTH);
     }
 
     /**
