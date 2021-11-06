@@ -21,17 +21,29 @@ public abstract class BoardSpace extends JPanel {
      */
     private final String type;
 
+    private ImageIcon square;
+
+
     /**
      * The constructor for a BoardSpace object
      */
-    public BoardSpace(String name, String type) {
+    public BoardSpace(String name, String type, String path) {
         super(new BorderLayout());
         this.name = name;
         this.type = type;
+        this.square = new ImageIcon(path);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         JLabel nameLabel = new JLabel(name, JLabel.CENTER);
         this.add(nameLabel, BorderLayout.PAGE_START);
+
+        //for some reason not working, it shows up then disappears after 0.5 seconds?? :(
+        //probs has something to do with size?
+        /*
+        JLabel picLabel = new JLabel(this.square, JLabel.CENTER);
+        this.add(picLabel, BorderLayout.PAGE_START);
+
+         */
         this.setPreferredSize(new Dimension(50, 50));
     }
 

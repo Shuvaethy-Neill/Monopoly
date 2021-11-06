@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 /**
  * The Tax class extends BoardSpace and represents
  * a space that is specifically tax
@@ -13,14 +15,16 @@ public class Tax extends BoardSpace {
      */
     private final int cost;
 
+    private ImageIcon square;
+
     /**
      * Constructor for the Tax Class
      *
      * @param name, the name of the tax space
      * @param cost, the cost of landing on the tax space
      */
-    public Tax(String name, int cost) {
-        super(name, "tax");
+    public Tax(String name, int cost, String path) {
+        super(name, "tax", path);
         this.cost = cost;
     }
 

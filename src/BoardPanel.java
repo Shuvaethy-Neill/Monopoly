@@ -75,7 +75,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
         for (int i = 0; i < boardSpaceConstraints.length; i++) {
             currentSpace = model.getPieces()[i];
             currentSpace.setPreferredSize(new Dimension(1200/dimension, 1200/dimension));
-            this.add(model.getPieces()[i], boardSpaceConstraints[i]);
+            this.add(currentSpace, boardSpaceConstraints[i]);
         }
         this.add(monopolyLabel, monopolyLabelConstraints);
     }

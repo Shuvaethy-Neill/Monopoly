@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -26,6 +28,8 @@ public class Property extends BoardSpace {
 
     private Player owner;
 
+    private ImageIcon square;
+
     /**
      * The Property constructor
      *
@@ -33,11 +37,12 @@ public class Property extends BoardSpace {
      * @param price int, The price of the property
      * @param color String, The color of the property
      */
-    public Property(String name, int price, String color) {
-        super(name, "property");
+    public Property(String name, int price, String color, String path) {
+        super(name, "property", path);
         this.isAvailable = true;
         this.price = price;
         this.color = color;
+        this.square = new ImageIcon(path);
     }
 
     /**
@@ -83,6 +88,11 @@ public class Property extends BoardSpace {
      */
     public Player getOwner() {
         return owner;
+    }
+
+    public ImageIcon getImage(){
+        //return square.getImage().getScaledInstance(96, 135, Image.SCALE_SMOOTH);
+        return square;
     }
 
     /**

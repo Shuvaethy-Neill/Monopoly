@@ -18,8 +18,8 @@ public class FreeParking extends BoardSpace {
      *
      * @param name String, the name of the free parking space
      */
-    public FreeParking(String name) {
-        super(name, "free parking");
+    public FreeParking(String name, String path) {
+        super(name, "free parking", path);
         this.amount = 0;
     }
 
