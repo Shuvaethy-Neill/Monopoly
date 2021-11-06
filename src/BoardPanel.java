@@ -24,7 +24,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
     public BoardPanel(MonopolyModel model) {
         super(new GridBagLayout());
         this.model = model;
-        this.setPreferredSize(new Dimension(900, 900));
+        this.setPreferredSize(new Dimension(800, 800));
         this.model.addView(this);
 
         initializeLayout();
@@ -86,7 +86,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
         BoardSpace currentSpace;
         for (int i = 0; i < boardSpaceConstraints.length; i++) {
             currentSpace = model.getPieces()[i];
-            currentSpace.setPreferredSize(new Dimension(900/dimension, 900/dimension));
+            currentSpace.setPreferredSize(new Dimension(800/dimension, 800/dimension));
             this.add(currentSpace, boardSpaceConstraints[i]);
         }
         this.add(monopolyLabel, monopolyLabelConstraints);
