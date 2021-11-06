@@ -39,11 +39,14 @@ public abstract class BoardSpace extends JPanel {
 
         //for some reason not working, it shows up then disappears after 0.5 seconds?? :(
         //probs has something to do with size?
+
         /*
+        this.square.getImage().getScaledInstance(10, 20, Image.SCALE_SMOOTH);
         JLabel picLabel = new JLabel(this.square, JLabel.CENTER);
         this.add(picLabel, BorderLayout.PAGE_START);
 
          */
+
         this.setPreferredSize(new Dimension(50, 50));
     }
 

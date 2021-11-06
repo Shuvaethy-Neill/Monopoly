@@ -15,7 +15,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JPanel instructionPanel;
     private JPanel buttonPanel;
     private static final int MAX_PLAYERS = 4;
-    private JButton rollButton, buyButton, passButton;
+    private JButton rollButton, buyButton, rentButton, passButton;
     private JTextArea instructionInfo;
 
     /**
@@ -32,7 +32,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.model.addView(this);
 
         rollButton = new JButton("Roll Dice");
-        rollButton.setPreferredSize(new Dimension(150, 50));
+        rollButton.setPreferredSize(new Dimension(50, 50));
         rollButton.addActionListener( e -> {
         });
 
@@ -41,22 +41,29 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buyButton.addActionListener( e -> {
         });
 
+        //goes with buy functionality
+        rentButton = new JButton("Pay Rent");
+        buyButton.setPreferredSize(new Dimension(150, 50));
+        buyButton.addActionListener( e -> {
+        });
+
         passButton = new JButton("Pass");
         passButton.setPreferredSize(new Dimension(150, 50));
         passButton.addActionListener( e -> {
-
         });
 
-        buttonPanel = new JPanel();
+
+
+        buttonPanel = new JPanel(new GridLayout(2, 2));
         buttonPanel.add(rollButton);
         buttonPanel.add(buyButton);
+        buttonPanel.add(rentButton);
         buttonPanel.add(passButton);
 
-        instructionPanel = new JPanel();
+        instructionPanel = new JPanel(new GridLayout(1, 2));
         instructionPanel.setPreferredSize(new Dimension(1600,200));
         instructionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         //instructionPanel.add(new JLabel("This is where instructions and buttons to make decisions will appear!", JLabel.CENTER), BorderLayout.CENTER);
-        instructionPanel.add(buttonPanel);
 
         // Instruction box that will continuously update when a user makes a move
         instructionInfo = new JTextArea();
@@ -68,6 +75,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         // need to make console info box to go underneath buttons
         instructionPanel.add(instructionInfo, BorderLayout.SOUTH);
+        instructionPanel.add(buttonPanel, BorderLayout.NORTH);
     }
 
     /**
