@@ -28,27 +28,27 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(1000,1000));
+        this.setPreferredSize(new Dimension(1100,1000));
         this.model.addView(this);
 
         rollButton = new JButton("Roll Dice");
-        rollButton.setPreferredSize(new Dimension(50, 50));
+        rollButton.setPreferredSize(new Dimension(250, 50));
         rollButton.addActionListener( e -> {
         });
 
         buyButton = new JButton("Buy Property");
-        buyButton.setPreferredSize(new Dimension(150, 50));
+        buyButton.setPreferredSize(new Dimension(250, 50));
         buyButton.addActionListener( e -> {
         });
 
         //goes with buy functionality
         rentButton = new JButton("Pay Rent");
-        buyButton.setPreferredSize(new Dimension(150, 50));
+        buyButton.setPreferredSize(new Dimension(250, 50));
         buyButton.addActionListener( e -> {
         });
 
         passButton = new JButton("Pass");
-        passButton.setPreferredSize(new Dimension(150, 50));
+        passButton.setPreferredSize(new Dimension(250, 50));
         passButton.addActionListener( e -> {
         });
 
@@ -61,7 +61,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buttonPanel.add(passButton);
 
         instructionPanel = new JPanel(new GridLayout(1, 2));
-        instructionPanel.setPreferredSize(new Dimension(1000,200));
+        instructionPanel.setPreferredSize(new Dimension(1000,100));
         instructionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Instruction box that will continuously update when a user makes a move

@@ -24,7 +24,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
     public BoardPanel(MonopolyModel model) {
         super(new GridBagLayout());
         this.model = model;
-        this.setPreferredSize(new Dimension(800, 800));
+        this.setPreferredSize(new Dimension(900, 900));
         this.model.addView(this);
 
         initializeLayout();
@@ -38,7 +38,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
         BoardSpace[] boardSpaces = model.getPieces();
         this.boardSpaceConstraints = new GridBagConstraints[boardSpaces.length];
 
-        dimension = ((boardSpaces.length % 4 == 0) ? (boardSpaces.length / 4) : (boardSpaces.length / 4 + 1));
+        dimension = ((boardSpaces.length % 4 == 0) ? (boardSpaces.length / 4 + 1) : (boardSpaces.length / 4 + 2));
         int x = dimension - 1;
         int y = dimension - 1;
         for (int i = 0; i < boardSpaces.length; i++) {
@@ -47,13 +47,24 @@ public class BoardPanel extends JPanel implements MonopolyView {
             boardSpaceConstraints[i].gridx = x;
             boardSpaceConstraints[i].gridy = y;
 
-            if (x == 0) {
-                x = dimension - 1;
-                y--;
-            } else if ((y == 0) | (y == dimension - 1)) {
-                x--;
+            if (y == dimension - 1) {
+                if (x == 0) {
+                    y--;
+                } else {
+                    x--;
+                }
+            } else if (y == 0) {
+                if (x == dimension - 1) {
+                    y++;
+                } else {
+                    x++;
+                }
             } else {
-                x = 0;
+                if (x == 0) {
+                    y--;
+                } else if (x == dimension - 1) {
+                    y++;
+                }
             }
         }
         monopolyLabelConstraints = new GridBagConstraints();
@@ -75,7 +86,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
         BoardSpace currentSpace;
         for (int i = 0; i < boardSpaceConstraints.length; i++) {
             currentSpace = model.getPieces()[i];
-            currentSpace.setPreferredSize(new Dimension(1200/dimension, 1200/dimension));
+            currentSpace.setPreferredSize(new Dimension(900/dimension, 900/dimension));
             this.add(currentSpace, boardSpaceConstraints[i]);
         }
         this.add(monopolyLabel, monopolyLabelConstraints);
