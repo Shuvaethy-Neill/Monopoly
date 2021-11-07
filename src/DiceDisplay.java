@@ -36,9 +36,19 @@ public class DiceDisplay extends JPanel {
      * @return int, returns the value of the dices after rolling
      */
     public int diceRoll() {
+
+        // I think this is how it should be ? :
         //dice.roll(); // <<<< bugging because of this O.O
-        displayDiceValue(1 + random.nextInt(6)); // works if its like this tho..
-        return diceValue;
+        //int diceVal = dice.getRollValue();
+        //displayDiceValue(diceVal);
+
+        // It kindaaaa works like this, but I don't think this is how its supposed to be cuz we gotta use the Dice Class
+        // Doomed
+        // It also reads 5 as 4 so I need to fix that D:
+
+        int diceVal = 1 + random.nextInt(6);
+        displayDiceValue(diceVal); // works if its like this tho..
+        return diceVal;
     }
 
     /**
@@ -51,7 +61,7 @@ public class DiceDisplay extends JPanel {
 
     /**
      * Method that illustrates the black dots of a die
-     * @param diceModel Graphics context, drawing of the model of the dice
+     * @param diceModel Graphics, drawing of the model of the dice
      * @param width int, width of the dice
      * @param height int, height of the dice
      */
@@ -62,8 +72,7 @@ public class DiceDisplay extends JPanel {
     }
 
     /**
-     * Overriden method from the JComponent Class that illustrates the dice and displays the black dots based on the
-     * dice value that was rolled
+     * Overriden method from the JComponent Class that illustrates the dice and displays the output
      * @param g, Graphics context
      */
     @Override

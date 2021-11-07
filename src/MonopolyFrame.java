@@ -18,6 +18,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private static final int MAX_PLAYERS = 4;
     private JButton rollButton, buyButton, helpButton, passButton;
     private JTextArea instructionInfo;
+    private Dice dice;
     private DiceDisplay dice1, dice2;
 
     /**
@@ -76,10 +77,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         instructionInfo.setEditable(false);
         instructionInfo.setPreferredSize(new Dimension(500, 50));
         instructionInfo.setText("\n Welcome to the Monopoly Game! \n This is where instructions and buttons to make decisions will appear!");
-
         instructionPanel.add(instructionInfo, BorderLayout.SOUTH);
         instructionPanel.add(buttonPanel, BorderLayout.NORTH);
 
+        // Panel to contain the 2 dices
         dicePanel = new JPanel(new FlowLayout());
         dice1 = new DiceDisplay();
         dice2 = new DiceDisplay();
