@@ -80,6 +80,7 @@ public class DiceDisplay extends JPanel {
                 createDots(g, getWidth()/4, (getHeight() * 3)/4);
                 createDots(g, (getWidth() * 3)/4, (getHeight() * 3)/4);
                 createDots(g, (getWidth() * 3)/4, getHeight()/4);
+                break;
             // Dice rolls 5
             case 5:
                 createDots(g, getWidth()/4, getHeight()/4);
