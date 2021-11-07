@@ -36,7 +36,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         rollButton = new JButton("Roll Dice");
         rollButton.setPreferredSize(new Dimension(250, 50));
         rollButton.addActionListener( e -> { model.play(rollButton.getText());
-            instructionInfo.setText("\n Rolling the Dices!\n You rolled : " + dice1.getDiceValue() + " & " + dice2.getDiceValue());
+            instructionInfo.setText("\n Rolling the Dices!\n You rolled : " + dice1.getDiceValue() + " & " + dice2.getDiceValue() + "" +
+                    "\n You will move up ");
             //rollButton.setEnabled(false);
         });
 
