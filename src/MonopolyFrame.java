@@ -14,9 +14,11 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private MonopolyModel model;
     private JPanel instructionPanel;
     private JPanel buttonPanel;
+    private JPanel dicePanel;
     private static final int MAX_PLAYERS = 4;
     private JButton rollButton, buyButton, helpButton, passButton;
     private JTextArea instructionInfo;
+    private DiceDisplay dice1, dice2;
 
     /**
      * Constructor for the MonopolyFrame Class
@@ -46,7 +48,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         passButton = new JButton("Pass");
         passButton.setPreferredSize(new Dimension(250, 50));
-        passButton.addActionListener( e -> model.play(passButton.getText()));
+        passButton.addActionListener( e -> {
+            instructionInfo.setText("Your turn is now over! Passing to the next player");
+            model.play(passButton.getText());
+        });
 
 
         buttonPanel = new JPanel(new GridLayout(2, 2));
@@ -69,6 +74,13 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         instructionPanel.add(instructionInfo, BorderLayout.SOUTH);
         instructionPanel.add(buttonPanel, BorderLayout.NORTH);
+
+        dicePanel = new JPanel(new FlowLayout());
+        dice1 = new DiceDisplay();
+        dice2 = new DiceDisplay();
+        dicePanel.add(dice1);
+        dicePanel.add(dice2);
+        instructionPanel.add(dicePanel);
     }
 
     /**

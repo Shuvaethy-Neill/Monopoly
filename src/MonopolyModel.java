@@ -212,7 +212,7 @@ public class MonopolyModel {
     /**
      * Method passes the turn to the next player in the game
      */
-    private String endTurn() {
+    public String endTurn() {
         player++;
         if (player > players.size() - 1) {
             player = 0;
