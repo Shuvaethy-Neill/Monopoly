@@ -16,6 +16,10 @@ public class BoardPanel extends JPanel implements MonopolyView {
 
     private GridBagConstraints[] boardSpaceConstraints;
 
+    private DiceDisplay dice1;
+
+    private DiceDisplay dice2;
+
     /**
      * Constructor for the BoardPanel Class
      *

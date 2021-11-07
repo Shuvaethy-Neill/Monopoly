@@ -24,7 +24,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
      * @param model MonopolyModel
      */
     public MonopolyFrame(MonopolyModel model) {
-        super("Monopoly");
+        super("The Monopoly Game!");
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
@@ -69,7 +69,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         instructionPanel.add(instructionInfo, BorderLayout.SOUTH);
         instructionPanel.add(buttonPanel, BorderLayout.NORTH);
-
     }
 
     /**
