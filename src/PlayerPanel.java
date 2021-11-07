@@ -7,11 +7,16 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
 
     private JPanel[] individualPlayerPanels;
 
+    private Color[] colours;
+
+
     public PlayerPanel(MonopolyModel model) {
         super();
         this.model = model;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.model.addView(this);
+
+        colours = new Color[] {(new Color(255, 255, 222)), (new Color(238, 248, 255)), (new Color(255, 241, 238)), (new Color(248, 238, 255))};
 
         initializeLayout();
     }
@@ -20,7 +25,6 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
      *
      */
     private void initializeLayout() {
-        Color[] colours = {(new Color(255, 255, 222)), (new Color(238, 248, 255)), (new Color(255, 241, 238)), (new Color(248, 238, 255))};
         individualPlayerPanels = new JPanel[model.getPlayers().size()];
         for (int i = 0; i < model.getPlayers().size(); i++) {
             individualPlayerPanels[i] = new JPanel();
@@ -39,6 +43,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
     private void updatePlayerList(int playerIndex) {
         Player currentPlayer = model.getPlayers().get(playerIndex);
         individualPlayerPanels[playerIndex].removeAll();
+        DefaultListModel<String> listModel = new DefaultListModel<>();
 
         individualPlayerPanels[playerIndex].add(new JLabel("Money: " + currentPlayer.getMoney()));
         individualPlayerPanels[playerIndex].add(new JLabel("Position: " + model.getPieces()[currentPlayer.getPosition()].getName()));
@@ -47,8 +52,6 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
             individualPlayerPanels[playerIndex].add(new JLabel("Properties: None"));
         } else {
             individualPlayerPanels[playerIndex].add(new JLabel("Properties:"));
-            DefaultListModel<String> listModel = new DefaultListModel<>();
-
             for (Property p : currentPlayer.getProperties()) {
                 listModel.addElement(p.toString());
             }
@@ -57,6 +60,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
             list.setSelectedIndex(0);
             list.setVisibleRowCount(5);
             JScrollPane listScrollPane = new JScrollPane(list);
+            list.setBackground(colours[playerIndex]);
             individualPlayerPanels[playerIndex].add(listScrollPane);
         }
     }
