@@ -112,17 +112,15 @@ public class MonopolyModel {
         return player;
     }
 
-    private void roll() {
+    public void roll() {
         /*
         if ((players.get(player).getNumDoublesRolled() == 0)) {
             System.out.println("Invalid! You already rolled!");
         }
         else {
          */
-            System.out.println("Rolling the dice:");
-            dice.roll();
+            //dice.roll();
             if (players.get(player).getNumDoublesRolled() == 3) {
-                //command = endTurn();
                 endTurn();
             } // If 3 doubles rolled end turn
             if (dice.isDouble()) {

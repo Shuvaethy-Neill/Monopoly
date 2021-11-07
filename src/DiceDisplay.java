@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.Random;
 
 /**
  * DiceDisplay Class that represents the two dices on the Monopoly Board
@@ -8,15 +9,42 @@ import java.awt.*;
 public class DiceDisplay extends JPanel {
     private int diceValue = 1;
     private int dotDiameter = 10;
+    private Dice dice;
+    private Random random;
 
+    /**
+     * Constructor for DiceDisplay Class
+     */
     public DiceDisplay() {
         this.setPreferredSize(new Dimension(60, 60));
+        dice = new Dice();
+        random = new Random();
     }
 
-    public void setDiceValue(int value) {
-        diceValue = value;
+    /**
+     *
+     *
+     * @param diceOutput
+     */
+    public void displayDiceValue(int diceOutput) {
+        diceValue = diceOutput;
         // repaint() will adjust the dice face value based on the roll
         repaint();
+    }
+
+    /**
+     *
+     *
+     * @return
+     */
+    public int diceRoll() {
+        //dice.roll(); // <<<< bugging because of this O.O
+        displayDiceValue(1 + random.nextInt(6)); // works if its like this tho..
+        return diceValue;
+    }
+
+    public int getDiceValue() {
+        return diceValue;
     }
 
     /**
