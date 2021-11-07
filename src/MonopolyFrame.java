@@ -18,8 +18,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private static final int MAX_PLAYERS = 4;
     private JButton rollButton, buyButton, helpButton, passButton;
     private JTextArea instructionInfo;
-    private Dice dice;
-    private DiceDisplay dice1, dice2;
+    private int[] dice;
+    private DiceDisplay dice1;
+    private DiceDisplay dice2;
 
     /**
      * Constructor for the MonopolyFrame Class
@@ -36,9 +37,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         rollButton = new JButton("Roll Dice");
         rollButton.setPreferredSize(new Dimension(250, 50));
-        rollButton.addActionListener( e -> {
-            dice1.diceRoll();
-            dice2.diceRoll();
+        rollButton.addActionListener( e -> { model.play(rollButton.getText());
             instructionInfo.setText("\n Rolling the Dices!\n You rolled : " + dice1.getDiceValue() + " & " + dice2.getDiceValue());
             rollButton.setEnabled(false);
         });
@@ -66,7 +65,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buttonPanel.add(helpButton);
         buttonPanel.add(passButton);
 
-        instructionPanel = new JPanel(new GridLayout(1, 2));
+        instructionPanel = new JPanel(new GridLayout(1, 3));
         instructionPanel.setPreferredSize(new Dimension(1000,100));
         instructionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -87,6 +86,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         dicePanel.add(dice1);
         dicePanel.add(dice2);
         instructionPanel.add(dicePanel);
+
     }
 
     /**
@@ -108,7 +108,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
      *
      */
     @Override
-    public void update() {
-
+    public void update(MonopolyEvent e) {
+        this.dice = e.getDice();
+        dice1.displayDiceValue(dice[0]);
+        dice2.displayDiceValue(dice[1]);
     }
 }

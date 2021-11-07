@@ -67,7 +67,7 @@ public class MonopolyModel {
      */
     public void notifyViews() {
         for (MonopolyView v : monopolyViews) {
-            v.update();
+            v.update(new MonopolyEvent(this, this.dice.getDice()));
         }
     }
 
@@ -87,6 +87,9 @@ public class MonopolyModel {
 
     // Every thing above this works for MVC
 
+    public Dice getDice(){
+        return this.dice;
+    }
 
     /**
      * Method gets the board space pieces
@@ -127,44 +130,44 @@ public class MonopolyModel {
         }
         else {
          */
-            //dice.roll();
-            if (players.get(player).getNumDoublesRolled() == 3) {
-                endTurn();
-            } // If 3 doubles rolled end turn
-            if (dice.isDouble()) {
-                players.get(player).incrementNumDoublesRolled();
-            }
+        dice.roll();
+        if (players.get(player).getNumDoublesRolled() == 3) {
+            endTurn();
+        } // If 3 doubles rolled end turn
+        if (dice.isDouble()) {
+            players.get(player).incrementNumDoublesRolled();
+        }
 
-            System.out.println("You rolled: " + dice.toString());
-            System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
-            players.get(player).move(dice.getRollValue());
-            players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
-            pieces[players.get(player).getPosition()].displayInfo();
-            if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
-                if (!dice.isDouble()) {
-                    //command = endTurn(); // Player lands on the Free Parking space, end their turn if doubles are rolled
-                    endTurn();
-                }
-            } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
-                players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
-                if (!dice.isDouble()) {
-                    //command = endTurn(); // Player lands on the Tax space, end their turn if doubles are rolled
-                    endTurn();
-                }
-            } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
-                // Player who owns the property gets rent
-                if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
-                    System.out.println("You do not need to pay rent since you own this property.");
-                } else {
-                    System.out.println("Taking the money from your account");
-                    players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
-                    ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
-                }
-                if (!checkBankruptcy() && !dice.isDouble()) {
-                    //command = endTurn();
-                    endTurn();
-                }
+        System.out.println("You rolled: " + dice.toString());
+        System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
+        players.get(player).move(dice.getRollValue());
+        players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
+        pieces[players.get(player).getPosition()].displayInfo();
+        if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
+            if (!dice.isDouble()) {
+                //command = endTurn(); // Player lands on the Free Parking space, end their turn if doubles are rolled
+                endTurn();
             }
+        } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
+            players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
+            if (!dice.isDouble()) {
+                //command = endTurn(); // Player lands on the Tax space, end their turn if doubles are rolled
+                endTurn();
+            }
+        } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
+            // Player who owns the property gets rent
+            if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
+                System.out.println("You do not need to pay rent since you own this property.");
+            } else {
+                System.out.println("Taking the money from your account");
+                players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
+                ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
+            }
+            if (!checkBankruptcy() && !dice.isDouble()) {
+                //command = endTurn();
+                endTurn();
+            }
+        }
     }
 
     /**

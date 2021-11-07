@@ -1,3 +1,3 @@
 public interface MonopolyView {
-    public void update();
+    void update(MonopolyEvent e);
 }

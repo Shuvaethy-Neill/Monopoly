@@ -14,7 +14,8 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
         this.model.addView(this);
 
         initializeLayout();
-        update();
+        //WE NEED TO FIND A FIX FOR THIS
+        //update();
     }
 
     /**
@@ -66,7 +67,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
      *
      */
     @Override
-    public void update() {
+    public void update(MonopolyEvent e) {
         for (int i = 0; i < individualPlayerPanels.length; i++) {
             updatePlayerList(i);
         }

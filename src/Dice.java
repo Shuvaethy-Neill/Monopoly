@@ -13,7 +13,6 @@ public class Dice {
     private Random random;
     private static final int NUM_DICE = 2;
     private int[] dice;
-    private int dice1, dice2;
 
     /**
      * Constructor for Dice class

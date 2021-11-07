@@ -28,7 +28,8 @@ public class BoardPanel extends JPanel implements MonopolyView {
         this.model.addView(this);
 
         initializeLayout();
-        update();
+        //WE NEED TO FIND A FIX FOR THIS
+        //update();
     }
 
     /**
@@ -81,11 +82,12 @@ public class BoardPanel extends JPanel implements MonopolyView {
      *
      */
     @Override
-    public void update() {
+    public void update(MonopolyEvent e) {
+        MonopolyModel monopolyModel = (MonopolyModel) e.getSource();
         this.removeAll();
         BoardSpace currentSpace;
         for (int i = 0; i < boardSpaceConstraints.length; i++) {
-            currentSpace = model.getPieces()[i];
+            currentSpace = monopolyModel.getPieces()[i];
             currentSpace.setPreferredSize(new Dimension(800/dimension, 800/dimension));
             this.add(currentSpace, boardSpaceConstraints[i]);
         }

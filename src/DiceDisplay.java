@@ -7,18 +7,14 @@ import java.util.Random;
  * DiceDisplay Class that represents the two dices on the Monopoly Board
  */
 public class DiceDisplay extends JPanel {
-    private int diceValue = 1;
+    private int diceValue;
     private int dotDiameter = 10;
-    private Dice dice;
-    private Random random;
 
     /**
      * Constructor for DiceDisplay Class
      */
     public DiceDisplay() {
-        this.setPreferredSize(new Dimension(60, 60));
-        dice = new Dice();
-        random = new Random();
+        this.setPreferredSize(new Dimension(50, 50));
     }
 
     /**
@@ -29,26 +25,6 @@ public class DiceDisplay extends JPanel {
         diceValue = diceOutput;
         // repaint() will adjust the dice face value based on the roll
         repaint();
-    }
-
-    /**
-     * Method that rolls the 2 dices
-     * @return int, returns the value of the dices after rolling
-     */
-    public int diceRoll() {
-
-        // I think this is how it should be ? :
-        //dice.roll(); // <<<< bugging because of this O.O
-        //int diceVal = dice.getRollValue();
-        //displayDiceValue(diceVal);
-
-        // It kindaaaa works like this, but I don't think this is how its supposed to be cuz we gotta use the Dice Class
-        // Doomed
-        // It also reads 5 as 4 so I need to fix that D:
-
-        int diceVal = 1 + random.nextInt(6);
-        displayDiceValue(diceVal); // works if its like this tho..
-        return diceVal;
     }
 
     /**
