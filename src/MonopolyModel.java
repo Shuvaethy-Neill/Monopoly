@@ -112,25 +112,15 @@ public class MonopolyModel {
         return player;
     }
 
-    private void help(){
-        System.out.println("Help:");
-        System.out.println("Press the 'Roll Dice' button to roll dices on your turn");
-        System.out.println("Press the 'Buy Property' button to purchase a property");
-        System.out.println("Press the 'Pass' button to pass your turn to the next player");
-        System.out.println("Press the 'x' on the game frame to quit the game");
-    }
-
-    private void roll() {
+    public void roll() {
         /*
         if ((players.get(player).getNumDoublesRolled() == 0)) {
             System.out.println("Invalid! You already rolled!");
         }
         else {
          */
-            System.out.println("Rolling the dice:");
-            dice.roll();
+            //dice.roll();
             if (players.get(player).getNumDoublesRolled() == 3) {
-                //command = endTurn();
                 endTurn();
             } // If 3 doubles rolled end turn
             if (dice.isDouble()) {
@@ -220,7 +210,7 @@ public class MonopolyModel {
     /**
      * Method passes the turn to the next player in the game
      */
-    private String endTurn() {
+    public String endTurn() {
         player++;
         if (player > players.size() - 1) {
             player = 0;
@@ -246,7 +236,12 @@ public class MonopolyModel {
             System.out.println("Please try again :)");
         } else if (command.equalsIgnoreCase("Help")) {
             //validInput = true;
-            help();
+            System.out.println("Type 'start' to start the game");
+            System.out.println("Type 'state' to view your state in the game");
+            System.out.println("Type 'roll' to roll dices on your turn");
+            System.out.println("Type 'buy' to purchase a property");
+            System.out.println("Type 'pass' to pass your turn to the next player");
+            System.out.println("Type 'quit' to end the game");
 
         } else if (command.equals("Buy Property")) {
             System.out.println("here");
