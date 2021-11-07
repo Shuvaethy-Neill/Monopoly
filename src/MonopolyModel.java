@@ -112,6 +112,14 @@ public class MonopolyModel {
         return player;
     }
 
+    private void help(){
+        System.out.println("Help:");
+        System.out.println("Press the 'Roll Dice' button to roll dices on your turn");
+        System.out.println("Press the 'Buy Property' button to purchase a property");
+        System.out.println("Press the 'Pass' button to pass your turn to the next player");
+        System.out.println("Press the 'x' on the game frame to quit the game");
+    }
+
     private void roll() {
         /*
         if ((players.get(player).getNumDoublesRolled() == 0)) {
@@ -238,12 +246,7 @@ public class MonopolyModel {
             System.out.println("Please try again :)");
         } else if (command.equalsIgnoreCase("Help")) {
             //validInput = true;
-            System.out.println("Type 'start' to start the game");
-            System.out.println("Type 'state' to view your state in the game");
-            System.out.println("Type 'roll' to roll dices on your turn");
-            System.out.println("Type 'buy' to purchase a property");
-            System.out.println("Type 'pass' to pass your turn to the next player");
-            System.out.println("Type 'quit' to end the game");
+            help();
 
         } else if (command.equals("Buy Property")) {
             System.out.println("here");
