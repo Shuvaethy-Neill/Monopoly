@@ -16,7 +16,7 @@ public class MonopolyController {
         for (int i = 0; i < numPlayers; i++) {
             model.addPlayer(getPlayerInformation());
         }
-        chooseFirstPlayer();
+        //chooseFirstPlayer();
     }
 
     private int getNumPlayers() {
@@ -40,8 +40,12 @@ public class MonopolyController {
         return new Player(playerName);
     }
 
+
+    /*
     private void chooseFirstPlayer(){
         JOptionPane.showMessageDialog(view, new JLabel(this.model.getPlayers().get(this.model.start()).getName() + " will start!", JLabel.CENTER),
                 "Let's Start!", JOptionPane.PLAIN_MESSAGE, null);
     }
+
+     */
 }

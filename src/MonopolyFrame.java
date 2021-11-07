@@ -15,7 +15,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JPanel instructionPanel;
     private JPanel buttonPanel;
     private JPanel dicePanel;
-    private JButton rollButton, buyButton, helpButton, passButton;
+    private JButton startButton, rollButton, buyButton, helpButton, passButton, quitButton;
     private JTextArea instructionInfo;
     private DiceDisplay dice1;
     private DiceDisplay dice2;
@@ -33,8 +33,14 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.setPreferredSize(new Dimension(1100,1000));
         this.model.addView(this);
 
+        startButton = new JButton("Start");
+        startButton.setPreferredSize(new Dimension(50, 50));
+        startButton.addActionListener( e -> { instructionInfo.setText("Starting game....\n" + model.start() + " will start!" );
+            startButton.setEnabled(false);
+        });
+
         rollButton = new JButton("Roll Dice");
-        rollButton.setPreferredSize(new Dimension(250, 50));
+        rollButton.setPreferredSize(new Dimension(50, 50));
         rollButton.addActionListener( e -> { model.play(rollButton.getText());
             instructionInfo.setText("\n Rolling the Dices!\n You rolled : " + dice1.getDiceValue() + " & " + dice2.getDiceValue() + "" +
                     "\n You will move up ");
@@ -42,27 +48,32 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         });
 
         buyButton = new JButton("Buy Property");
-        buyButton.setPreferredSize(new Dimension(250, 50));
+        buyButton.setPreferredSize(new Dimension(50, 50));
         buyButton.addActionListener( e -> model.play(buyButton.getText()));
 
-        //goes with buy functionality
         helpButton = new JButton("Help");
-        helpButton.setPreferredSize(new Dimension(250, 50));
+        helpButton.setPreferredSize(new Dimension(50, 50));
         helpButton.addActionListener( e -> model.play(helpButton.getText()));
 
         passButton = new JButton("Pass");
-        passButton.setPreferredSize(new Dimension(250, 50));
+        passButton.setPreferredSize(new Dimension(50, 50));
         passButton.addActionListener( e -> {
             rollButton.setEnabled(true);
             instructionInfo.setText("Your turn is now over! Passing to the next player");
             model.play(passButton.getText());
         });
 
-        buttonPanel = new JPanel(new GridLayout(2, 2));
+        quitButton = new JButton("Quit");
+        quitButton.setPreferredSize(new Dimension(50, 50));
+        quitButton.addActionListener( e -> {});
+
+        buttonPanel = new JPanel(new GridLayout(3, 2));
+        buttonPanel.add(startButton);
         buttonPanel.add(rollButton);
         buttonPanel.add(buyButton);
         buttonPanel.add(helpButton);
         buttonPanel.add(passButton);
+        buttonPanel.add(quitButton);
 
         instructionPanel = new JPanel(new GridLayout(1, 3));
         instructionPanel.setPreferredSize(new Dimension(1000,100));

@@ -109,9 +109,11 @@ public class MonopolyModel {
         return pieces[i];
     }
 
-    public int start() {
+    public String start() {
         player = rand.nextInt(players.size());
-        return player;
+        System.out.println("Starting the game...\n" + players.get(player).getName() + " will start!");
+        notifyViews();
+        return players.get(player).getName();
     }
 
     private void help(){
