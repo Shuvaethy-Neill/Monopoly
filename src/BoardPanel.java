@@ -28,8 +28,6 @@ public class BoardPanel extends JPanel implements MonopolyView {
         this.model.addView(this);
 
         initializeLayout();
-        //WE NEED TO FIND A FIX FOR THIS
-        //update();
     }
 
     /**
@@ -83,6 +81,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
      */
     @Override
     public void update(MonopolyEvent e) {
+        //how do we incorporate the event??
         //MonopolyModel monopolyModel = (MonopolyModel) e.getSource();
         this.removeAll();
         BoardSpace currentSpace;
