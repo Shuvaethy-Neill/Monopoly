@@ -1,20 +1,21 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.util.Random;
 
 /**
  * DiceDisplay Class that represents the two dices on the Monopoly Board
  */
 public class DiceDisplay extends JPanel {
     private int diceValue;
-    private int dotDiameter = 10;
+    private int dotDiameter;
 
     /**
      * Constructor for DiceDisplay Class
      */
     public DiceDisplay() {
         this.setPreferredSize(new Dimension(50, 50));
+        this.diceValue = 1;
+        this.dotDiameter = 10;
     }
 
     /**
