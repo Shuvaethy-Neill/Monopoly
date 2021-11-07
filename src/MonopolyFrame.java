@@ -15,10 +15,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JPanel instructionPanel;
     private JPanel buttonPanel;
     private JPanel dicePanel;
-    private static final int MAX_PLAYERS = 4;
     private JButton rollButton, buyButton, helpButton, passButton;
     private JTextArea instructionInfo;
-    private int[] dice;
     private DiceDisplay dice1;
     private DiceDisplay dice2;
 
@@ -109,7 +107,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
      */
     @Override
     public void update(MonopolyEvent e) {
-        this.dice = e.getDice();
+        int[] dice = e.getDice();
         dice1.displayDiceValue(dice[0]);
         dice2.displayDiceValue(dice[1]);
     }
