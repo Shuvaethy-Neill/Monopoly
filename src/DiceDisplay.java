@@ -2,6 +2,9 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+/**
+ * DiceDisplay Class that represents the two dices on the Monopoly Board
+ */
 public class DiceDisplay extends JPanel {
     private int diceValue = 1;
     private int dotDiameter = 10;
