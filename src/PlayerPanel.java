@@ -14,8 +14,6 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
         this.model.addView(this);
 
         initializeLayout();
-        //WE NEED TO FIND A FIX FOR THIS
-        //update();
     }
 
     /**
@@ -68,6 +66,8 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
      */
     @Override
     public void update(MonopolyEvent e) {
+        //uhm this doesnt use the passed in event and as of rn i have no idea what to replace
+        //we could get rid of the updatePlayerList() method and put its method body in here instead but the initializeLayout() uses it
         for (int i = 0; i < individualPlayerPanels.length; i++) {
             updatePlayerList(i);
         }
