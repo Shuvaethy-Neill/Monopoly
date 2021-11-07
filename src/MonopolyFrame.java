@@ -65,7 +65,16 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         quitButton = new JButton("Quit");
         quitButton.setPreferredSize(new Dimension(50, 50));
-        quitButton.addActionListener( e -> {});
+        //not entirely sure if this follows MVC since model should update view (this technically updates itself - maybe we should put in update?)
+        quitButton.addActionListener( e -> {int input = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to exit the program?", "Exit Program Message Box",
+                JOptionPane.YES_NO_OPTION);
+
+            if (input == JOptionPane.YES_OPTION) {
+                dispose();
+                model.play(quitButton.getText());
+            }
+        });
 
         buttonPanel = new JPanel(new GridLayout(3, 2));
         buttonPanel.add(startButton);
