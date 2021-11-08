@@ -72,6 +72,9 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
     public void update(MonopolyEvent e) {
         //uhm this doesnt use the passed in event and as of rn i have no idea what to replace
         //we could get rid of the updatePlayerList() method and put its method body in here instead but the initializeLayout() uses it
+        if(e.status == MonopolyModel.Status.BANKRUPT2){
+            this.remove(e.getCurrentPlayer());
+        }
         for (int i = 0; i < individualPlayerPanels.length; i++) {
             updatePlayerList(i);
         }

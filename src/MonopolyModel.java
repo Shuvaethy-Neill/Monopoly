@@ -27,7 +27,7 @@ public class MonopolyModel {
 
     private String outputText; //text to notify user of decisions made
 
-    public enum Status {UNDECIDED,PLAYING, BANKRUPT};
+    public enum Status {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2};
     private Status playerStatus;
 
     /**
@@ -90,6 +90,10 @@ public class MonopolyModel {
      */
     public ArrayList<Player> getPlayers() {
         return this.players;
+    }
+
+    public int getCurrentPlayer(){
+        return this.player;
     }
 
     // Every thing above this works for MVC
@@ -201,14 +205,9 @@ public class MonopolyModel {
         }
 
         if (check) {
-            this.playerStatus = Status.BANKRUPT;
             outputText="You have reached bankruptcy :( \n You are being eliminated from the game ";
             for (int i = 0; i < players.get(player).getProperties().size(); i++) {
                 players.get(player).getProperties().get(i).sell();
-            }
-            players.remove(player);
-            if (players.size() == 1) {
-                outputText="GAME OVER! " + players.get(0).getName() + " has won the game! \n Thanks for playing! ";
             }
         }
         return check;
@@ -244,10 +243,21 @@ public class MonopolyModel {
      * Method displays the user interface of the Monopoly Board that takes user input
      */
     public void play(String command) {
-        String prevCommand = command;
+
         // If the player is bankrupt, end their turn
         if (checkBankruptcy()) {
-            endTurn();
+            if (players.size() == 2) {
+                this.playerStatus = Status.BANKRUPT;
+                players.remove(player);
+                outputText += "GAME OVER! " + players.get(0).getName() + " has won the game! \n Thanks for playing! ";
+            }
+            else{
+                players.remove(player--);
+                this.playerStatus = Status.BANKRUPT2;
+                player++;
+                outputText += players.get(player).getName() + "'s turn!";
+            }
+
 
         } else if (command.equals("Help")) {
             help();

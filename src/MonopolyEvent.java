@@ -6,6 +6,7 @@ public class MonopolyEvent extends EventObject {
     private String instruction;
     MonopolyModel.Status status;
     private int numPlayers;
+    private int currentPlayer;
 
 
     public MonopolyEvent(MonopolyModel source) {
@@ -14,10 +15,15 @@ public class MonopolyEvent extends EventObject {
         this.instruction = source.getOutputText();
         this.status = source.getPlayerStatus();
         this.numPlayers = source.getPlayers().size();
+        this.currentPlayer = source.getCurrentPlayer();
     }
 
     public String getInstruction() {
         return instruction;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public int getNumPlayers() {
