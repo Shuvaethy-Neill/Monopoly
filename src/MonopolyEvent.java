@@ -10,7 +10,6 @@ public class MonopolyEvent extends EventObject {
     private String instruction;
     MonopolyModel.Status status;
     private ArrayList currentPlayers;
-    private int currentPlayer;
 
     /**
      * Constructor for MonopolyEvent
@@ -22,7 +21,6 @@ public class MonopolyEvent extends EventObject {
         this.instruction = source.getOutputText();
         this.status = source.getPlayerStatus();
         this.currentPlayers = source.getPlayers();
-        this.currentPlayer =  source.getPlayer();
     }
 
     /**
@@ -33,13 +31,6 @@ public class MonopolyEvent extends EventObject {
         return currentPlayers;
     }
 
-    /**
-     * Method gets the current player actively playing
-     * @return int, player number
-     */
-    public int getCurrentPlayer() {
-        return currentPlayer;
-    }
 
     /**
      * Method gets the list of instructions given to the player

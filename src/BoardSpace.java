@@ -21,6 +21,9 @@ public abstract class BoardSpace extends JPanel {
      */
     private final String type;
 
+    /**
+     * Image for the board space
+     */
     private ImageIcon square;
 
 
