@@ -200,7 +200,7 @@ public class MonopolyModel {
      *
      * @return boolean, true if they are bankrupt, false otherwise
      */
-    private boolean checkBankruptcy() {
+    public boolean checkBankruptcy() {
         boolean check = false;
 
         if (pieces[players.get(player).getPosition()] instanceof Tax) {

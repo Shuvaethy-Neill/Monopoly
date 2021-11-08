@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * MonopolyFrame Class that extends from the JFrame Class and implements from the
@@ -135,7 +136,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             helpButton.setEnabled(false);
 
             JOptionPane.showMessageDialog(this, "Game over! Thanks for playing!");
-            System.exit(0);
+            //System.exit(0); having this enabled ruins the test cases
         }
         else if(e.status == MonopolyModel.Status.BANKRUPT2) {
             JOptionPane.showMessageDialog(this, "Current player has been eliminated.");
