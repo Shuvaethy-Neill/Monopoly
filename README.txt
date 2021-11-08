@@ -1,13 +1,15 @@
 # The Monopoly Game
-## [Version 2.0] 
-### November 8, 2021
+[Version 2.0] 
+November 8, 2021
+
 
 -----------------------------------------------------------------
-=======
+=========
 AUTHORS
-=======
+=========
 
 Contact Name:		
+
 		Shuvaethy Neill, 101143478
 		Dorothy Tran, 101141902
 		Harsimran Kanwar, 101143556
@@ -18,9 +20,9 @@ Affiliation:
 		SYSC3110 Software Development Project
 
 -----------------------------------------------------------------
-===========
+============
 DESCRIPTION
-===========
+============
 
 - This is our implementation of Monopoly that can be played from the command line
 
@@ -49,32 +51,32 @@ DESCRIPTION
 	Property
 	Tax
 -----------------------------------------------------------------
-=========
+===========
 CHANGELOG
-=========
+===========
 
 For Milestone 2, the following changes were made:
 - 
 
 
 -----------------------------------------------------------------
-============
+=============
 KNOWN ISSUES
-============
+=============
 
 All known issues have been resolved.
 
 
 -----------------------------------------------------------------
-=============
+===============
 ROADMAP AHEAD
-=============
+===============
 
-##Milestone 3:
+Milestone 3:
 		Add houses, hotels and special properties/squares
 		Add AI players
 
-##Milestone 4:
+Milestone 4:
 		Add save/load feature
 		Add international game versions with custom street names
 		
