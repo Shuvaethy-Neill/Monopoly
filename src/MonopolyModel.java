@@ -142,6 +142,7 @@ public class MonopolyModel {
 
     public String start() {
         player = rand.nextInt(players.size());
+        System.out.println("Starting the game...\n" + players.get(player).getName() + " will start!");
         notifyViews();
         return players.get(player).getName();
     }
@@ -160,6 +161,7 @@ public class MonopolyModel {
             players.get(player).incrementNumDoublesRolled();
         }
         if (players.get(player).getNumDoublesRolled() == 3) {
+            outputText= "oh no you rolled three doubles";
             endTurn();
         } // If 3 doubles rolled end turn
 
@@ -169,7 +171,9 @@ public class MonopolyModel {
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
         outputText += pieces[players.get(player).getPosition()].displayInfo();
         if(checkBankruptcy()){
+            System.out.println("should be bankrupt");
             endTurn();
+            System.out.println("should be undecided");
         }
         else if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
             this.playerStatus = Status.UNDECIDED;

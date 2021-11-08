@@ -34,7 +34,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         startButton = new JButton("Start");
         startButton.setPreferredSize(new Dimension(50, 50));
-        startButton.addActionListener( e -> { instructionInfo.setText("Starting game....\n" + model.start() + " will start!" );
+        startButton.addActionListener( e -> { //instructionInfo.setText("Starting game....\n" + model.start() + " will start!" );
+            model.start();
             startButton.setEnabled(false);
         });
 
