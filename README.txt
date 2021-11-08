@@ -56,8 +56,15 @@ CHANGELOG
 ===========
 
 For Milestone 2, the following changes were made:
-- 
-
+- Board.java was renamed to MonopolyModel.java as the MVC model
+- Created a MonopolyController.java class as the MVC controller
+- Created an Enumeration class BoardSquares.java that contains the Monopoly Board pieces
+- Created a MonopolyModel test class to test methods in the MonopolyModel.java Class using JUnit
+- Created MonopolyFrame.java for the MVC view of the Monopoly GUI
+- DiceDisplay.java, BoardPanel.java & PlayerPanel.java are the helper classes for the MVC view (MonopolyFrame.java)
+- Declared all possible commands as constants
+- Created a MonopolyView interface that updates the MonopolyEvent
+- Created MonopolyEvent.java that extends EventObject to notify other classes that an action has occured on the GUI
 
 -----------------------------------------------------------------
 =============
