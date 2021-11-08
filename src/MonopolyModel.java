@@ -209,7 +209,7 @@ public class MonopolyModel {
         if (pieces[players.get(player).getPosition()] instanceof Tax) {
             check = players.get(player).isBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
         } else if (pieces[players.get(player).getPosition()] instanceof Property) {
-            if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property not available
+            if ((!((Property) pieces[players.get(player).getPosition()]).isAvailable()) && (!(((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))))) { //property not available
                 check = players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
             } else {
                 check = (players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice()));
