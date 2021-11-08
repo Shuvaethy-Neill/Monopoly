@@ -128,8 +128,11 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
      */
     @Override
     public void update(MonopolyEvent e) {
-        int[] dice = e.getDice();
+        int[] dice = e.getDice().getDice();
         dice1.displayDiceValue(dice[0]);
         dice2.displayDiceValue(dice[1]);
+        if(!e.getDice().isDouble()){
+            rollButton.setEnabled(false);
+        }
     }
 }

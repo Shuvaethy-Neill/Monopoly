@@ -66,7 +66,7 @@ public class MonopolyModel {
      */
     public void notifyViews() {
         for (MonopolyView v : monopolyViews) {
-            v.update(new MonopolyEvent(this, this.dice.getDice()));
+            v.update(new MonopolyEvent(this, this.dice));
         }
     }
 
@@ -78,8 +78,8 @@ public class MonopolyModel {
         players.add(player);
     }
 
-    /**
-     * @return
+    /**Method that retrives list of players
+     * @return players
      */
     public ArrayList<Player> getPlayers() {
         return this.players;

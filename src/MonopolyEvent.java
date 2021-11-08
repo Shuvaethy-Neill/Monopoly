@@ -2,16 +2,16 @@ import java.util.EventObject;
 
 public class MonopolyEvent extends EventObject {
 
-    private int[] dice;
+    private Dice dice;
     private String instruction;
 
 
-    public MonopolyEvent(MonopolyModel source, int[] dice) {
+    public MonopolyEvent(MonopolyModel source, Dice dice) {
         super(source);
         this.dice = dice;
     }
 
-    public int[] getDice() {
+    public Dice getDice() {
         return dice;
     }
 }
