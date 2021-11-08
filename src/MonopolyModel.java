@@ -137,7 +137,7 @@ public class MonopolyModel {
 
     public String start() {
         player = rand.nextInt(players.size());
-        System.out.println("Starting the game...\n" + players.get(player).getName() + " will start!");
+        outputText +="Starting the game...\n" + players.get(player).getName() + " will start!";
         notifyViews();
         return players.get(player).getName();
     }
@@ -156,7 +156,7 @@ public class MonopolyModel {
             players.get(player).incrementNumDoublesRolled();
         }
         if (players.get(player).getNumDoublesRolled() == 3) {
-            System.out.println("oh no you rolled three doubles");
+            outputText= "oh no you rolled three doubles";
             endTurn();
         } // If 3 doubles rolled end turn
 
