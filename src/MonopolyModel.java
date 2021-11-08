@@ -254,6 +254,7 @@ public class MonopolyModel {
      * Method passes the turn to the next player in the game
      */
     public void endTurn() {
+        players.get(player).resetNumDoublesRolled();
         player++;
         if (player > players.size() - 1) {
             player = 0;

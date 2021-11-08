@@ -74,11 +74,20 @@ public class Player {
     }
 
     /**
+     * This method resets the number of doubles the user
+     * has rolled during their turn
+     * @return int, the number of doubles rolled
+     */
+    public void resetNumDoublesRolled() {
+        this.numDoublesRolled = 0;
+    }
+
+    /**
      * This method increments the number of doubles the user has rolled
      */
     public void incrementNumDoublesRolled(){
         if (numDoublesRolled ==4){ //reset if more than 3 doubles rolled
-            this.numDoublesRolled =0;
+            resetNumDoublesRolled();
         }
         else {
             this.numDoublesRolled++;
