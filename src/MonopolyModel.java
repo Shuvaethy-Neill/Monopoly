@@ -27,6 +27,9 @@ public class MonopolyModel {
 
     private String outputText; //text to notify user of decisions made
 
+    public enum Status {UNDECIDED,PLAYING};
+    private Status playerStatus;
+
     /**
      * Constructor for the Board Class
      */
@@ -36,6 +39,7 @@ public class MonopolyModel {
         pieces = new BoardSpace[BoardSquares.values().length];
         position = 0;
         player = 0;
+        playerStatus = Status.UNDECIDED;
         outputText="";
         for (BoardSquares s : BoardSquares.values()) {
             if (position == BoardSquares.values().length) {
@@ -96,6 +100,10 @@ public class MonopolyModel {
 
     public String getOutputText() {
         return outputText;
+    }
+
+    public Status getPlayerStatus() {
+        return playerStatus;
     }
 
     /**
@@ -175,7 +183,9 @@ public class MonopolyModel {
                 //command = endTurn();
                 endTurn();
             }
+
         }
+        this.playerStatus = Status.PLAYING;
     }
 
     /**
@@ -230,13 +240,13 @@ public class MonopolyModel {
     /**
      * Method passes the turn to the next player in the game
      */
-    public String endTurn() {
+    public void endTurn() {
         player++;
         if (player > players.size() - 1) {
             player = 0;
         }
         outputText += "\nPLAYER " + (players.get(player).getName()) + " 'S TURN!";
-        return "true";
+        this.playerStatus= Status.UNDECIDED;
     }
 
     /**
@@ -248,7 +258,7 @@ public class MonopolyModel {
         String prevCommand = command;
         // If the player is bankrupt, end their turn
         if (checkBankruptcy()) {
-            command = endTurn();
+            endTurn();
         }
         // Prevents the player from inputting the same command more the once if the rolled dice values are not doubles
         else if (!dice.isDouble() && command.equalsIgnoreCase("pass")) {
@@ -263,15 +273,13 @@ public class MonopolyModel {
             //validInput = true;
 
             // Notifies the player that they must roll first when it is their turn to play if they input a different command
-            if (prevCommand.equals("reset")) {
-                System.out.println("Oops you haven't rolled! Type 'roll' to roll the dice!");
-            }
+
             // The situation when the player purchases a property
-            else if (pieces[players.get(player).getPosition()] instanceof Property) {
+            if (pieces[players.get(player).getPosition()] instanceof Property) {
                 buy();
             }
             if (!dice.isDouble()) {
-                command = endTurn();
+                endTurn();
             }
         } else if (command.equals("Roll Dice")) {
             roll();
@@ -280,7 +288,7 @@ public class MonopolyModel {
         } else if (command.equalsIgnoreCase("Pass")) {
             //validInput = true;
             outputText="Your turn is now over! Passing to next player.";
-            command = endTurn();
+            endTurn();
         } else if (command.equalsIgnoreCase("quit")) {
             System.out.println("Thanks for playing! See you next time :)");
             System.exit(0);

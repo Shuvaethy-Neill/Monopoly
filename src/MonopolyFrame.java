@@ -134,7 +134,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         if(!e.getDice().isDouble()){
             rollButton.setEnabled(false);
         }
-        //if (e.switched()){rollButton.setEnabled(true);}
+        if (e.status == MonopolyModel.Status.UNDECIDED){rollButton.setEnabled(true);}
         instructionInfo.setText(e.getInstruction());
     }
 }

@@ -4,7 +4,7 @@ public class MonopolyEvent extends EventObject {
 
     private Dice dice;
     private String instruction;
-    private boolean turn;
+    MonopolyModel.Status status;
 
 
     public MonopolyEvent(MonopolyModel source) {
