@@ -42,8 +42,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         rollButton = new JButton("Roll Dice");
         rollButton.setPreferredSize(new Dimension(50, 50));
         rollButton.addActionListener( e -> { model.play(rollButton.getText());
-            instructionInfo.setText("\n Rolling the Dices!\n You rolled : " + dice1.getDiceValue() + " & " + dice2.getDiceValue() + "" +
-                    "\n You will move up ");
+           // instructionInfo.setText("\n Rolling the Dices!\n You rolled : " + dice1.getDiceValue() + " & " + dice2.getDiceValue() + "" +
+                  //  "\n You will move up ");
             //rollButton.setEnabled(false);
         });
 
@@ -59,7 +59,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         passButton.setPreferredSize(new Dimension(50, 50));
         passButton.addActionListener( e -> {
             rollButton.setEnabled(true);
-            instructionInfo.setText("Your turn is now over! Passing to the next player");
+            //instructionInfo.setText("Your turn is now over! Passing to the next player");
             model.play(passButton.getText());
         });
 
@@ -134,5 +134,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         if(!e.getDice().isDouble()){
             rollButton.setEnabled(false);
         }
+        //if (e.switched()){rollButton.setEnabled(true);}
+        instructionInfo.setText(e.getInstruction());
     }
 }

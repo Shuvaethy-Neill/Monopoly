@@ -25,6 +25,8 @@ public class MonopolyModel {
 
     private ArrayList<Player> players;
 
+    private String outputText; //text to notify user of decisions made
+
     /**
      * Constructor for the Board Class
      */
@@ -34,6 +36,7 @@ public class MonopolyModel {
         pieces = new BoardSpace[BoardSquares.values().length];
         position = 0;
         player = 0;
+        outputText="";
         for (BoardSquares s : BoardSquares.values()) {
             if (position == BoardSquares.values().length) {
                 continue;
@@ -66,7 +69,7 @@ public class MonopolyModel {
      */
     public void notifyViews() {
         for (MonopolyView v : monopolyViews) {
-            v.update(new MonopolyEvent(this, this.dice));
+            v.update(new MonopolyEvent(this));
         }
     }
 
@@ -89,6 +92,10 @@ public class MonopolyModel {
 
     public Dice getDice(){
         return this.dice;
+    }
+
+    public String getOutputText() {
+        return outputText;
     }
 
     /**
@@ -118,11 +125,10 @@ public class MonopolyModel {
     }
 
     private void help(){
-        System.out.println("Help:");
-        System.out.println("Press the 'Roll Dice' button to roll dices on your turn");
-        System.out.println("Press the 'Buy Property' button to purchase a property");
-        System.out.println("Press the 'Pass' button to pass your turn to the next player");
-        System.out.println("Press the 'x' on the game frame to end and close the game");
+        outputText = "Help:" +"\n" + "Press the 'Roll Dice' button to roll dices on your turn"+"\n" +
+                "Press the 'Buy Property' button to purchase a property" + "\n" +
+                "Press the 'Pass' button to pass your turn to the next player"  + "\n" +
+                "Press the 'x' on the game frame to end and close the game";
     }
 
     public void roll() {
@@ -140,8 +146,8 @@ public class MonopolyModel {
             players.get(player).incrementNumDoublesRolled();
         }
 
-        System.out.println("You rolled: " + dice.toString());
-        System.out.println("You will move up " + dice.getRollValue() + " spaces on the board!");
+       outputText= "\n Rolling the Dices!\n You rolled : " + dice.toString() +
+                    "\n You will move up " + dice.getRollValue();
         players.get(player).move(dice.getRollValue());
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
         pieces[players.get(player).getPosition()].displayInfo();
@@ -159,9 +165,9 @@ public class MonopolyModel {
         } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
             // Player who owns the property gets rent
             if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
-                System.out.println("You do not need to pay rent since you own this property.");
+                outputText+="\n You do not need to pay rent since you own this property.";
             } else {
-                System.out.println("Taking the money from your account");
+                outputText+="\n Taking the money from your account";
                 players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
                 ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
             }
@@ -191,15 +197,16 @@ public class MonopolyModel {
         }
 
         if (check) {
-            System.out.println("You have reached bankruptcy :(");
-            System.out.println("You are being eliminated from the game");
+            outputText="You have reached bankruptcy :( \n You are being eliminated from the game ";
+            //System.out.println("You are being eliminated from the game");
             for (int i = 0; i < players.get(player).getProperties().size(); i++) {
                 players.get(player).getProperties().get(i).sell();
             }
             players.remove(player);
             if (players.size() == 1) {
-                System.out.println("GAME OVER! " + players.get(0).getName() + " has won the game! ");
-                System.out.println("Thanks for playing!");
+                outputText="GAME OVER! " + players.get(0).getName() + " has won the game! \n Thanks for playing! ";
+                //System.out.println("GAME OVER! " + players.get(0).getName() + " has won the game! ");
+                //System.out.println("Thanks for playing!");
                 System.exit(0);
             }
         }
@@ -212,11 +219,11 @@ public class MonopolyModel {
             players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
             ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
             ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
-            System.out.println("Successfully purchased!");
+            outputText="\n Successfully purchased!";
         }
         //button should be disabled at this point (have to check availability when player lands not when they click buy)
         else {
-            System.out.println("Unfortunately the property you are on is not available for purchase.");
+            outputText= "\nUnfortunately the property you are on is not available for purchase.";
         }
     }
 
@@ -228,8 +235,8 @@ public class MonopolyModel {
         if (player > players.size() - 1) {
             player = 0;
         }
-        System.out.println("\nPLAYER " + (player + 1) + "'S TURN!");
-        return "reset";
+        outputText += "\nPLAYER " + (players.get(player).getName()) + " 'S TURN!";
+        return "true";
     }
 
     /**
@@ -272,7 +279,7 @@ public class MonopolyModel {
             // Error handling if the current player inputs the roll command multiple times if their rolled dice were not doubles
         } else if (command.equalsIgnoreCase("Pass")) {
             //validInput = true;
-            System.out.println("Your turn is now over! Passing to next player.");
+            outputText="Your turn is now over! Passing to next player.";
             command = endTurn();
         } else if (command.equalsIgnoreCase("quit")) {
             System.out.println("Thanks for playing! See you next time :)");
