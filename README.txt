@@ -24,7 +24,7 @@ Affiliation:
 DESCRIPTION
 ============
 
-- This is our implementation of Monopoly that can be played with a user interface following the MVC model.
+- This is our implementation of Monopoly that can be played using a user interface which follows the MVC model.
 
 - The milestone is composed of the following files:
 
