@@ -1,6 +1,9 @@
 import javax.swing.*;
+/**
+ * WE NEED TO FIX THIS
+ * bug where if user presses enter when asked for a username, the username becomes blank, we should prevent this..
+ */
 
-//bug where if user presses enter when asked for a username, the username becomes blank, we should prevent this..
 public class MonopolyController {
     private MonopolyModel model;
     private MonopolyFrame view;

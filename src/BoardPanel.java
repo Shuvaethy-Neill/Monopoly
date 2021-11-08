@@ -2,6 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * ADD PLAYER ICONS USING UPDATE
+ */
+
+/**
  * BoardPanel Class that extends from the JPanel Class and implements the MonopolyView Interface
  */
 public class BoardPanel extends JPanel implements MonopolyView {
@@ -81,8 +85,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
      */
     @Override
     public void update(MonopolyEvent e) {
-        //how do we incorporate the event??
-        //MonopolyModel monopolyModel = (MonopolyModel) e.getSource();
+        //add player icons on board
         this.removeAll();
         BoardSpace currentSpace;
         for (int i = 0; i < boardSpaceConstraints.length; i++) {

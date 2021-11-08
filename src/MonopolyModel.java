@@ -4,6 +4,12 @@ import java.util.Locale;
 import java.util.Random;
 
 /**
+ * THINGS WE STILL NEED TO DO:
+ * -make help and pass constants
+ * -bug that lets user press buy property on a tax square after they have rolled doubles
+ */
+
+/**
  * The MonopolyModel Class that contains the MVC Model of the Monopoly board
  *
  * @author Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill, and Evan Smedley
@@ -28,7 +34,8 @@ public class MonopolyModel {
 
     private String outputText; //text to notify user of decisions made
 
-    public enum Status {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2};
+    public enum Status {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2, QUITTING};
+
     private Status playerStatus;
 
     /**
@@ -145,13 +152,15 @@ public class MonopolyModel {
     public void roll() {
         this.playerStatus = Status.PLAYING;
         dice.roll();
-        if (players.get(player).getNumDoublesRolled() == 3) {
-            endTurn();
-        } // If 3 doubles rolled end turn
         if (dice.isDouble()) {
             players.get(player).incrementNumDoublesRolled();
         }
+        if (players.get(player).getNumDoublesRolled() == 3) {
+            System.out.println("oh no you rolled three doubles");
+            endTurn();
+        } // If 3 doubles rolled end turn
 
+        System.out.println("Before printing rolled dice values" + this.playerStatus);
        outputText += "Rolling the Dices! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
         players.get(player).move(dice.getRollValue());
@@ -162,12 +171,14 @@ public class MonopolyModel {
             endTurn();
             System.out.println("should be undecided");
         }
-        if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
+        else if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
+            this.playerStatus = Status.UNDECIDED;
             if (!dice.isDouble()) {
                 endTurn();
             }
         } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
             players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
+            this.playerStatus = Status.UNDECIDED;
             if (!dice.isDouble()) {
                 endTurn();
             }
@@ -180,10 +191,11 @@ public class MonopolyModel {
                 players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
                 ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
             }
-            if (!checkBankruptcy() && !dice.isDouble()) {
+            if (!dice.isDouble()) {
                 endTurn();
             }
         }
+        System.out.println("About to exit roll method" + this.playerStatus);
     }
 
     /**
@@ -205,7 +217,7 @@ public class MonopolyModel {
         }
 
         if (check) {
-            outputText += "\nYou have reached bankruptcy :( \nYou are being eliminated from the game ";
+            outputText += "\nOh no you don't have enough money!\nYou have reached bankruptcy :( \nYou are being eliminated from the game";
             for (int i = 0; i < players.get(player).getProperties().size(); i++) {
                 players.get(player).getProperties().get(i).sell();
             }
@@ -269,9 +281,13 @@ public class MonopolyModel {
             }
         } else if (command.equals("Roll Dice")) {
             roll();
+            System.out.println("After exiting roll method" + this.playerStatus);
         } else if (command.equals("Pass")) {
             outputText="Your turn is now over! Passing to next player.";
             endTurn();
+        }
+        else if (command.equals("Quit")) {
+            this.playerStatus = Status.QUITTING;
         }
         notifyViews();
     }

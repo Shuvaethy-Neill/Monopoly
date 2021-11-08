@@ -34,9 +34,6 @@ public abstract class BoardSpace extends JPanel {
         this.square = new ImageIcon(path);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        //JLabel nameLabel = new JLabel(name, JLabel.CENTER);
-        //this.add(nameLabel, BorderLayout.PAGE_START);
-
         this.square = new ImageIcon(this.square.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         JLabel picLabel = new JLabel(this.square, JLabel.CENTER);
         this.add(picLabel, BorderLayout.PAGE_START);
