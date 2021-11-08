@@ -4,7 +4,7 @@ import java.util.Objects;
 /**
  * The Player class represents a player in the game
  *
- * @author Shuvaethy Neill, Harismran Kanwar, Dorothy Tran
+ * @author Shuvaethy Neill, Harsimran Kanwar, Dorothy Tran
  * @version 1.0
  * @since 2021-10-24
  */

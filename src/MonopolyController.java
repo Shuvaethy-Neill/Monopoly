@@ -1,14 +1,21 @@
 import javax.swing.*;
 
 //bug where if user presses enter when asked for a username, the username becomes blank, we should prevent this..
+
+/**
+ * MonopolyController Class which acts on both MonopolyModel and MonopolyFrame View
+ */
 public class MonopolyController {
     private MonopolyModel model;
     private MonopolyFrame view;
-
     private static final int MAX_PLAYERS = 4;
-
     private int numPlayers;
 
+    /**
+     * Constructor for Monopoly Controller
+     * @param model MonopolyModel, MVC model
+     * @param view MonopolyFrame, MVC view
+     */
     public MonopolyController(MonopolyModel model, MonopolyFrame view) {
         this.model = model;
         this.view = view;

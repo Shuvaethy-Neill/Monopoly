@@ -13,21 +13,13 @@ import java.util.Random;
 public class MonopolyModel {
 
     private List<MonopolyView> monopolyViews;
-
     private Random rand;
-
     private Dice dice;
-
     private BoardSpace[] pieces;
-
     private int position;
-
     private int player; // current player
-
     private ArrayList<Player> players;
-
     private String outputText; //text to notify user of decisions made
-
     public enum Status {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2};
     private Status playerStatus;
 
@@ -51,26 +43,27 @@ public class MonopolyModel {
             position += 1;
         }
         players = new ArrayList<>();
-
         monopolyViews = new ArrayList<>();
     }
 
     /**
-     * @param view
+     * Method adds a view
+     * @param view, MonopolyView interface
      */
     public void addView(MonopolyView view) {
         this.monopolyViews.add(view);
     }
 
     /**
-     * @param viewIndex
+     * Method removes a view from the ArrayList
+     * @param viewIndex int, index of the MonopolyView
      */
     public void removeView(int viewIndex) {
         this.monopolyViews.remove(viewIndex);
     }
 
     /**
-     *
+     * Method updates and notifies the MonopolyEvent
      */
     public void notifyViews() {
         for (MonopolyView v : monopolyViews) {
@@ -79,39 +72,55 @@ public class MonopolyModel {
     }
 
     /**
-     * add player to the game
+     * Method adds a player to the game
      * @param player
      */
     public void addPlayer(Player player) {
         players.add(player);
     }
 
-    /**Method that retrives list of players
-     * @return players
+    /**
+     * Method that retrieves a list of players
+     * @return ArrayList<Player>, list of players in the game
      */
     public ArrayList<Player> getPlayers() {
         return this.players;
     }
 
+    /**
+     * Method that gets the player
+     * @return int, player number
+     */
     public int getPlayer() {
         return this.player;
     }
 
+    /**
+     * Method that gets the dice
+     * @return Dice, dice in the game
+     */
     public Dice getDice(){
         return this.dice;
     }
 
+    /**
+     * Method that gets the output text instructions from the JTextArea
+     * @return String, instruction output text
+     */
     public String getOutputText() {
         return outputText;
     }
 
+    /**
+     * Method that gets the player's status in the game
+     * @return Status, status of the player
+     */
     public Status getPlayerStatus() {
         return playerStatus;
     }
 
     /**
      * Method gets the board space pieces
-     *
      * @return BoardSpace[], The array of BoardSpace pieces
      */
     public BoardSpace[] getPieces() {
@@ -128,6 +137,10 @@ public class MonopolyModel {
         return pieces[i];
     }
 
+    /**
+     * Method starts the game by randomly selecting the first player
+     * @return String, info text on the info console
+     */
     public String start() {
         player = rand.nextInt(players.size());
         System.out.println("Starting the game...\n" + players.get(player).getName() + " will start!");
@@ -135,6 +148,9 @@ public class MonopolyModel {
         return players.get(player).getName();
     }
 
+    /**
+     * Method that lists out help text for users when the user selects the "Help" button
+     */
     private void help(){
         outputText = "Help:" +"\n" + "Press the 'Roll Dice' button to roll dices on your turn"+"\n" +
                 "Press the 'Buy Property' button to purchase a property" + "\n" +
@@ -142,6 +158,12 @@ public class MonopolyModel {
                 "Press the 'x' on the game frame to end and close the game";
     }
 
+    /**
+     * Method that rolls the dice when the user selects the "Roll Dice" button and determines if their roll was a double.
+     * The method will move the player along each space on the board based on their total roll value and will check if
+     * the player is bankrupt or not. If the player lands on a FreeParking space or Tax space, their turn will end. If
+     * the player lands on another player's property, it will deduct money from their account
+     */
     public void roll() {
         this.playerStatus = Status.PLAYING;
         dice.roll();
@@ -162,6 +184,7 @@ public class MonopolyModel {
             endTurn();
             System.out.println("should be undecided");
         }
+        // If player lands on Free Parking space
         if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
             if (!dice.isDouble()) {
                 endTurn();
@@ -188,7 +211,6 @@ public class MonopolyModel {
 
     /**
      * Method checks if the Player is bankrupt
-     *
      * @return boolean, true if they are bankrupt, false otherwise
      */
     private boolean checkBankruptcy() {
@@ -225,6 +247,9 @@ public class MonopolyModel {
         return check;
     }
 
+    /**
+     * Method that allows users to purchase a property when they select the "Buy Property" Button
+     */
     private void buy() {
         if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
             players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account

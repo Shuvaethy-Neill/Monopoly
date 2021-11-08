@@ -77,7 +77,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
     }
 
     /**
-     *
+     * Method updates the MonopolyEvent
      */
     @Override
     public void update(MonopolyEvent e) {
