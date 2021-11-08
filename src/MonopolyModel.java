@@ -140,8 +140,8 @@ public class MonopolyModel {
     }
 
     public void roll() {
-        dice.roll();
         this.playerStatus = Status.PLAYING;
+        dice.roll();
         if (players.get(player).getNumDoublesRolled() == 2) {
             endTurn();
         } // If 3 doubles rolled end turn
@@ -249,7 +249,7 @@ public class MonopolyModel {
         if (checkBankruptcy()) {
             endTurn();
 
-        } else if (command.equalsIgnoreCase("Help")) {
+        } else if (command.equals("Help")) {
             help();
         }
         else if (command.equals("Buy Property")) {
@@ -262,10 +262,10 @@ public class MonopolyModel {
             }
         } else if (command.equals("Roll Dice")) {
             roll();
-        } else if (command.equalsIgnoreCase("Pass")) {
+        } else if (command.equals("Pass")) {
             outputText="Your turn is now over! Passing to next player.";
             endTurn();
-        } else if (command.equalsIgnoreCase("quit")) {
+        } else if (command.equals("quit")) {
             System.out.println("Thanks for playing! See you next time :)");
             System.exit(0);
         }

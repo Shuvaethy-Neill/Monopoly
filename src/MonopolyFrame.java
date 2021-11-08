@@ -41,22 +41,23 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         rollButton = new JButton("Roll Dice");
         rollButton.setPreferredSize(new Dimension(50, 50));
+        rollButton.setEnabled(false);
         rollButton.addActionListener( e -> { model.play(rollButton.getText());
-           // instructionInfo.setText("\n Rolling the Dices!\n You rolled : " + dice1.getDiceValue() + " & " + dice2.getDiceValue() + "" +
-                  //  "\n You will move up ");
-            //rollButton.setEnabled(false);
         });
 
         buyButton = new JButton("Buy Property");
         buyButton.setPreferredSize(new Dimension(50, 50));
+        buyButton.setEnabled(false);
         buyButton.addActionListener( e -> model.play(buyButton.getText()));
 
         helpButton = new JButton("Help");
         helpButton.setPreferredSize(new Dimension(50, 50));
+        helpButton.setEnabled(false);
         helpButton.addActionListener( e -> model.play(helpButton.getText()));
 
         passButton = new JButton("Pass");
         passButton.setPreferredSize(new Dimension(50, 50));
+        passButton.setEnabled(false);
         passButton.addActionListener( e -> {
             rollButton.setEnabled(true);
             //instructionInfo.setText("Your turn is now over! Passing to the next player");
@@ -94,7 +95,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         instructionInfo.setRows(5);
         instructionInfo.setEditable(false);
         instructionInfo.setPreferredSize(new Dimension(500, 50));
-        instructionInfo.setText("\n Welcome to the Monopoly Game! \n This is where instructions and buttons to make decisions will appear!");
+        instructionInfo.setText("\n Welcome to the Monopoly Game! \n Please press the \"Start\" button to start a game!");
         instructionPanel.add(instructionInfo, BorderLayout.SOUTH);
         instructionPanel.add(buttonPanel, BorderLayout.NORTH);
 
@@ -132,16 +133,18 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         dice1.displayDiceValue(dice[0]);
         dice2.displayDiceValue(dice[1]);
         System.out.println(e.status);
+
         if (e.status == MonopolyModel.Status.PLAYING){
-            System.out.println(e.status);
             buyButton.setEnabled(true);
             if(!e.getDice().isDouble()) {
                 rollButton.setEnabled(false);
             }
         }
-        if (e.status == MonopolyModel.Status.UNDECIDED){
+        else{
             rollButton.setEnabled(true);
             buyButton.setEnabled(false);
+            passButton.setEnabled(true);
+            helpButton.setEnabled(true);
         }
         instructionInfo.setText(e.getInstruction());
     }
