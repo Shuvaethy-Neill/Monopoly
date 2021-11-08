@@ -24,7 +24,7 @@ Affiliation:
 DESCRIPTION
 ============
 
-- This is our implementation of Monopoly that can be played from the command line
+- This is our implementation of Monopoly that can be played with a user interface following the MVC model.
 
 - The milestone is composed of the following files:
 
@@ -57,14 +57,17 @@ CHANGELOG
 
 For Milestone 2, the following changes were made:
 - Board.java was renamed to MonopolyModel.java as the MVC model
+- Several methods in MonopolyMethod.java were refactored to accommodate MVC.
 - Created a MonopolyController.java class as the MVC controller
-- Created an Enumeration class BoardSquares.java that contains the Monopoly Board pieces
-- Created a MonopolyModel test class to test methods in the MonopolyModel.java Class using JUnit
+- Created an Enumeration class BoardSquares.java that contains the names and properties of Monopoly Board pieces
+- Created a MonopolyModel test class to test methods in the MonopolyModel.java Class using JUnit4
 - Created MonopolyFrame.java for the MVC view of the Monopoly GUI
 - DiceDisplay.java, BoardPanel.java & PlayerPanel.java are the helper classes for the MVC view (MonopolyFrame.java)
 - Declared all possible commands as constants
-- Created a MonopolyView interface that updates the MonopolyEvent
-- Created MonopolyEvent.java that extends EventObject to notify other classes that an action has occured on the GUI
+- Created a MonopolyView interface that updates the MonopolyEvent.
+  Interface was used so that multiple classes are able to update the event their own way.
+- Created MonopolyEvent.java that extends EventObject to notify other classes that an action has occurred on the GUI.
+  Events are created though user actions such as clicking a button or reaching bankruptcy.
 
 -----------------------------------------------------------------
 =============
