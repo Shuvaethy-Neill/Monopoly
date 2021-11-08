@@ -6,7 +6,6 @@ import java.util.Random;
 /**
  * THINGS WE STILL NEED TO DO:
  * -make help and pass constants
- * -bug that lets user press buy property on a tax square after they have rolled doubles
  */
 
 /**
@@ -137,7 +136,7 @@ public class MonopolyModel {
 
     public String start() {
         player = rand.nextInt(players.size());
-        outputText +="Starting the game...\n" + players.get(player).getName() + " will start!";
+        System.out.println("Starting the game...\n" + players.get(player).getName() + " will start!");
         notifyViews();
         return players.get(player).getName();
     }
@@ -146,7 +145,7 @@ public class MonopolyModel {
         outputText = "Help:" +"\n" + "Press the 'Roll Dice' button to roll dices on your turn"+"\n" +
                 "Press the 'Buy Property' button to purchase a property" + "\n" +
                 "Press the 'Pass' button to pass your turn to the next player"  + "\n" +
-                "Press the 'x' on the game frame to end and close the game";
+                "Press the 'Quit' button to end and close the game";
     }
 
     public void roll() {
@@ -160,7 +159,6 @@ public class MonopolyModel {
             endTurn();
         } // If 3 doubles rolled end turn
 
-        System.out.println("Before printing rolled dice values" + this.playerStatus);
        outputText += "Rolling the Dices! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
         players.get(player).move(dice.getRollValue());
@@ -195,7 +193,6 @@ public class MonopolyModel {
                 endTurn();
             }
         }
-        System.out.println("About to exit roll method" + this.playerStatus);
     }
 
     /**
@@ -209,7 +206,7 @@ public class MonopolyModel {
         if (pieces[players.get(player).getPosition()] instanceof Tax) {
             check = players.get(player).isBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
         } else if (pieces[players.get(player).getPosition()] instanceof Property) {
-            if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { //property not available
+            if ((!((Property) pieces[players.get(player).getPosition()]).isAvailable()) && (!(((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))))) { //property not available
                 check = players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
             } else {
                 check = (players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice()));
@@ -282,7 +279,6 @@ public class MonopolyModel {
             }
         } else if (command.equals("Roll Dice")) {
             roll();
-            System.out.println("After exiting roll method" + this.playerStatus);
         } else if (command.equals("Pass")) {
             outputText="Your turn is now over! Passing to next player.";
             endTurn();
