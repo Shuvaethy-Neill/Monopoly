@@ -65,7 +65,7 @@ public abstract class BoardSpace extends JPanel {
     public abstract String displayInfo();
 
     /**
-     *
+     * Abstract method that updates the panel
      */
     public abstract void updatePanel();
 }

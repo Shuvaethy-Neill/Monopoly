@@ -22,7 +22,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
     /**
      * Constructor for the MonopolyFrame Class
-     *
      * @param model MonopolyModel
      */
     public MonopolyFrame(MonopolyModel model) {
@@ -99,7 +98,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
     /**
      * Method that adds the panels to each section of the frame
-     *
      * @param boardPanel BoardPanel, the Monopoly Board Panel
      * @param playerPanel PlayerPanel, the Monopoly Player Panel
      */
@@ -113,7 +111,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     }
 
     /**
-     *
+     * Method updates the MonopolyEvent
      */
     @Override
     public void update(MonopolyEvent e) {

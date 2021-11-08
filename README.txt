@@ -1,13 +1,15 @@
-Monopoly
-[Version 1.0] 
-October 25, 2021
+# The Monopoly Game
+[Version 2.0] 
+November 8, 2021
 
-#-----------------------------------------------------------------------------
-=======
+
+-----------------------------------------------------------------
+=========
 AUTHORS
-=======
+=========
 
 Contact Name:		
+
 		Shuvaethy Neill, 101143478
 		Dorothy Tran, 101141902
 		Harsimran Kanwar, 101143556
@@ -17,61 +19,58 @@ Affiliation:
 		Carleton University - Systems and Computer Engineering
 		SYSC3110 Software Development Project
 
-
-
-#-----------------------------------------------------------------------------
-===========
+-----------------------------------------------------------------
+============
 DESCRIPTION
-===========
+============
 
 - This is our implementation of Monopoly that can be played from the command line
 
 - The milestone is composed of the following files:
 
 	Monopoly.jar
-	SYSC3110_M1_Documentation.pdf
-	SYSC3110_M1_UML.png
+	SYSC3110_M2_Documentation.pdf
+	SYSC3110_M2_UML.png
 	SequenceDiagram_PlayMethod.png
 
 - The jar file has '.java' and '.class' files for the following classes
-
-	Dice
-	Property
+	BoardPanel
 	BoardSpace
-	Board
-	Tax
-	Player
+	BoardSquares
+	Dice
+	DiceDisplay
 	FreeParking
-
-
-
-#-----------------------------------------------------------------------------
-=========
+	MonopolyClient
+	MonopolyController
+	MonopolyEvent
+	MonopolyFrame
+	MonopolyModel
+	MonopolyView
+	Player
+	PlayerPanel
+	Property
+	Tax
+-----------------------------------------------------------------
+===========
 CHANGELOG
-=========
+===========
 
-This is the first milestone so there have been no changes so far.
+For Milestone 2, the following changes were made:
+- 
 
 
-
-#-----------------------------------------------------------------------------
-============
+-----------------------------------------------------------------
+=============
 KNOWN ISSUES
-============
+=============
 
 All known issues have been resolved.
 
 
-
-#-----------------------------------------------------------------------------
-=============
+-----------------------------------------------------------------
+===============
 ROADMAP AHEAD
-=============
-
-Milestone 2: 
-		Add GUI
-		Add View and Controller classes
-		Add model unit tests
+===============
 
 Milestone 3:
 		Add houses, hotels and special properties/squares
@@ -80,10 +79,9 @@ Milestone 3:
 Milestone 4:
 		Add save/load feature
 		Add international game versions with custom street names
+		
 
-
-
-#-----------------------------------------------------------------------------
+-----------------------------------------------------------------
 =======
 CREDITS
 =======
@@ -92,15 +90,14 @@ Thanks to the support of TAs and Instructor during the development of this
 application.
 
 
-
-#-----------------------------------------------------------------------------
+-----------------------------------------------------------------
 =======
 LICENSE
 =======
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-Copyright (c) 2021 Evan Smedley
+Copyright (c) 2021 Evan Smedley, Dorothy Tran, Harsimran Kanwar, & Shuvaethy Niell
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

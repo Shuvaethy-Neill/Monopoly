@@ -48,7 +48,7 @@ public class Tax extends BoardSpace {
     }
 
     /**
-     *
+     * Method updates the panel
      */
     @Override
     public void updatePanel() {
@@ -58,7 +58,7 @@ public class Tax extends BoardSpace {
     /**
      * Determines if an instance of Tax is equivalent to another instance of Tax
      *
-     * @param o
+     * @param o, Object
      * @return boolean, if the objects are equivalent
      */
     @Override
