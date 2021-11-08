@@ -144,7 +144,7 @@ public class MonopolyModel {
         outputText = "Help:" +"\n" + "Press the 'Roll Dice' button to roll dices on your turn"+"\n" +
                 "Press the 'Buy Property' button to purchase a property" + "\n" +
                 "Press the 'Pass' button to pass your turn to the next player"  + "\n" +
-                "Press the 'x' on the game frame to end and close the game";
+                "Press the 'Quit' button to end and close the game";
     }
 
     public void roll() {
