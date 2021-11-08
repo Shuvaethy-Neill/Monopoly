@@ -21,6 +21,9 @@ public abstract class BoardSpace extends JPanel {
      */
     private final String type;
 
+    /**
+     * Image for the board space
+     */
     private ImageIcon square;
 
 
@@ -33,9 +36,6 @@ public abstract class BoardSpace extends JPanel {
         this.type = type;
         this.square = new ImageIcon(path);
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        //JLabel nameLabel = new JLabel(name, JLabel.CENTER);
-        //this.add(nameLabel, BorderLayout.PAGE_START);
 
         this.square = new ImageIcon(this.square.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
         JLabel picLabel = new JLabel(this.square, JLabel.CENTER);
