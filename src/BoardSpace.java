@@ -65,7 +65,7 @@ public abstract class BoardSpace extends JPanel {
     /**
      * An abstract method for displaying information about the board space
      */
-    public abstract void displayInfo();
+    public abstract String displayInfo();
 
     /**
      *

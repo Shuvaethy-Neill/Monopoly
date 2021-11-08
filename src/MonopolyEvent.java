@@ -11,6 +11,7 @@ public class MonopolyEvent extends EventObject {
         super(source);
         this.dice = source.getDice();
         this.instruction = source.getOutputText();
+        this.status = source.getPlayerStatus();
     }
 
     public String getInstruction() {

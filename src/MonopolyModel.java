@@ -140,25 +140,20 @@ public class MonopolyModel {
     }
 
     public void roll() {
-        /*
-        if ((players.get(player).getNumDoublesRolled() == 0)) {
-            System.out.println("Invalid! You already rolled!");
-        }
-        else {
-         */
         dice.roll();
-        if (players.get(player).getNumDoublesRolled() == 3) {
+        this.playerStatus = Status.PLAYING;
+        if (players.get(player).getNumDoublesRolled() == 2) {
             endTurn();
         } // If 3 doubles rolled end turn
         if (dice.isDouble()) {
             players.get(player).incrementNumDoublesRolled();
         }
 
-       outputText= "\n Rolling the Dices!\n You rolled : " + dice.toString() +
-                    "\n You will move up " + dice.getRollValue();
+       outputText= "\n Rolling the Dices! You rolled : " + dice.toString() +
+                    "\n You will move up " + dice.getRollValue() + " spaces on the board!";
         players.get(player).move(dice.getRollValue());
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
-        pieces[players.get(player).getPosition()].displayInfo();
+        outputText += pieces[players.get(player).getPosition()].displayInfo();
         if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
             if (!dice.isDouble()) {
                 //command = endTurn(); // Player lands on the Free Parking space, end their turn if doubles are rolled
@@ -167,7 +162,6 @@ public class MonopolyModel {
         } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
             players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
             if (!dice.isDouble()) {
-                //command = endTurn(); // Player lands on the Tax space, end their turn if doubles are rolled
                 endTurn();
             }
         } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
@@ -185,7 +179,7 @@ public class MonopolyModel {
             }
 
         }
-        this.playerStatus = Status.PLAYING;
+
     }
 
     /**
@@ -208,15 +202,12 @@ public class MonopolyModel {
 
         if (check) {
             outputText="You have reached bankruptcy :( \n You are being eliminated from the game ";
-            //System.out.println("You are being eliminated from the game");
             for (int i = 0; i < players.get(player).getProperties().size(); i++) {
                 players.get(player).getProperties().get(i).sell();
             }
             players.remove(player);
             if (players.size() == 1) {
                 outputText="GAME OVER! " + players.get(0).getName() + " has won the game! \n Thanks for playing! ";
-                //System.out.println("GAME OVER! " + players.get(0).getName() + " has won the game! ");
-                //System.out.println("Thanks for playing!");
                 System.exit(0);
             }
         }
@@ -253,27 +244,15 @@ public class MonopolyModel {
      * Method displays the user interface of the Monopoly Board that takes user input
      */
     public void play(String command) {
-        //boolean validInput = false;
-
         String prevCommand = command;
         // If the player is bankrupt, end their turn
         if (checkBankruptcy()) {
             endTurn();
-        }
-        // Prevents the player from inputting the same command more the once if the rolled dice values are not doubles
-        else if (!dice.isDouble() && command.equalsIgnoreCase("pass")) {
-            System.out.println("Invalid command");
-            System.out.println("Please try again :)");
+
         } else if (command.equalsIgnoreCase("Help")) {
-            //validInput = true;
             help();
-
-        } else if (command.equals("Buy Property")) {
-            System.out.println("here");
-            //validInput = true;
-
-            // Notifies the player that they must roll first when it is their turn to play if they input a different command
-
+        }
+        else if (command.equals("Buy Property")) {
             // The situation when the player purchases a property
             if (pieces[players.get(player).getPosition()] instanceof Property) {
                 buy();
@@ -283,10 +262,7 @@ public class MonopolyModel {
             }
         } else if (command.equals("Roll Dice")) {
             roll();
-            //validInput = true;
-            // Error handling if the current player inputs the roll command multiple times if their rolled dice were not doubles
         } else if (command.equalsIgnoreCase("Pass")) {
-            //validInput = true;
             outputText="Your turn is now over! Passing to next player.";
             endTurn();
         } else if (command.equalsIgnoreCase("quit")) {
@@ -294,13 +270,5 @@ public class MonopolyModel {
             System.exit(0);
         }
         notifyViews();
-            /*else {
-                //validInput = false;
-                System.out.println("Error: Please enter a valid command");
-
-            if (validInput) {
-                prevCommand = command;
-
-             */
     }
 }

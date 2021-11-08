@@ -45,8 +45,8 @@ public class FreeParking extends BoardSpace {
      * A method for displaying information about the free parking space
      */
     @Override
-    public void displayInfo() {
-        System.out.println("You are now located at: " + getName() + "\nThis is a free space!");
+    public String displayInfo() {
+        return "\n You are now located at: " + getName() + "\nThis is a free space!";
     }
 
     @Override

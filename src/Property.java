@@ -130,16 +130,15 @@ public class Property extends BoardSpace {
      * Displays property landed on along with if it's available for purchase or they pay rent.
      */
     @Override
-    public void displayInfo() {
-        System.out.println("You are now located at: " + getName());
+    public String displayInfo() {
+        String text = "\n You are now located at: " + getName();
         if (isAvailable){
-            System.out.println("This property costs $" + getPrice());
-            System.out.println("Type 'buy' if you would like to purchase this property");
-            System.out.println("Type 'pass' if you would not like to purchase this property");
+            text += "\n This property costs $" + getPrice();
         }
         else{
-            System.out.println("The rent for this property is $" + getRent() + ".");
+            text += "\n The rent for this property is $" + getRent() + ".";
         }
+        return text;
     }
 
     /**

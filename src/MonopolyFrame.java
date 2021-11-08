@@ -131,10 +131,18 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         int[] dice = e.getDice().getDice();
         dice1.displayDiceValue(dice[0]);
         dice2.displayDiceValue(dice[1]);
-        if(!e.getDice().isDouble()){
-            rollButton.setEnabled(false);
+        System.out.println(e.status);
+        if (e.status == MonopolyModel.Status.PLAYING){
+            System.out.println(e.status);
+            buyButton.setEnabled(true);
+            if(!e.getDice().isDouble()) {
+                rollButton.setEnabled(false);
+            }
         }
-        if (e.status == MonopolyModel.Status.UNDECIDED){rollButton.setEnabled(true);}
+        if (e.status == MonopolyModel.Status.UNDECIDED){
+            rollButton.setEnabled(true);
+            buyButton.setEnabled(false);
+        }
         instructionInfo.setText(e.getInstruction());
     }
 }
