@@ -25,6 +25,12 @@ public class MonopolyModel {
 
     private BoardSpace[] pieces;
 
+    private static final String HELP = "Help";
+    private static final String ROLL = "Roll Dice";
+    private static final String BUY = "Buy Property";
+    private static final String PASS = "Pass";
+    private static final String QUIT = "Quit";
+
     private int position;
 
     private int player; // current player
@@ -262,10 +268,10 @@ public class MonopolyModel {
     public void play(String command) {
         outputText = this.getPlayers().get(player).getName().toUpperCase(Locale.ROOT) + "'S TURN:\n";
 
-        if (command.equals("Help")) {
+        if (command.equals(HELP)) {
             help();
         }
-        else if (command.equals("Buy Property")) {
+        else if (command.equals(BUY)) {
             // The situation when the player purchases a property
             if (pieces[players.get(player).getPosition()] instanceof Property) {
                 buy();
@@ -273,13 +279,13 @@ public class MonopolyModel {
             if (!dice.isDouble()) {
                 endTurn();
             }
-        } else if (command.equals("Roll Dice")) {
+        } else if (command.equals(ROLL)) {
             roll();
-        } else if (command.equals("Pass")) {
+        } else if (command.equals(PASS)) {
             outputText="Your turn is now over! Passing to next player.";
             endTurn();
         }
-        else if (command.equals("Quit")) {
+        else if (command.equals(QUIT)) {
             this.playerStatus = Status.QUITTING;
         }
         notifyViews();
