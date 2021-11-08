@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PlayerPanel extends JTabbedPane implements MonopolyView {
 
@@ -31,7 +32,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
             individualPlayerPanels[i].setPreferredSize(new Dimension(450,800));
             individualPlayerPanels[i].setLayout(new BoxLayout(individualPlayerPanels[i], BoxLayout.PAGE_AXIS));
             individualPlayerPanels[i].setBackground(colours[i]);
-            updatePlayerList(i);
+            updatePlayerList(model.getPlayers(), i);
             this.addTab(model.getPlayers().get(i).getName(), individualPlayerPanels[i]);
         }
     }
@@ -40,8 +41,9 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
      *
      * @param playerIndex
      */
-    private void updatePlayerList(int playerIndex) {
-        Player currentPlayer = model.getPlayers().get(playerIndex);
+    private void updatePlayerList(ArrayList<Player> players, int playerIndex) {
+        this.addTab(players.get(playerIndex).getName(), individualPlayerPanels[playerIndex]);
+        Player currentPlayer = players.get(playerIndex);
         individualPlayerPanels[playerIndex].removeAll();
         DefaultListModel<String> listModel = new DefaultListModel<>();
 
@@ -70,13 +72,9 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
      */
     @Override
     public void update(MonopolyEvent e) {
-        //uhm this doesnt use the passed in event and as of rn i have no idea what to replace
-        //we could get rid of the updatePlayerList() method and put its method body in here instead but the initializeLayout() uses it
-        if(e.status == MonopolyModel.Status.BANKRUPT2){
-            this.remove(e.getCurrentPlayer());
-        }
-        for (int i = 0; i < individualPlayerPanels.length; i++) {
-            updatePlayerList(i);
+        this.removeAll();
+        for (int i = 0; i < e.getCurrentPlayers().size(); i++) {
+            updatePlayerList(e.getCurrentPlayers(),i);
         }
     }
 }

@@ -92,12 +92,6 @@ public class MonopolyModel {
         return this.players;
     }
 
-    public int getCurrentPlayer(){
-        return this.player;
-    }
-
-    // Every thing above this works for MVC
-
     public Dice getDice(){
         return this.dice;
     }
@@ -146,21 +140,25 @@ public class MonopolyModel {
     public void roll() {
         this.playerStatus = Status.PLAYING;
         dice.roll();
-        if (players.get(player).getNumDoublesRolled() == 2) {
+        if (players.get(player).getNumDoublesRolled() == 3) {
             endTurn();
         } // If 3 doubles rolled end turn
         if (dice.isDouble()) {
             players.get(player).incrementNumDoublesRolled();
         }
 
-       outputText= "\n Rolling the Dices! You rolled : " + dice.toString() +
-                    "\n You will move up " + dice.getRollValue() + " spaces on the board!";
+       outputText = "Rolling the Dices! You rolled : " + dice.toString() +
+                    "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
         players.get(player).move(dice.getRollValue());
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
         outputText += pieces[players.get(player).getPosition()].displayInfo();
+        if(checkBankruptcy()){
+            System.out.println("should be bankrupt");
+            endTurn();
+            System.out.println("should be undecided");
+        }
         if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
             if (!dice.isDouble()) {
-                //command = endTurn(); // Player lands on the Free Parking space, end their turn if doubles are rolled
                 endTurn();
             }
         } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
@@ -171,19 +169,16 @@ public class MonopolyModel {
         } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
             // Player who owns the property gets rent
             if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
-                outputText+="\n You do not need to pay rent since you own this property.";
+                outputText+="\nYou do not need to pay rent since you own this property.";
             } else {
-                outputText+="\n Taking the money from your account";
+                outputText+="\nTaking the money from your account";
                 players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
                 ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
             }
             if (!checkBankruptcy() && !dice.isDouble()) {
-                //command = endTurn();
                 endTurn();
             }
-
         }
-
     }
 
     /**
@@ -205,10 +200,22 @@ public class MonopolyModel {
         }
 
         if (check) {
-            outputText="You have reached bankruptcy :( \n You are being eliminated from the game ";
+            outputText += "\nYou have reached bankruptcy :( \nYou are being eliminated from the game ";
             for (int i = 0; i < players.get(player).getProperties().size(); i++) {
                 players.get(player).getProperties().get(i).sell();
             }
+            if(getPlayers().size() > 2) {
+                this.playerStatus = Status.BANKRUPT2;
+                players.remove(player);
+            }
+            else{
+                this.playerStatus = Status.BANKRUPT;
+                players.remove(player);
+                if (players.size() == 1) {
+                    outputText += "\nGame Over! " + players.get(0).getName() + " has won the game! \nThanks for playing! ";
+                }
+            }
+            notifyViews();
         }
         return check;
     }
@@ -219,9 +226,8 @@ public class MonopolyModel {
             players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
             ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
             ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
-            outputText="\n Successfully purchased!";
+            outputText="Successfully purchased!";
         }
-        //button should be disabled at this point (have to check availability when player lands not when they click buy)
         else {
             outputText= "\nUnfortunately the property you are on is not available for purchase.";
         }
@@ -244,22 +250,7 @@ public class MonopolyModel {
      */
     public void play(String command) {
 
-        // If the player is bankrupt, end their turn
-        if (checkBankruptcy()) {
-            if (players.size() == 2) {
-                this.playerStatus = Status.BANKRUPT;
-                players.remove(player);
-                outputText += "GAME OVER! " + players.get(0).getName() + " has won the game! \n Thanks for playing! ";
-            }
-            else{
-                players.remove(player--);
-                this.playerStatus = Status.BANKRUPT2;
-                player++;
-                outputText += players.get(player).getName() + "'s turn!";
-            }
-
-
-        } else if (command.equals("Help")) {
+        if (command.equals("Help")) {
             help();
         }
         else if (command.equals("Buy Property")) {
@@ -275,9 +266,6 @@ public class MonopolyModel {
         } else if (command.equals("Pass")) {
             outputText="Your turn is now over! Passing to next player.";
             endTurn();
-        } else if (command.equals("quit")) {
-            System.out.println("Thanks for playing! See you next time :)");
-            System.exit(0);
         }
         notifyViews();
     }

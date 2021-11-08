@@ -68,13 +68,10 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         quitButton.setPreferredSize(new Dimension(50, 50));
         //not entirely sure if this follows MVC since model should update view (this technically updates itself - maybe we should put in update?)
         quitButton.addActionListener( e -> {int input = JOptionPane.showConfirmDialog(this,
-                "Are you sure you want to exit the program?", "Exit Program Message Box",
-                JOptionPane.YES_NO_OPTION);
-
-            if (input == JOptionPane.YES_OPTION) {
-                dispose();
-                model.play(quitButton.getText());
-            }
+                "Are you sure you want to exit the program?", "Exit Program Message Box", JOptionPane.YES_NO_OPTION);
+                if (input == JOptionPane.YES_OPTION) {
+                    dispose();
+                }
         });
 
         buttonPanel = new JPanel(new GridLayout(3, 2));
@@ -86,7 +83,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buttonPanel.add(quitButton);
 
         instructionPanel = new JPanel(new GridLayout(1, 3));
-        instructionPanel.setPreferredSize(new Dimension(1000,100));
+        instructionPanel.setPreferredSize(new Dimension(1000,150));
         instructionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Instruction box that will continuously update when a user makes a move
@@ -134,6 +131,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         dice2.displayDiceValue(dice[1]);
         System.out.println(e.status);
 
+        instructionInfo.setText(e.getInstruction());
+
         if (e.status == MonopolyModel.Status.PLAYING){
             buyButton.setEnabled(true);
             if(!e.getDice().isDouble()) {
@@ -146,11 +145,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             passButton.setEnabled(false);
             helpButton.setEnabled(false);
 
-            JOptionPane.showMessageDialog(null, "GAME OVER! Thanks for playing!");
+            JOptionPane.showMessageDialog(this, "Game over! Thanks for playing!");
+            System.exit(0);
 
         }
         else if(e.status == MonopolyModel.Status.BANKRUPT2) {
-            JOptionPane.showMessageDialog(null, "Current player has been eliminated.");
+            JOptionPane.showMessageDialog(this, "Current player has been eliminated.");
 
             rollButton.setEnabled(true);
             buyButton.setEnabled(false);
@@ -164,6 +164,5 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             passButton.setEnabled(true);
             helpButton.setEnabled(true);
         }
-        instructionInfo.setText(e.getInstruction());
     }
 }

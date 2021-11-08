@@ -131,12 +131,12 @@ public class Property extends BoardSpace {
      */
     @Override
     public String displayInfo() {
-        String text = "\n You are now located at: " + getName();
+        String text = "\nYou are now located at: " + getName();
         if (isAvailable){
-            text += "\n This property costs $" + getPrice();
+            text += "\nThis property costs $" + getPrice();
         }
         else{
-            text += "\n The rent for this property is $" + getRent() + ".";
+            text += "\nThe rent for this property is $" + getRent() + ".";
         }
         return text;
     }

@@ -42,8 +42,8 @@ public class Tax extends BoardSpace {
      */
     @Override
     public String displayInfo() {
-        String text = "\n You are now located at: " + getName();
-        text +="\n You must pay tax! Extracting $" + cost + " from account.";
+        String text = "\nYou are now located at: " + getName();
+        text +="\nYou must pay tax! Extracting $" + cost + " from account.";
         return text;
     }
 
