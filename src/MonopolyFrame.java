@@ -118,7 +118,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         int[] dice = e.getDice().getDice();
         dice1.displayDiceValue(dice[0]);
         dice2.displayDiceValue(dice[1]);
-        System.out.println(e.status + "reached frame");
 
         instructionInfo.setText(e.getInstruction());
 
