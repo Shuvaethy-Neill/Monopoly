@@ -231,7 +231,7 @@ public class MonopolyModel {
             players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
             ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
             ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
-            outputText="Successfully purchased!";
+            outputText+="Successfully purchased!";
         }
         else {
             outputText= "\nUnfortunately the property you are on is not available for purchase.";
