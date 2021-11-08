@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-
+//bug where if user presses enter when asked for a username, the username becomes blank, we should prevent this..
 public class MonopolyController {
     private MonopolyModel model;
     private MonopolyFrame view;
@@ -18,6 +18,9 @@ public class MonopolyController {
         }
     }
 
+    /** Returns the number of players the user decides to play with
+     * @return the number the user has chosen
+     */
     private int getNumPlayers() {
         Object[] options = new Object[MAX_PLAYERS-1];
         for (int i = 0; i < MAX_PLAYERS - 1; i++) {
@@ -29,6 +32,9 @@ public class MonopolyController {
         );
     }
 
+    /** Returns the Player object with a username chosen by the user
+     * @return the player object
+     */
     private Player getPlayerInformation() {
         String playerName = (String) JOptionPane.showInputDialog(
                 view, "Please choose a name that is 10 characters or less.\n" +

@@ -5,7 +5,7 @@ import java.awt.*;
  * The BoardSpace class is an abstract class that
  * represents a space on the board
  *
- * @author Evan Smedley
+ * @author Evan Smedley, Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill
  * @version 1.0
  * @since 2021-10-22
  */

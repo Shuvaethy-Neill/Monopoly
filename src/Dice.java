@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * The Dice class manages the user's dice roll
  *
- * @author Shuvaethy Neill
+ * @author Shuvaethy Neill, Harsismran Kanwar, Dorothy Tran, Evan
  * @version 1.0
  * @since 2021-10-24
  */

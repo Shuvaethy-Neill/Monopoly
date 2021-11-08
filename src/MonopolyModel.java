@@ -71,6 +71,7 @@ public class MonopolyModel {
     }
 
     /**
+     * add player to the game
      * @param player
      */
     public void addPlayer(Player player) {
