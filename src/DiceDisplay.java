@@ -13,7 +13,7 @@ public class DiceDisplay extends JPanel {
      * Constructor for DiceDisplay Class
      */
     public DiceDisplay() {
-        this.setPreferredSize(new Dimension(50, 50));
+        this.setPreferredSize(new Dimension(65, 65));
         this.diceValue = 1;
         this.dotDiameter = 10;
     }
@@ -61,25 +61,35 @@ public class DiceDisplay extends JPanel {
         switch(diceValue) {
             // Dice rolls 1
             case 1:
-                createDots(g, getWidth()/2, getHeight()/2);
+                // Center dot
+                createDots(g, getWidth()/2 + 5, getHeight()/2 + 4);
                 break;
             // Dice rolls 2
             case 2:
-                createDots(g, getWidth()/4,getHeight()/4);
-                createDots(g, (getWidth() * 3)/4, (getHeight() * 3)/4);
+                // Top left dot
+                createDots(g, getWidth()/4 + 5, getHeight()/4 + 5);
+                // Bottom right dot
+                createDots(g, ((getWidth() * 3) + 5)/4, ((getHeight() * 3) + 5)/4);
                 break;
             // Dice rolls 3
             case 3:
-                createDots(g, getWidth()/2, getHeight()/2);
-                createDots(g, getWidth()/4, getHeight()/4);
-                createDots(g, (getWidth() * 3)/4, (getHeight() * 3)/4);
+                // Center dot
+                createDots(g, getWidth()/2 + 5, getHeight()/2 + 4);
+                // Top left dot
+                createDots(g, getWidth()/4 + 5, getHeight()/4 + 5);
+                // Bottom right dot
+                createDots(g, ((getWidth() * 3) + 5)/4, ((getHeight() * 3) + 5)/4);
                 break;
             // Dice rolls 4
             case 4:
-                createDots(g, getWidth()/4, getHeight()/4);
-                createDots(g, getWidth()/4, (getHeight() * 3)/4);
-                createDots(g, (getWidth() * 3)/4, (getHeight() * 3)/4);
-                createDots(g, (getWidth() * 3)/4, getHeight()/4);
+                // Top left dot
+                createDots(g, getWidth()/4 + 5, getHeight()/4 + 5);
+                // Bottom right dot
+                createDots(g, ((getWidth() * 3) + 4)/4, ((getHeight() * 3) + 5)/4);
+                // Bottom left dot
+                createDots(g, getWidth()/4 + 5, ((getHeight() * 3) + 5)/4);
+                // Top right dot
+                createDots(g, (getWidth() * 3)/4, (getHeight()/4 + 5));
                 break;
             // Dice rolls 5
             case 5:
