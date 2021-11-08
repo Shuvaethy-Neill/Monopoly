@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -92,6 +93,10 @@ public class MonopolyModel {
         return this.players;
     }
 
+    public int getPlayer() {
+        return this.player;
+    }
+
     public Dice getDice(){
         return this.dice;
     }
@@ -147,7 +152,7 @@ public class MonopolyModel {
             players.get(player).incrementNumDoublesRolled();
         }
 
-       outputText = "Rolling the Dices! You rolled : " + dice.toString() +
+       outputText += "Rolling the Dices! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
         players.get(player).move(dice.getRollValue());
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
@@ -241,7 +246,7 @@ public class MonopolyModel {
         if (player > players.size() - 1) {
             player = 0;
         }
-        outputText += "\nPLAYER " + (players.get(player).getName()) + " 'S TURN!";
+        outputText += "\nNow it's "+ (players.get(player).getName()) + " 's turn!";
         this.playerStatus= Status.UNDECIDED;
     }
 
@@ -249,6 +254,7 @@ public class MonopolyModel {
      * Method displays the user interface of the Monopoly Board that takes user input
      */
     public void play(String command) {
+        outputText = this.getPlayers().get(player).getName().toUpperCase(Locale.ROOT) + "'S TURN:\n";
 
         if (command.equals("Help")) {
             help();

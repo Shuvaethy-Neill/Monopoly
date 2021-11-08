@@ -151,6 +151,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         }
         else if(e.status == MonopolyModel.Status.BANKRUPT2) {
             JOptionPane.showMessageDialog(this, "Current player has been eliminated.");
+            instructionInfo.setText("Next player's turn!");
 
             rollButton.setEnabled(true);
             buyButton.setEnabled(false);
