@@ -4,11 +4,6 @@ import java.util.Locale;
 import java.util.Random;
 
 /**
- * THINGS WE STILL NEED TO DO:
- * -make help and pass constants
- */
-
-/**
  * The MonopolyModel Class that contains the MVC Model of the Monopoly board
  *
  * @author Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill, and Evan Smedley
@@ -68,6 +63,7 @@ public class MonopolyModel {
     }
 
     /**
+     * Method to add view to the list of view in the model
      * @param view
      */
     public void addView(MonopolyView view) {
@@ -75,6 +71,7 @@ public class MonopolyModel {
     }
 
     /**
+     * Method to remove views from model
      * @param viewIndex
      */
     public void removeView(int viewIndex) {
@@ -82,7 +79,8 @@ public class MonopolyModel {
     }
 
     /**
-     *
+     *Method to update all the views and notify them
+     * that an event has occured
      */
     public void notifyViews() {
         for (MonopolyView v : monopolyViews) {
@@ -98,25 +96,36 @@ public class MonopolyModel {
         players.add(player);
     }
 
-    /**Method that retrives list of players
+    /**Method that retrieves list of players
      * @return players
      */
     public ArrayList<Player> getPlayers() {
         return this.players;
     }
-
+    /**Method to fetch current player
+     * @return player
+     */
     public int getPlayer() {
         return this.player;
     }
 
+    /**Method that returns the array of Dice rolled
+     * @return dice
+     */
     public Dice getDice(){
         return this.dice;
     }
 
+    /**Method that gets the outputText.
+     * Used to display messages to the GUI
+     * @return outputText
+     */
     public String getOutputText() {
         return outputText;
     }
-
+    /**Method to fetch the status of the player
+     * @return playerStatus
+     */
     public Status getPlayerStatus() {
         return playerStatus;
     }
@@ -132,14 +141,15 @@ public class MonopolyModel {
 
     /**
      * Method gets the BoardSpace piece position
-     *
      * @param i, the index of the BoardSpace piece
      * @return BoardSpace, the board space piece
      */
     public BoardSpace getP(int i) {
         return pieces[i];
     }
-
+    /**Method that starts the game
+     * @return name of the player
+     */
     public String start() {
         player = rand.nextInt(players.size());
         System.out.println("Starting the game...\n" + players.get(player).getName() + " will start!");
@@ -147,6 +157,9 @@ public class MonopolyModel {
         return players.get(player).getName();
     }
 
+    /**
+     * Method that holds the instructions for the game
+     */
     private void help(){
         outputText = "Help:" +"\n" + "Press the 'Roll Dice' button to roll dices on your turn"+"\n" +
                 "Press the 'Buy Property' button to purchase a property" + "\n" +
@@ -154,6 +167,10 @@ public class MonopolyModel {
                 "Press the 'Quit' button to end and close the game";
     }
 
+    /**
+     * Method that rolls the dice and handles actions users could take on a certain
+     * boardspace such as pay rent or pay tax
+     */
     public void roll() {
         this.playerStatus = Status.PLAYING;
         dice.roll();
@@ -240,6 +257,9 @@ public class MonopolyModel {
         return check;
     }
 
+    /**
+     * Method to buy a property
+     */
     private void buy() {
         if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
             players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account
