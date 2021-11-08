@@ -93,20 +93,31 @@ public class DiceDisplay extends JPanel {
                 break;
             // Dice rolls 5
             case 5:
-                createDots(g, getWidth()/4, getHeight()/4);
-                createDots(g, getWidth()/2, getHeight()/2);
-                createDots(g, getWidth()/4, (getHeight() * 3)/4);
-                createDots(g, (getWidth() * 3)/4, getHeight()/4);
-                createDots(g, (getWidth() * 3)/4, (getHeight() * 3)/4);
+                // Top left dot
+                createDots(g, getWidth()/4 + 5, getHeight()/4 + 5);
+                // Bottom right dot
+                createDots(g, ((getWidth() * 3) + 2)/4, ((getHeight() * 3) + 5)/4);
+                // Bottom left dot
+                createDots(g, getWidth()/4 + 5, ((getHeight() * 3) + 5)/4);
+                // Top right dot
+                createDots(g, ((getWidth() * 3) + 1)/4, (getHeight()/4 + 5));
+                // Center dot
+                createDots(g, getWidth()/2 + 5, getHeight()/2 + 4);
                 break;
             // Dice rolls 6
             case 6:
-                createDots(g, getWidth()/4, getHeight()/4);
-                createDots(g, getWidth()/4, (getHeight() * 3)/4);
-                createDots(g, getWidth()/4, getHeight()/2);
-                createDots(g, (getWidth() * 3)/4, getHeight()/4);
-                createDots(g, (getWidth() * 3)/4, getHeight()/2);
-                createDots(g, (getWidth() * 3) /4, (getHeight() * 3)/4);
+                // Top left dot
+                createDots(g, getWidth()/4 + 5, getHeight()/4 + 5);
+                // Top right dot
+                createDots(g, ((getWidth() * 3) + 1)/4, (getHeight()/4 + 5));
+                // Center left dot
+                createDots(g, getWidth()/4 + 5, getHeight()/2 + 4);
+                // Center right dot
+                createDots(g, (getWidth() * 3)/4 + 1, getHeight()/2 + 4);
+                // Bottom right dot
+                createDots(g, ((getWidth() * 3) + 2)/4, ((getHeight() * 3) + 5)/4);
+                // Bottom left dot
+                createDots(g, getWidth()/4 + 5, ((getHeight() * 3) + 5)/4);
                 break;
         }
     }
