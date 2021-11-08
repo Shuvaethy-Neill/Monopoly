@@ -27,7 +27,7 @@ public class MonopolyModel {
 
     private String outputText; //text to notify user of decisions made
 
-    public enum Status {UNDECIDED,PLAYING};
+    public enum Status {UNDECIDED,PLAYING, BANKRUPT};
     private Status playerStatus;
 
     /**
@@ -201,6 +201,7 @@ public class MonopolyModel {
         }
 
         if (check) {
+            this.playerStatus = Status.BANKRUPT;
             outputText="You have reached bankruptcy :( \n You are being eliminated from the game ";
             for (int i = 0; i < players.get(player).getProperties().size(); i++) {
                 players.get(player).getProperties().get(i).sell();
@@ -208,7 +209,6 @@ public class MonopolyModel {
             players.remove(player);
             if (players.size() == 1) {
                 outputText="GAME OVER! " + players.get(0).getName() + " has won the game! \n Thanks for playing! ";
-                System.exit(0);
             }
         }
         return check;

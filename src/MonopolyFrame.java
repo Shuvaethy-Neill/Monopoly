@@ -140,6 +140,18 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
                 rollButton.setEnabled(false);
             }
         }
+        else if(e.status == MonopolyModel.Status.BANKRUPT) {
+            rollButton.setEnabled(false);
+            buyButton.setEnabled(false);
+            passButton.setEnabled(false);
+            helpButton.setEnabled(false);
+
+            if (e.getNumPlayers() == 1) {
+                JOptionPane.showMessageDialog(null, "GAME OVER! Thanks for playing!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Current player has been eliminated.");
+            }
+        }
         else{
             rollButton.setEnabled(true);
             buyButton.setEnabled(false);
