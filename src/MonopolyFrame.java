@@ -34,29 +34,29 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.model.addView(this);
 
         startButton = new JButton("Start");
-        startButton.setPreferredSize(new Dimension(50, 50));
+        startButton.setPreferredSize(new Dimension(200, 50));
         startButton.addActionListener( e -> { //instructionInfo.setText("Starting game....\n" + model.start() + " will start!" );
             model.start();
             startButton.setEnabled(false);
         });
 
         rollButton = new JButton("Roll Dice");
-        rollButton.setPreferredSize(new Dimension(50, 50));
+        rollButton.setPreferredSize(new Dimension(200, 50));
         rollButton.setEnabled(false);
         rollButton.addActionListener( e ->  model.play(rollButton.getText()));
 
         buyButton = new JButton("Buy Property");
-        buyButton.setPreferredSize(new Dimension(50, 50));
+        buyButton.setPreferredSize(new Dimension(200, 50));
         buyButton.setEnabled(false);
         buyButton.addActionListener( e -> model.play(buyButton.getText()));
 
         helpButton = new JButton("Help");
-        helpButton.setPreferredSize(new Dimension(50, 50));
+        helpButton.setPreferredSize(new Dimension(200, 50));
         helpButton.setEnabled(false);
         helpButton.addActionListener( e -> model.play(helpButton.getText()));
 
         passButton = new JButton("Pass");
-        passButton.setPreferredSize(new Dimension(50, 50));
+        passButton.setPreferredSize(new Dimension(200, 50));
         passButton.setEnabled(false);
         passButton.addActionListener( e -> {
             rollButton.setEnabled(true);
@@ -64,10 +64,11 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         });
 
         quitButton = new JButton("Quit");
-        quitButton.setPreferredSize(new Dimension(50, 50));
+        quitButton.setPreferredSize(new Dimension(200, 50));
         quitButton.addActionListener( e -> model.play(quitButton.getText()));
 
         buttonPanel = new JPanel(new GridLayout(3, 2));
+        buttonPanel.setPreferredSize(new Dimension(400, 150));
         buttonPanel.add(startButton);
         buttonPanel.add(rollButton);
         buttonPanel.add(buyButton);
@@ -75,8 +76,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buttonPanel.add(passButton);
         buttonPanel.add(quitButton);
 
-        instructionPanel = new JPanel(new GridLayout(1, 3));
-        instructionPanel.setPreferredSize(new Dimension(1000,150));
+        instructionPanel = new JPanel(new BorderLayout());
+        instructionPanel.setPreferredSize(new Dimension(1100,150));
         instructionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Instruction box that will continuously update when a user makes a move
@@ -84,18 +85,19 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         instructionInfo.setColumns(20);
         instructionInfo.setRows(5);
         instructionInfo.setEditable(false);
-        instructionInfo.setPreferredSize(new Dimension(500, 50));
+        instructionInfo.setPreferredSize(new Dimension(425, 150));
         instructionInfo.setText("\n Welcome to the Monopoly Game! \n Please press the \"Start\" button to start a game!");
-        instructionPanel.add(instructionInfo, BorderLayout.SOUTH);
-        instructionPanel.add(buttonPanel, BorderLayout.NORTH);
+        instructionPanel.add(instructionInfo, BorderLayout.WEST);
+        instructionPanel.add(buttonPanel, BorderLayout.CENTER);
 
         // Panel to contain the 2 dices
-        dicePanel = new JPanel(new FlowLayout());
+        dicePanel = new JPanel();
+        dicePanel.setPreferredSize(new Dimension(250, 150));
         dice1 = new DiceDisplay();
         dice2 = new DiceDisplay();
         dicePanel.add(dice1);
         dicePanel.add(dice2);
-        instructionPanel.add(dicePanel);
+        instructionPanel.add(dicePanel, BorderLayout.EAST);
     }
 
     /**
