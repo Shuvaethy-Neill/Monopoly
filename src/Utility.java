@@ -107,7 +107,7 @@ public class Utility extends BoardSpace {
      * @return int, the price of utility
      */
 
-    //HAVE TO CHANGE THIS!! are we doing 1 = 25, 2 = 50,...? probs right?
+    //HAVE TO CHANGE THIS!! I think you multiply with dice roll value??
     public int getRent() {
         return (int) Math.round(Math.pow(price, 3) * 0.000001 + Math.pow(price, 2) * -0.0007 + price * 0.2014 - 7.5593);
     }
