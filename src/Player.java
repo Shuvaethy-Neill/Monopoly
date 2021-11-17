@@ -57,6 +57,14 @@ public class Player {
     }
 
     /**
+     *
+     * @param newPosition
+     */
+    public void setPosition(int newPosition) {
+        this.position = newPosition;
+    }
+
+    /**
      * This method sets the position name of the player after being moved
      * @return String, position name relative to board squares
      */
@@ -100,8 +108,8 @@ public class Player {
      * @param spaces , the amount of spaces they need to move on the board
      */
     public void move(int spaces) {
-        if(position + spaces >= 25) {
-            position = ((position + spaces) - 25); //loops around the board
+        if(position + spaces >= BoardSquares.values().length) {
+            position = ((position + spaces) - BoardSquares.values().length); //loops around the board
         }
         else{
             position += spaces;

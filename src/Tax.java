@@ -23,8 +23,8 @@ public class Tax extends BoardSpace {
      * @param name, the name of the tax space
      * @param cost, the cost of landing on the tax space
      */
-    public Tax(String name, int cost, String path) {
-        super(name, "tax", path);
+    public Tax(String name, int cost, String path, int position) {
+        super(name, "tax", path, position);
         this.cost = cost;
     }
 
@@ -45,14 +45,6 @@ public class Tax extends BoardSpace {
         String text = "\nYou are now located at: " + getName();
         text +="\nYou must pay tax! Extracting $" + cost + " from account.";
         return text;
-    }
-
-    /**
-     * Method updates the panel
-     */
-    @Override
-    public void updatePanel() {
-
     }
 
     /**

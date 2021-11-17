@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-
-/**
- * ADD PLAYER ICONS USING UPDATE
- */
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * BoardPanel Class that extends from the JPanel Class and implements the MonopolyView Interface
@@ -50,6 +48,8 @@ public class BoardPanel extends JPanel implements MonopolyView {
             boardSpaceConstraints[i].gridx = x;
             boardSpaceConstraints[i].gridy = y;
 
+            //layeredBoardSpacePanes
+
             if (y == dimension - 1) {
                 if (x == 0) {
                     y--;
@@ -85,14 +85,22 @@ public class BoardPanel extends JPanel implements MonopolyView {
      */
     @Override
     public void update(MonopolyEvent e) {
-        //add player icons on board
         this.removeAll();
-        BoardSpace currentSpace;
+        ArrayList<Player> players = model.getPlayers();
+
         for (int i = 0; i < boardSpaceConstraints.length; i++) {
-            currentSpace = model.getPieces()[i];
+            BoardSpace currentSpace = model.getPieces()[i];
             currentSpace.setPreferredSize(new Dimension(750/dimension, 750/dimension));
+            currentSpace.clearPlayerIcons();
+
+            for (int j = 0; j < players.size(); j++) {
+                if (players.get(j).getPosition() == currentSpace.getPosition()) {
+                    currentSpace.addPlayerIcon(j);
+                }
+            }
             this.add(currentSpace, boardSpaceConstraints[i]);
         }
         this.add(monopolyLabel, monopolyLabelConstraints);
+        this.repaint();
     }
 }

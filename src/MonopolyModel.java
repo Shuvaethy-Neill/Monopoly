@@ -96,34 +96,41 @@ public class MonopolyModel {
         players.add(player);
     }
 
-    /**Method that retrieves list of players
+    /**
+     * Method that retrieves list of players
      * @return players
      */
     public ArrayList<Player> getPlayers() {
         return this.players;
     }
-    /**Method to fetch current player
+
+    /**
+     * Method to fetch current player
      * @return player
      */
     public int getPlayer() {
         return this.player;
     }
 
-    /**Method that returns the array of Dice rolled
+    /**
+     * Method that returns the array of Dice rolled
      * @return dice
      */
     public Dice getDice(){
         return this.dice;
     }
 
-    /**Method that gets the outputText.
+    /**
+     * Method that gets the outputText.
      * Used to display messages to the GUI
      * @return outputText
      */
     public String getOutputText() {
         return outputText;
     }
-    /**Method to fetch the status of the player
+
+    /**
+     * Method to fetch the status of the player
      * @return playerStatus
      */
     public Status getPlayerStatus() {
@@ -147,7 +154,9 @@ public class MonopolyModel {
     public BoardSpace getP(int i) {
         return pieces[i];
     }
-    /**Method that starts the game
+
+    /**
+     * Method that starts the game
      * @return name of the player
      */
     public String start() {
@@ -182,7 +191,7 @@ public class MonopolyModel {
             endTurn();
         } // If 3 doubles rolled end turn
 
-       outputText += "Rolling the Dices! You rolled : " + dice.toString() +
+        outputText += "Rolling the Dice! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
         players.get(player).move(dice.getRollValue());
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located

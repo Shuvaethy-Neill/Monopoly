@@ -37,8 +37,8 @@ public class Property extends BoardSpace {
      * @param price int, The price of the property
      * @param color String, The color of the property
      */
-    public Property(String name, int price, String color, String path) {
-        super(name, "property", path);
+    public Property(String name, int price, String color, String path, int position) {
+        super(name, "property", path, position);
         this.isAvailable = true;
         this.price = price;
         this.color = color;
@@ -139,14 +139,6 @@ public class Property extends BoardSpace {
             text += "\nThe rent for this property is $" + getRent() + ".";
         }
         return text;
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void updatePanel() {
-
     }
 
     /**

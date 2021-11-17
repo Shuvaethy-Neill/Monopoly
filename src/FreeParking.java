@@ -18,8 +18,8 @@ public class FreeParking extends BoardSpace {
      *
      * @param name String, the name of the free parking space
      */
-    public FreeParking(String name, String path) {
-        super(name, "free parking", path);
+    public FreeParking(String name, String path, int position) {
+        super(name, "free parking", path, position);
         this.amount = 0;
     }
 
@@ -47,11 +47,6 @@ public class FreeParking extends BoardSpace {
     @Override
     public String displayInfo() {
         return "\nYou are now located at: " + getName() + "\nThis is a free space!";
-    }
-
-    @Override
-    public void updatePanel() {
-
     }
 
     /**
