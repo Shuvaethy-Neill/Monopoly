@@ -18,8 +18,8 @@ public class Go extends BoardSpace {
      *
      * @param name String, the name of the free parking space
      */
-    public Go(String name, String path) {
-        super(name, "go", path);
+    public Go(String name, String path, int position) {
+        super(name, "go", path, position);
         this.amount = 200;
     }
     /**
@@ -37,11 +37,6 @@ public class Go extends BoardSpace {
     @Override
     public String displayInfo() {
         return "\nYou are now located at: " + getName() + "\nThis is a free space!";
-    }
-
-    @Override
-    public void updatePanel() {
-
     }
 
     /**

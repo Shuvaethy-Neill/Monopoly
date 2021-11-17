@@ -31,8 +31,8 @@ public class Railroad extends BoardSpace {
      * @param name String, The name of the property
      * @param price int, The price of the property
      */
-    public Railroad(String name, int price, String path) {
-        super(name, "railroad", path);
+    public Railroad(String name, int price, String path, int position) {
+        super(name, "railroad", path, position);
         this.isAvailable = true;
         this.price = price;
         this.square = new ImageIcon(path);
@@ -125,14 +125,6 @@ public class Railroad extends BoardSpace {
             text += "\nThe rent for this railroad is $" + getRent() + ".";
         }
         return text;
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void updatePanel() {
-
     }
 
     /**

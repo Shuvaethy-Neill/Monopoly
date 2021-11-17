@@ -31,8 +31,8 @@ public class Utility extends BoardSpace {
      * @param name String, The name of the property
      * @param price int, The price of the property
      */
-    public Utility(String name, int price, String path) {
-        super(name, "utility", path);
+    public Utility(String name, int price, String path, int position) {
+        super(name, "utility", path, position);
         this.isAvailable = true;
         this.price = price;
         this.square = new ImageIcon(path);
@@ -125,14 +125,6 @@ public class Utility extends BoardSpace {
             text += "\nThe rent for this utility is $" + getRent() + ".";
         }
         return text;
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void updatePanel() {
-
     }
 
     /**
