@@ -193,16 +193,25 @@ public class MonopolyModel {
 
         outputText += "Rolling the Dice! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
-        players.get(player).move(dice.getRollValue());
+        players.get(player).move(dice.getRollValue()); //move the player to right position
         if (players.get(player).checkReset()){
             passedGo();
         }
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
         outputText += pieces[players.get(player).getPosition()].displayInfo();
         if(checkBankruptcy()){
-            System.out.println("should be bankrupt");
             endTurn();
-            System.out.println("should be undecided");
+        }
+        else if (pieces[players.get(player).getPosition()] instanceof Jail) {
+            if (((Jail)pieces[players.get(player).getPosition()]).getType().equals("go to jail")){
+                players.get(player).setJailStatus(true);
+                players.get(player).move(14);
+                endTurn();
+            }
+            else{
+                //what happens when they're in jail or if they're passing by
+            }
+
         }
         else if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
             this.playerStatus = Status.UNDECIDED;
@@ -233,8 +242,10 @@ public class MonopolyModel {
 
 
     private void passedGo(){
-        players.get(player).setMoney(((Go)pieces[0]).getAmount());
-        outputText += "\nYou passed Go! Collecting $200!\n";
+        if(!players.get(player).isInJail()) {
+            players.get(player).setMoney(((Go) pieces[0]).getAmount());
+            outputText += "\nYou passed Go! Collecting $200!\n";
+        }
     }
     /**
      * Method checks if the Player is bankrupt

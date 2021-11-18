@@ -17,6 +17,7 @@ public class Player {
     private int numDoublesRolled; //count of how many doubles rolled in a turn
     private boolean bankrupt; //state of bankruptcy
     boolean reset; //check if player looped around board
+    private boolean inJail; //is player in jail?
     private ArrayList<Property> properties; //list of properties player owns
 
     /**
@@ -31,6 +32,7 @@ public class Player {
         this.numDoublesRolled = 0;
         this.bankrupt = false;
         this.reset = false;
+        this.inJail=false;
         this.properties = new ArrayList<Property>();
     }
 
@@ -56,6 +58,14 @@ public class Player {
      */
     public int getPosition(){
         return position;
+    }
+
+    /**
+     * This method gets the state of player
+     * @return boolean, state of player in jail
+     */
+    public boolean isInJail() {
+        return inJail;
     }
 
     /**
@@ -133,6 +143,13 @@ public class Player {
     public boolean isBankrupt(int toPay){
         if(money < toPay){bankrupt = true;} //might be bankrupt before 0
         return bankrupt;
+    }
+
+    /**
+     * This method sets the status of if player is in Jail
+     */
+    public void setJailStatus(boolean status){
+       this.inJail=status;
     }
 
     /**
