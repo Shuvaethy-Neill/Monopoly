@@ -10,7 +10,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2021-11-17
  */
-public class Utility extends BoardSpace {
+public class Utility extends Property {
     /**
      * Whether the property is available or not
      */
@@ -31,74 +31,11 @@ public class Utility extends BoardSpace {
      * @param name String, The name of the property
      * @param price int, The price of the property
      */
-    public Utility(String name, int price, String path, int position) {
-        super(name, "utility", path, position);
+    public Utility(String name, int price, String type, String colour, String path, int position) {
+        super(name, price, "utility", colour, path, position);
         this.isAvailable = true;
         this.price = price;
         this.square = new ImageIcon(path);
-    }
-
-    /**
-     * Getter for the availability of the utility
-     *
-     * @return boolean, availability of the utility
-     */
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    /**
-     * sets the owner of the utility
-     *
-     * @param p player who owns the utility
-     */
-    public void setOwner(Player p){
-        this.owner= p;
-    }
-
-    /**
-     * Getter for the price of the utility
-     *
-     * @return int, the price of the utility
-     */
-    public int getPrice() {
-        return price;
-    }
-
-    /**
-     * Getter for the owner of the utility
-     *
-     * @return Player, the player of the utility
-     */
-    public Player getOwner() {
-        return owner;
-    }
-
-    /**
-     * Purchase a utility by setting the isAvailable attribute to false
-     *
-     * @return boolean, whether the utility was successful or not
-     */
-    public boolean purchase() {
-        if (isAvailable) {
-            isAvailable = false;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Sell a utility by setting the isAvailable attribute to true
-     *
-     * @return boolean, whether the sale was successful or not
-     */
-    public boolean sell() {
-        if (!isAvailable) {
-            isAvailable = true;
-            return true;
-        }
-        this.owner = null;
-        return false;
     }
 
     /**
