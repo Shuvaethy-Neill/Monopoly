@@ -16,6 +16,7 @@ public class Player {
     private String positionName; //name of the position the player is on
     private int numDoublesRolled; //count of how many doubles rolled in a turn
     private boolean bankrupt; //state of bankruptcy
+    boolean reset; //check if player looped around board
     private ArrayList<Property> properties; //list of properties player owns
 
     /**
@@ -29,6 +30,7 @@ public class Player {
         this.positionName="";
         this.numDoublesRolled = 0;
         this.bankrupt = false;
+        this.reset = false;
         this.properties = new ArrayList<Property>();
     }
 
@@ -103,6 +105,12 @@ public class Player {
     }
 
     /**
+     * This method checks if the player has looped around the board.
+     */
+    public boolean checkReset(){
+        return reset;
+    }
+    /**
      * This method moves the player around the board (change their position)
      * given the value of their dice roll
      * @param spaces , the amount of spaces they need to move on the board
@@ -110,9 +118,11 @@ public class Player {
     public void move(int spaces) {
         if(position + spaces >= BoardSquares.values().length) {
             position = ((position + spaces) - BoardSquares.values().length); //loops around the board
+            reset = true;
         }
         else{
             position += spaces;
+            reset= false; //reset the loop feature ?
         }
     }
 

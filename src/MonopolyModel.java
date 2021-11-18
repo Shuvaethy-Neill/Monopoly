@@ -194,6 +194,9 @@ public class MonopolyModel {
         outputText += "Rolling the Dice! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
         players.get(player).move(dice.getRollValue());
+        if (players.get(player).checkReset()){
+            passedGo();
+        }
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
         outputText += pieces[players.get(player).getPosition()].displayInfo();
         if(checkBankruptcy()){
@@ -227,6 +230,12 @@ public class MonopolyModel {
         }
     }
 
+
+
+    private void passedGo(){
+        players.get(player).setMoney(((Go)pieces[0]).getAmount());
+        outputText += "\nYou passed Go! Collecting $200!\n";
+    }
     /**
      * Method checks if the Player is bankrupt
      *
