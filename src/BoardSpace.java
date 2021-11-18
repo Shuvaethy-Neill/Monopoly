@@ -53,19 +53,19 @@ public abstract class BoardSpace extends JPanel {
                 "images/red-player.png", "images/purple-player.png"));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+        ImageIcon temp1 = new ImageIcon(path);
+        ImageIcon temp2 = new ImageIcon(temp1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        this.square = new JLabel(temp2, JLabel.CENTER);
+        this.add(square, BorderLayout.CENTER);
+
         playerIconPanel = new JPanel(new GridLayout(1,4));
         playerIconPanel.setPreferredSize(new Dimension(80,20));
-        this.add(playerIconPanel, BorderLayout.PAGE_START);
+        this.add(playerIconPanel);
 
         for (int i = 0; i < playerIconPaths.size(); i++) {
             ImageIcon playerIcon = new ImageIcon(playerIconPaths.get(i));
             playerIcons.add(new JLabel(new ImageIcon(playerIcon.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT))));
         }
-
-        ImageIcon temp1 = new ImageIcon(path);
-        ImageIcon temp2 = new ImageIcon(temp1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-        this.square = new JLabel(temp2, JLabel.CENTER);
-        this.add(square, BorderLayout.CENTER);
 
         this.setPreferredSize(new Dimension(40, 40));
     }
