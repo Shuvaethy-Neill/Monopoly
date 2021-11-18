@@ -6,9 +6,9 @@ import java.util.Objects;
  * The Property class extends BoardSpace and represents
  * a space that is specifically a property
  *
- * @author Evan Smedley
+ * @author
  * @version 1.0
- * @since 2021-10-22
+ * @since 2021-11-17
  */
 public class ColouredProperty extends Property {
     /**
