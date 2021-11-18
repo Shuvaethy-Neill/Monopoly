@@ -60,7 +60,7 @@ public abstract class BoardSpace extends JPanel {
 
         playerIconPanel = new JPanel(new GridLayout(1,4));
         playerIconPanel.setPreferredSize(new Dimension(80,20));
-        this.add(playerIconPanel);
+        this.add(playerIconPanel, BorderLayout.PAGE_START);
 
         for (int i = 0; i < playerIconPaths.size(); i++) {
             ImageIcon playerIcon = new ImageIcon(playerIconPaths.get(i));
