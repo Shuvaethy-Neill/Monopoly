@@ -10,7 +10,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2021-11-17
  */
-public class Railroad extends BoardSpace {
+public class Railroad extends Property {
     /**
      * Whether the property is available or not
      */
@@ -31,74 +31,11 @@ public class Railroad extends BoardSpace {
      * @param name String, The name of the property
      * @param price int, The price of the property
      */
-    public Railroad(String name, int price, String path, int position) {
-        super(name, "railroad", path, position);
+    public Railroad(String name, int price, String type, String colour, String path, int position) {
+        super(name, price, "railroad", colour,  path, position);
         this.isAvailable = true;
         this.price = price;
         this.square = new ImageIcon(path);
-    }
-
-    /**
-     * Getter for the availability of the railroad
-     *
-     * @return boolean, availability of the railroad
-     */
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    /**
-     * sets the owner of the railroad
-     *
-     * @param p player who owns the railroad
-     */
-    public void setOwner(Player p){
-        this.owner= p;
-    }
-
-    /**
-     * Getter for the price of the railroad
-     *
-     * @return int, the price of the railroad
-     */
-    public int getPrice() {
-        return price;
-    }
-
-    /**
-     * Getter for the owner of the railroad
-     *
-     * @return Player, the player of the railroad
-     */
-    public Player getOwner() {
-        return owner;
-    }
-
-    /**
-     * Purchase a railroad by setting the isAvailable attribute to false
-     *
-     * @return boolean, whether the railroad was successful or not
-     */
-    public boolean purchase() {
-        if (isAvailable) {
-            isAvailable = false;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Sell a railroad by setting the isAvailable attribute to true
-     *
-     * @return boolean, whether the sale was successful or not
-     */
-    public boolean sell() {
-        if (!isAvailable) {
-            isAvailable = true;
-            return true;
-        }
-        this.owner = null;
-        return false;
     }
 
     /**
@@ -106,10 +43,28 @@ public class Railroad extends BoardSpace {
      *
      * @return int, the price of railroad
      */
-
-    //HAVE TO CHANGE THIS!! are we doing 1 = 25, 2 = 50,...? probs right?
+    @Override
     public int getRent() {
-        return (int) Math.round(Math.pow(price, 3) * 0.000001 + Math.pow(price, 2) * -0.0007 + price * 0.2014 - 7.5593);
+        int railroadCount = 0;
+        int rent;
+        for(int i = 0; i < this.owner.getProperties().size(); i++){
+            if(this.owner.getProperties().get(i) instanceof Railroad){
+                railroadCount++;
+            }
+        }
+        if(railroadCount == 1){
+            rent = 25;
+        }
+        else if(railroadCount == 2){
+            rent = 50;
+        }
+        else if(railroadCount == 3){
+            rent = 100;
+        }
+        else{
+            rent = 200;
+        }
+        return rent;
     }
 
     /**
