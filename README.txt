@@ -49,6 +49,9 @@ DESCRIPTION
 	Player
 	PlayerPanel
 	Property
+	Railroad
+	Utility
+	ColouredProperty
 	Tax
 -----------------------------------------------------------------
 ===========
@@ -92,7 +95,7 @@ LICENSE
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-Copyright (c) 2021 Evan Smedley, Dorothy Tran, Harsimran Kanwar, & Shuvaethy Niell
+Copyright (c) 2021 Evan Smedley, Dorothy Tran, Harsimran Kanwar, & Shuvaethy Neill
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
