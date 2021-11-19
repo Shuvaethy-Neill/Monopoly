@@ -11,19 +11,6 @@ import java.util.Objects;
  * @since 2021-11-17
  */
 public class Railroad extends Property {
-    /**
-     * Whether the property is available or not
-     */
-    private boolean isAvailable;
-
-    /**
-     * The price of the property
-     */
-    private final int price;
-
-    private Player owner;
-
-    private ImageIcon square;
 
     /**
      * The Property constructor
@@ -32,10 +19,7 @@ public class Railroad extends Property {
      * @param price int, The price of the property
      */
     public Railroad(String name, int price, String type, String colour, String path, int position) {
-        super(name, price, "railroad", colour,  path, position);
-        this.isAvailable = true;
-        this.price = price;
-        this.square = new ImageIcon(path);
+        super(name, price, type, colour,  path, position);
     }
 
     /**
@@ -73,7 +57,7 @@ public class Railroad extends Property {
     @Override
     public String displayInfo() {
         String text = "\nYou are now located at: " + getName();
-        if (isAvailable){
+        if (this.isAvailable()){
             text += "\nThis railroad costs $" + getPrice();
         }
         else{
@@ -93,7 +77,7 @@ public class Railroad extends Property {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Railroad railroad = (Railroad) o;
-        return isAvailable == railroad.isAvailable && price == railroad.price && Objects.equals(owner, railroad.owner);
+        return this.isAvailable == railroad.isAvailable && this.price == railroad.price && Objects.equals(this.owner, railroad.owner);
     }
 
     /**

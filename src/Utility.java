@@ -11,19 +11,6 @@ import java.util.Objects;
  * @since 2021-11-17
  */
 public class Utility extends Property {
-    /**
-     * Whether the property is available or not
-     */
-    private boolean isAvailable;
-
-    /**
-     * The price of the property
-     */
-    private final int price;
-
-    private Player owner;
-
-    private ImageIcon square;
 
     /**
      * The Property constructor
@@ -32,10 +19,7 @@ public class Utility extends Property {
      * @param price int, The price of the property
      */
     public Utility(String name, int price, String type, String colour, String path, int position) {
-        super(name, price, "utility", colour, path, position);
-        this.isAvailable = true;
-        this.price = price;
-        this.square = new ImageIcon(path);
+        super(name, price, type, colour, path, position);
     }
 
     /**

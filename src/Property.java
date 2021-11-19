@@ -14,19 +14,19 @@ public class Property extends BoardSpace {
     /**
      * Whether the property is available or not
      */
-    private boolean isAvailable;
+    protected boolean isAvailable;
 
     /**
      * The price of the property
      */
-    private final int price;
+    protected final int price;
 
     /**
      * The color group of the property
      */
-    private final String color;
+    protected final String color;
 
-    private Player owner;
+    protected Player owner;
 
     private ImageIcon square;
 

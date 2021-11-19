@@ -11,24 +11,6 @@ import java.util.Objects;
  * @since 2021-11-17
  */
 public class ColouredProperty extends Property {
-    /**
-     * Whether the property is available or not
-     */
-    private boolean isAvailable;
-
-    /**
-     * The price of the property
-     */
-    private final int price;
-
-    /**
-     * The color group of the property
-     */
-    private final String color;
-
-    private Player owner;
-
-    private ImageIcon square;
 
     /**
      * The Property constructor
@@ -39,10 +21,6 @@ public class ColouredProperty extends Property {
      */
     public ColouredProperty(String name, int price, String type, String color, String path, int position) {
         super(name, price, type, color, path, position);
-        this.isAvailable = true;
-        this.price = price;
-        this.color = color;
-        this.square = new ImageIcon(path);
     }
 
     /**
@@ -56,6 +34,6 @@ public class ColouredProperty extends Property {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ColouredProperty property = (ColouredProperty) o;
-        return isAvailable == property.isAvailable && price == property.price && Objects.equals(color, property.color) && Objects.equals(owner, property.owner);
+        return this.isAvailable == property.isAvailable && this.price == property.price && Objects.equals(this.color, property.color) && Objects.equals(this.owner, property.owner);
     }
 }
