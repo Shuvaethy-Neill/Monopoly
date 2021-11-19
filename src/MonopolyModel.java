@@ -251,6 +251,11 @@ public class MonopolyModel {
                 outputText+="\nYou do not need to pay rent since you own this property.";
             } else {
                 outputText+="\nTaking the money from your account";
+                if(pieces[players.get(player).getPosition()] instanceof Utility){
+                    System.out.println("here");
+                    players.get(player).doTransaction((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue()); // Deducts the cost from account
+                    ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue());
+                }
                 players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
                 ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
             }

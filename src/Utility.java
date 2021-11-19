@@ -30,7 +30,20 @@ public class Utility extends Property {
 
     //HAVE TO CHANGE THIS!! I think you multiply with dice roll value??
     public int getRent() {
-        return (int) Math.round(Math.pow(price, 3) * 0.000001 + Math.pow(price, 2) * -0.0007 + price * 0.2014 - 7.5593);
+        int utilityCount = 0;
+        int rent;
+        for(int i = 0; i < this.owner.getProperties().size(); i++){
+            if(this.owner.getProperties().get(i) instanceof Utility){
+                utilityCount++;
+            }
+        }
+        if(utilityCount == 1){
+            rent = 4;
+        }
+        else{
+            rent = 10;
+        }
+        return rent;
     }
 
     /**
