@@ -161,6 +161,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             passButton.setEnabled(false);
             helpButton.setEnabled(true);
         }
+        else if (e.status == MonopolyModel.Status.JAIL){
+            rollButton.setEnabled(true);
+            buyButton.setEnabled(true);
+            passButton.setEnabled(false);
+            helpButton.setEnabled(false);
+        }
         else{
             rollButton.setEnabled(true);
             buyButton.setEnabled(false);

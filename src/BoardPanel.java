@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * BoardPanel Class that extends from the JPanel Class and implements the MonopolyView Interface

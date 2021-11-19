@@ -34,7 +34,7 @@ public class MonopolyModel {
 
     private String outputText; //text to notify user of decisions made
 
-    public enum Status {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2, QUITTING};
+    public enum Status {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2, QUITTING, JAIL};
 
     private Status playerStatus;
 
@@ -185,15 +185,23 @@ public class MonopolyModel {
         dice.roll();
         if (dice.isDouble()) {
             players.get(player).incrementNumDoublesRolled();
+            if (players.get(player).isInJail()){
+                players.get(player).setJailStatus(false);
+            }
         }
         if (players.get(player).getNumDoublesRolled() == 3) {
             outputText= "oh no you rolled three doubles";
             endTurn();
         } // If 3 doubles rolled end turn
 
-        outputText += "Rolling the Dice! You rolled : " + dice.toString() +
+
+        if (!players.get(player).isInJail()) {
+            outputText += "Rolling the Dice! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
-        players.get(player).move(dice.getRollValue()); //move the player to right position
+            players.get(player).move(dice.getRollValue()); //move the player to right position
+        }
+        else { outputText += "You are in Jail!";}
+
         if (players.get(player).checkReset()){
             passedGo();
         }
@@ -203,13 +211,26 @@ public class MonopolyModel {
             endTurn();
         }
         else if (pieces[players.get(player).getPosition()] instanceof Jail) {
-            if (((Jail)pieces[players.get(player).getPosition()]).getType().equals("go to jail")){
+            if ((pieces[players.get(player).getPosition()]).getType().equals("go to jail")){ //kinda smellyy
                 players.get(player).setJailStatus(true);
-                players.get(player).move(18);
+                players.get(player).move(16); //will update once all pieces are on boards
                 endTurn();
             }
             else{
                 //what happens when they're in jail or if they're passing by
+                if (!players.get(player).isInJail()){
+                    outputText += "\n You're just passing by jail. Free space";
+                    endTurn();
+                }
+                else{ //actually in jail
+                    //this.playerStatus = Status.JAIL;
+                    System.out.println("in jail");
+                    players.get(player).incrementTurn();
+                    if (players.get(player).getTurns() == 3){
+                        buy();
+                    }
+                    endTurn();
+                }
             }
 
         }
@@ -290,7 +311,13 @@ public class MonopolyModel {
      * Method to buy a property
      */
     private void buy() {
-        if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
+        if (pieces[players.get(player).getPosition()] instanceof Jail){
+            players.get(player).doTransaction(50);
+            players.get(player).setJailStatus(false);
+            System.out.println("here");
+            outputText+="\nSuccessfully took $50 from your account, you are free to leave!";
+        }
+        else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
             players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account
             players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
             ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
@@ -311,8 +338,13 @@ public class MonopolyModel {
         if (player > players.size() - 1) {
             player = 0;
         }
-        outputText += "\nNow it's "+ (players.get(player).getName()) + " 's turn!";
-        this.playerStatus= Status.UNDECIDED;
+        outputText += "\nNow it's "+ (players.get(player).getName()) + " 'S TURN!";
+        if(players.get(player).isInJail()){
+            this.playerStatus=Status.JAIL;
+        }
+        else {
+            this.playerStatus = Status.UNDECIDED;
+        }
     }
 
     /**
@@ -326,7 +358,7 @@ public class MonopolyModel {
         }
         else if (command.equals(BUY)) {
             // The situation when the player purchases a property
-            if (pieces[players.get(player).getPosition()] instanceof Property) {
+            if (pieces[players.get(player).getPosition()] instanceof Property || pieces[players.get(player).getPosition()] instanceof Jail) {
                 buy();
             }
             if (!dice.isDouble()) {

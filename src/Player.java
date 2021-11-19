@@ -15,6 +15,7 @@ public class Player {
     private int position; //position of the player on the board
     private String positionName; //name of the position the player is on
     private int numDoublesRolled; //count of how many doubles rolled in a turn
+    private int turns; //how many turns they've had
     private boolean bankrupt; //state of bankruptcy
     boolean reset; //check if player looped around board
     private boolean inJail; //is player in jail?
@@ -30,6 +31,7 @@ public class Player {
         this.position = 0;
         this.positionName="";
         this.numDoublesRolled = 0;
+        this.turns = 0;
         this.bankrupt = false;
         this.reset = false;
         this.inJail=false;
@@ -59,6 +61,12 @@ public class Player {
     public int getPosition(){
         return position;
     }
+
+    /**
+     * This method returns the number of turns a player has taken in jail.
+     * @return int, turns taken by player in jail
+     */
+    public int getTurns() {return turns;}
 
     /**
      * This method gets the state of player
@@ -113,6 +121,20 @@ public class Player {
             this.numDoublesRolled++;
         }
     }
+
+    /**
+     * This method increments the number of turns user has taken while in jail
+     */
+    public void incrementTurn(){
+        if (turns ==4){ //reset if more than 3 doubles rolled
+            turns =0;
+        }
+        else {
+            this.turns++;
+        }
+    }
+
+
 
     /**
      * This method checks if the player has looped around the board.
