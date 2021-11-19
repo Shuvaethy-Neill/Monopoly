@@ -213,7 +213,7 @@ public class MonopolyModel {
         else if (pieces[players.get(player).getPosition()] instanceof Jail) {
             if ((pieces[players.get(player).getPosition()]).getType().equals("go to jail")){ //kinda smellyy
                 players.get(player).setJailStatus(true);
-                players.get(player).move(16); //will update once all pieces are on boards
+                players.get(player).move(18); //will update once all pieces are on boards
                 endTurn();
             }
             else{
