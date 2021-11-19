@@ -1,6 +1,7 @@
 /**
  * Represents each board square on the Monopoly board
  */
+
 public enum BoardSquares {
     GO("GO", "images/Go.jpg", 0),
     MEDITERRANEAN_AVENUE("MEDITERRANEAN AVENUE",60, "colouredProperty","brown", "images/mediterranean-avenue.jpg", 1),
@@ -41,10 +42,10 @@ public enum BoardSquares {
 
     //temporarily using type to identify which constructor to call (waiting on the rest of the spaces to be added to test if logic works)
     BoardSquares(String name, int price, String type, String color, String path, int position) {
-        if(type.equals("colouredProperty")) {
+        if(type.equals(COLOUR_PROPERTY)) {
             this.boardSpace = new ColouredProperty(name, price, type, color, path, position);
         }
-        else if(type.equals("railroad")){
+        else if(type.equals(RAILROAD)){
             this.boardSpace = new Railroad(name, price, type, color, path, position);
         }
         else{
@@ -66,4 +67,7 @@ public enum BoardSquares {
         this.boardSpace = new Jail(name, path,type,position);
 
     }
+
+    private static final String COLOUR_PROPERTY = "colouredProperty";
+    private static final String RAILROAD = "railroad";
 }
