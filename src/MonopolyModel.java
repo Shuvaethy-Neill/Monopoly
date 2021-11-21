@@ -17,6 +17,7 @@ import java.util.Random;
     // if ai player goes to jail, it shows what they rolled along with that message. Should we change it to the generic ai turn completed message to keep it consistent?
         //also it makes user choose what ai does in jail
     //player landed on go and didnt end turn. ex, duriing an ai's turn had to manually click pass and it went to next ai's turn (same situation with human player)
+    //index out of bounds error for bankruptcy with ai
 
 public class MonopolyModel {
 
@@ -268,7 +269,17 @@ public class MonopolyModel {
                 if (players.get(player) instanceof MonopolyAIPlayer){ended = true;}
                 endTurn();
             }
-        } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
+        }
+        else if (pieces[players.get(player).getPosition()] instanceof Go) {
+            this.playerStatus = Status.UNDECIDED;
+            if (!dice.isDouble()) {
+                if (players.get(player) instanceof MonopolyAIPlayer) {
+                    ended = true;
+                }
+                endTurn();
+            }
+        }
+        else if (pieces[players.get(player).getPosition()] instanceof Tax) {
             players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
             this.playerStatus = Status.UNDECIDED;
             if (!dice.isDouble()) {
@@ -375,7 +386,7 @@ public class MonopolyModel {
         if (player > players.size() - 1) {
             player = 0;
         }
-        outputText += "\nNow it's "+ (players.get(player).getName()) + " 's turn!";
+        outputText += "\nNow it's "+ (players.get(player).getName()) + "'s turn!";
         if(players.get(player).isInJail()){
             this.playerStatus=Status.JAIL;
         }
@@ -437,7 +448,7 @@ public class MonopolyModel {
         } else if (command.equals(ROLL)) {
             roll();
         } else if (command.equals(PASS)) {
-            outputText="Your turn is now over! Passing to next player.\n";
+            outputText= players.get(player).getName() + " has passed their turn! Passing to next player.\n";
             endTurn();
         }
         else if (command.equals(QUIT)) {
