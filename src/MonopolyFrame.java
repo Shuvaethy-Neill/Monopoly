@@ -45,7 +45,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         rollButton.setEnabled(false);
         rollButton.addActionListener( e ->  model.play(rollButton.getText()));
 
-        buyButton = new JButton("Buy Property");
+        buyButton = new JButton("Buy");
         buyButton.setPreferredSize(new Dimension(200, 50));
         buyButton.setEnabled(false);
         buyButton.addActionListener( e -> model.play(buyButton.getText()));
