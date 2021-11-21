@@ -34,14 +34,6 @@ public class DiceDisplay extends JPanel {
     }
 
     /**
-     * Method that gets the dice value that is displayed
-     * @return int, dice value
-     */
-    public int getDiceValue() {
-        return diceValue;
-    }
-
-    /**
      * Method that illustrates the black dots of a die
      * @param diceModel Graphics, drawing of the model of the dice
      * @param width int, width of the dice
