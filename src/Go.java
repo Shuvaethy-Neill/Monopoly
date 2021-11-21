@@ -2,7 +2,7 @@
  * The Go class extends BoardSpace and specifically
  * represents the GO space
  *
- * @author
+ * @author Harsimran Kanwar, Shuvaethy Neill, Dorothy Tran
  * @verion 1.0
  * @since 2021-11-17
  */

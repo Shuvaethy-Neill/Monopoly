@@ -12,13 +12,14 @@ public class MonopolyController {
 
     private static final int MAX_PLAYERS = 4;
 
-    private int numPlayers;
+    private int totalPlayers;
+    private int humanPlayers;
 
     public MonopolyController(MonopolyModel model, MonopolyFrame view) {
         this.model = model;
         this.view = view;
-        this.numPlayers = getNumPlayers();
-        for (int i = 0; i < numPlayers; i++) {
+        this.totalPlayers = getNumPlayers();
+        for (int i = 0; i < totalPlayers; i++) {
             model.addPlayer(getPlayerInformation());
         }
     }
