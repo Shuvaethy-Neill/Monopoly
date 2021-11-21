@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
  * MonopolyFrame Class that extends from the JFrame Class and implements from the
  * MonopolyView Interface representing the GUI Frame
  *
- * @author Evan Smedley,Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill
+ * @author Evan Smedley, Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill
  * @version 1.0
  * @since 2021-10-22
  */

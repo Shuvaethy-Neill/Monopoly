@@ -1,6 +1,13 @@
+
 /**
- * Jail Class that extends the BoardSpace Class for when a player is in a Jail board square
+ * Jail Class that extends the BoardSpace Class for
+ * when a player is in a Jail board square
+ *
+ * @author Harsimran Kanwar and Dorothy Tran
+ * @verion 1.0
+ * @since 2021-11-17
  */
+
 public class Jail extends BoardSpace{
     private String type;
 

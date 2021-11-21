@@ -7,8 +7,8 @@ import java.util.Random;
  * The MonopolyModel Class that contains the MVC Model of the Monopoly board
  *
  * @author Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill, and Evan Smedley
- * @version 1.0
- * @since 2021-10-24
+ * @version 3.0
+ * @since 2021-11-21
  */
 
 //bugs to note:

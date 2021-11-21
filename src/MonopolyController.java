@@ -1,6 +1,15 @@
 import javax.swing.*;
 import java.util.Objects;
 
+/**
+ * Monopoly Controller class translates the user's interaction with the view
+ * to the MonopolyModel class
+ *
+ * @author Evan Smedley, Shuvaethy Neill, and Harsimran Kanwar
+ * @verion 2.0
+ * @since 2021-11-21
+ */
+
 public class MonopolyController {
     private MonopolyModel model;
     private MonopolyFrame view;

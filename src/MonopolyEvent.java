@@ -2,7 +2,12 @@ import java.util.ArrayList;
 import java.util.EventObject;
 
 /**
- * MonopolyEvent Class that handles all events that occur on the Monopoly Board
+ * MonopolyEvent Class that handles all events that
+ * occur on the Monopoly Board
+ *
+ * @author Shuvaethy Neill
+ * @verion 1.0
+ * @since 2021-10-22
  */
 public class MonopolyEvent extends EventObject {
 

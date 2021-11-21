@@ -3,7 +3,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /**
- * BoardPanel Class that extends from the JPanel Class and implements the MonopolyView Interface
+ * BoardPanel Class that extends from the JPanel Class
+ * and implements the MonopolyView Interface
+ *
+ * @author Evan Smedley
+ * @version 2.0
+ * @since 2021-11-21
  */
 public class BoardPanel extends JPanel implements MonopolyView {
 

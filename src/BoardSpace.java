@@ -11,8 +11,8 @@ import java.util.Arrays;
  * represents a space on the board
  *
  * @author Evan Smedley, Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill
- * @version 1.0
- * @since 2021-10-22
+ * @version 3.0
+ * @since 2021-11-21
  */
 public abstract class BoardSpace extends JPanel {
 

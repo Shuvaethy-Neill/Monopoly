@@ -5,6 +5,10 @@ import java.util.ArrayList;
 /**
  * PlayerPanel Class that extends from the JTabbedPane Class which implements the MonopolyView Interface
  * This class represents the player panel (seen on the right side of the GUI)
+ *
+ * @author Evan Smedley and Shuvaethy Neill
+ * @version 3.0
+ * @since 2021-11-21
  */
 public class PlayerPanel extends JTabbedPane implements MonopolyView {
 

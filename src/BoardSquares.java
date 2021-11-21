@@ -2,7 +2,12 @@ import java.io.IOException;
 
 /**
  * Represents each board square on the Monopoly board
+ *
+ * @author Evan Smedley, Harsismran Kanwar, Dorothy Tran, Shuvaethy Neill
+ * @version 3.0
+ * @since 2021-11-21
  */
+
 
 public enum BoardSquares {
     GO("GO", "images/Go.jpg", 0),
