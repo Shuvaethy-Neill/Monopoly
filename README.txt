@@ -64,6 +64,7 @@ CHANGELOG
 
 For Milestone 3, the following changes were made:
 - Added the ability to play with AI players. Players have the choice when the game starts with a JOptionPane asking if the user would like to play with a specified number of AI players (up to 8 players in total including human players and AI players)
+- Added board pieces to represent players on the Monopoly board
 - Added features when a player purchases a house/hotel when they own three coloured properties
 - Added additional board squares: Go to Jail, Jail/Just Visiting, Railroads, Utilities, Community Chest & Chance
 - Implemented a Jail Class that handles players when they are sent to Jail which is handled in the MonopolyModel class 
