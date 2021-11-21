@@ -37,21 +37,25 @@ DESCRIPTION
 	BoardPanel
 	BoardSpace
 	BoardSquares
+	ColouredProperty
 	Dice
 	DiceDisplay
 	FreeParking
+	Go
+	Jail
+	MonopolyAIPlayer
 	MonopolyClient
 	MonopolyController
 	MonopolyEvent
 	MonopolyFrame
 	MonopolyModel
+	MonopolyModelTest
 	MonopolyView
 	Player
 	PlayerPanel
 	Property
 	Railroad
 	Utility
-	ColouredProperty
 	Tax
 -----------------------------------------------------------------
 ===========
@@ -59,7 +63,14 @@ CHANGELOG
 ===========
 
 For Milestone 3, the following changes were made:
-- 
+- Added the ability to play with AI players. Players have the choice when the game starts with a JOptionPane asking if the user would like to play with a specified number of AI players (up to 8 players in total including human players and AI players)
+- Added features when a player purchases a house/hotel when they own three coloured properties
+- Added additional board squares: Go to Jail, Jail/Just Visiting, Railroads, Utilities, Community Chest & Chance
+- Implemented a Jail Class that handles players when they are sent to Jail which is handled in the MonopolyModel class 
+- Implemented a Utility class to handle situations when a player lands on one of the two utility board squares (collect rent from the user) which is handled in the MonopolyModel class 
+- Implemented a Railroad class to handle situations when a player lands on one of the four railroad board squares (collect rent from the user)
+- Implemented a MonopolyAIPlayer class that extends the Player class to represent AI players in the game
+- Implemented a Go class that allows a user to collect money when they fully rotate through the Monopoly board and collect $200 (if they are not sent to Jail)
 
 -----------------------------------------------------------------
 =============
