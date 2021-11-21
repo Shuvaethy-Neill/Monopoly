@@ -21,7 +21,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
         this.model = model;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.model.addView(this);
-        colours = new Color[] {(new Color(255, 255, 222)), (new Color(238, 248, 255)), (new Color(255, 241, 238)), (new Color(248, 238, 255))};
+        //colours = new Color[] {(new Color(255, 255, 222)), (new Color(238, 248, 255)), (new Color(255, 241, 238)), (new Color(248, 238, 255))};
         initializeLayout();
     }
 
@@ -34,7 +34,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
             individualPlayerPanels[i] = new JPanel();
             individualPlayerPanels[i].setPreferredSize(new Dimension(250,850));
             individualPlayerPanels[i].setLayout(new BoxLayout(individualPlayerPanels[i], BoxLayout.PAGE_AXIS));
-            individualPlayerPanels[i].setBackground(colours[i]);
+            //individualPlayerPanels[i].setBackground(colours[i]);
             updatePlayerList(model.getPlayers(), i);
             this.addTab(model.getPlayers().get(i).getName(), individualPlayerPanels[i]);
         }
