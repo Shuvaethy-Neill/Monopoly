@@ -31,7 +31,7 @@ public class Jail extends BoardSpace{
     @Override
     public String displayInfo() {
         if (type.equals("go to jail")) {
-            return "\nYou are being sent to Jail!";
+            return "\nYou are being sent to Jail!\n";
         }
         return "";
     }

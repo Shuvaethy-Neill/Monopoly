@@ -86,7 +86,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         instructionInfo.setRows(5);
         instructionInfo.setEditable(false);
         instructionInfo.setPreferredSize(new Dimension(425, 150));
-        instructionInfo.setText("\n Welcome to the Monopoly Game! \n Please press the \"Start\" button to start a game!");
+        instructionInfo.setText("Welcome to the Monopoly Game! \nPlease press the \"Start\" button to start a game!");
         instructionPanel.add(instructionInfo, BorderLayout.WEST);
         instructionPanel.add(buttonPanel, BorderLayout.CENTER);
 

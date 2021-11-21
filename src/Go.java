@@ -36,7 +36,7 @@ public class Go extends BoardSpace {
      */
     @Override
     public String displayInfo() {
-        return "\nYou are now located at: " + getName() + "\nThis is a free space!";
+        return "\nYou are now located at: " + getName() + "\nThis is a free space!\n";
     }
 
     /**

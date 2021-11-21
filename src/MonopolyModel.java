@@ -10,6 +10,14 @@ import java.util.Random;
  * @version 1.0
  * @since 2021-10-24
  */
+
+//bugs to note:
+    //- when player before AI buys a property, it doesnt give them confirmation that they bought it (since AI text is too speedy) BUT it does show in side panel so not a big deal???
+    //- if ai rolled doubles, it shows "your turn is now over" instead of usual "AI players have completed their turn" since we call pass in that case. We can change or keep? nt a big deal
+    // if ai player goes to jail, it shows what they rolled along with that message. Should we change it to the generic ai turn completed message to keep it consistent?
+        //also it makes user choose what ai does in jail
+    //player landed on go and didnt end turn. ex, duriing an ai's turn had to manually click pass and it went to next ai's turn (same situation with human player)
+
 public class MonopolyModel {
 
     private List<MonopolyView> monopolyViews;
@@ -170,9 +178,9 @@ public class MonopolyModel {
         outputText = "Starting the game...\n" + players.get(player).getName() + " will start!";
         if (players.get(player) instanceof MonopolyAIPlayer){
             moveAi();
-            outputText = "An AI player has started and ended their turn!"+
-                    "\n Check side panels to see the moves of the AI player(s)"+
-                "\n Player: " +players.get(player).getName() + " press roll to start your turn!";
+            outputText = "An AI player has started and completed their turn!"+
+                    "\nCheck the side panels to see the moves of the AI player(s)\n"+
+                "\nNow it's " +players.get(player).getName() + "'s turn!";
         }
         notifyViews();
         return players.get(player).getName();
@@ -202,7 +210,7 @@ public class MonopolyModel {
             }
         }
         if (players.get(player).getNumDoublesRolled() == 3) {
-            outputText= "oh no you rolled three doubles";
+            outputText= "Oh no you rolled three doubles\n";
             if (players.get(player) instanceof MonopolyAIPlayer){ended = true;}
             endTurn();
         } // If 3 doubles rolled end turn
@@ -213,7 +221,7 @@ public class MonopolyModel {
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
             players.get(player).move(dice.getRollValue()); //move the player to right position
         }
-        else { outputText += "You are in Jail!";}
+        else { outputText += "You are in Jail!\n";}
 
         if (players.get(player).checkReset()){
             passedGo();
@@ -234,7 +242,7 @@ public class MonopolyModel {
             else{
                 //what happens when they're in jail or if they're passing by
                 if (!players.get(player).isInJail()){
-                    outputText += "\n You're just passing by jail. Free space";
+                    outputText += "\nYou're just visiting jail. This is a free space\n";
                     if (players.get(player) instanceof MonopolyAIPlayer){ended = true;}
                     endTurn();
                 }
@@ -270,9 +278,9 @@ public class MonopolyModel {
         } else if ((pieces[players.get(player).getPosition()] instanceof Property) && !((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
             // Player who owns the property gets rent
             if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
-                outputText+="\nYou do not need to pay rent since you own this property.";
+                outputText+="\nYou do not need to pay rent since you own this property.\n";
             } else {
-                outputText+="\nTaking the money from your account";
+                outputText+="\nTaking the money from your account\n";
                 if(pieces[players.get(player).getPosition()] instanceof Utility){
                     System.out.println("here");
                     players.get(player).doTransaction((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue()); // Deducts the cost from account
@@ -343,14 +351,14 @@ public class MonopolyModel {
             players.get(player).doTransaction(50);
             players.get(player).setJailStatus(false);
             System.out.println("here");
-            outputText+="\nSuccessfully took $50 from your account, you are free to leave!";
+            outputText+="\nSuccessfully took $50 from your account, you are free to leave!\n";
         }
         else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
             players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account
             players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
             ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
             ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
-            outputText+="Successfully purchased!";
+            outputText+="Successfully purchased!\n";
         }
         else {
             outputText= "\nUnfortunately the property you are on is not available for purchase.";
@@ -367,7 +375,7 @@ public class MonopolyModel {
         if (player > players.size() - 1) {
             player = 0;
         }
-        outputText += "\nNow it's "+ (players.get(player).getName()) + " 'S TURN!";
+        outputText += "\nNow it's "+ (players.get(player).getName()) + " 's turn!";
         if(players.get(player).isInJail()){
             this.playerStatus=Status.JAIL;
         }
@@ -393,9 +401,9 @@ public class MonopolyModel {
                 this.play(BUY);
                 //buy();
                 System.out.println(players.get(player).getName() + " in AI3");
-                outputText = "AI Players have completed their turns. " +
-                        "\n check the side panels for their properties."
-                            + "\nPlayer: " + players.get(player).getName() + " press roll to start your turn!";
+                outputText = "AI Players have completed their turns." +
+                        "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
+                            +"\nNow it's " +players.get(player).getName() + "'s turn!";
             }
             if (dice.isDouble() && players.get(player) instanceof MonopolyAIPlayer) {
                 this.play(PASS);
@@ -429,7 +437,7 @@ public class MonopolyModel {
         } else if (command.equals(ROLL)) {
             roll();
         } else if (command.equals(PASS)) {
-            outputText="Your turn is now over! Passing to next player.";
+            outputText="Your turn is now over! Passing to next player.\n";
             endTurn();
         }
         else if (command.equals(QUIT)) {
