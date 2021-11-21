@@ -15,11 +15,11 @@ public class MonopolyController {
         this.view = view;
         this.humanPlayers = getHumanPlayers();
         this.aiPlayers = aiPlayers();
-        for (int i = 0; i < humanPlayers; i++) {
+        for (int i = 0; i < humanPlayers; i++) { //adding human player to model
             model.addPlayer(getPlayerInformation());
         }
         for (int i = 1; i <= aiPlayers; i++) {
-            model.addPlayer(new Player("Player " + (humanPlayers + i)));
+            model.addPlayer(new MonopolyAIPlayer("Player " + (humanPlayers + i)));
         }
     }
 

@@ -37,6 +37,7 @@ public class MonopolyModel {
     public enum Status {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2, QUITTING, JAIL};
 
     private Status playerStatus;
+    private boolean ended;
 
     /**
      * Constructor for the Board Class
@@ -49,6 +50,7 @@ public class MonopolyModel {
         player = 0;
         playerStatus = Status.UNDECIDED;
         outputText="";
+        ended = false;
         for (BoardSquares s : BoardSquares.values()) {
             if (position == BoardSquares.values().length) {
                 continue;
@@ -161,7 +163,7 @@ public class MonopolyModel {
      */
     public String start() {
         player = rand.nextInt(players.size());
-        System.out.println("Starting the game...\n" + players.get(player).getName() + " will start!");
+        outputText = "Starting the game...\n" + players.get(player).getName() + " will start!";
         notifyViews();
         return players.get(player).getName();
     }
@@ -191,6 +193,7 @@ public class MonopolyModel {
         }
         if (players.get(player).getNumDoublesRolled() == 3) {
             outputText= "oh no you rolled three doubles";
+            ended = true;
             endTurn();
         } // If 3 doubles rolled end turn
 
@@ -208,18 +211,21 @@ public class MonopolyModel {
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
         outputText += pieces[players.get(player).getPosition()].displayInfo();
         if(checkBankruptcy()){
+            ended =true;
             endTurn();
         }
         else if (pieces[players.get(player).getPosition()] instanceof Jail) {
             if ((pieces[players.get(player).getPosition()]).getType().equals("go to jail")){ //kinda smellyy
                 players.get(player).setJailStatus(true);
                 players.get(player).move(18); //will update once all pieces are on boards
+                ended = true;
                 endTurn();
             }
             else{
                 //what happens when they're in jail or if they're passing by
                 if (!players.get(player).isInJail()){
                     outputText += "\n You're just passing by jail. Free space";
+                    ended = true;
                     endTurn();
                 }
                 else{ //actually in jail
@@ -229,6 +235,7 @@ public class MonopolyModel {
                     if (players.get(player).getTurns() == 3){
                         buy();
                     }
+                    ended = true;
                     endTurn();
                 }
             }
@@ -237,15 +244,17 @@ public class MonopolyModel {
         else if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
             this.playerStatus = Status.UNDECIDED;
             if (!dice.isDouble()) {
+                ended = true;
                 endTurn();
             }
         } else if (pieces[players.get(player).getPosition()] instanceof Tax) {
             players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
             this.playerStatus = Status.UNDECIDED;
             if (!dice.isDouble()) {
+                ended = true;
                 endTurn();
             }
-        } else if (!((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
+        } else if ((pieces[players.get(player).getPosition()] instanceof Property) && !((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
             // Player who owns the property gets rent
             if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
                 outputText+="\nYou do not need to pay rent since you own this property.";
@@ -260,6 +269,7 @@ public class MonopolyModel {
                 ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
             }
             if (!dice.isDouble()) {
+                ended = true;
                 endTurn();
             }
         }
@@ -339,7 +349,8 @@ public class MonopolyModel {
      */
     public void endTurn() {
         players.get(player).resetNumDoublesRolled();
-        player++;
+        System.out.println(players.get(player).getName() + "before");
+        player++; //should be incrementing??????
         if (player > players.size() - 1) {
             player = 0;
         }
@@ -348,10 +359,38 @@ public class MonopolyModel {
             this.playerStatus=Status.JAIL;
         }
         else {
+            System.out.println(players.get(player).getName() + "in else");
             this.playerStatus = Status.UNDECIDED;
+            System.out.println((players.get(player) instanceof MonopolyAIPlayer)+ players.get(player).getName());
+            if (players.get(player) instanceof MonopolyAIPlayer) {
+                moveAi();
+            }
+
         }
     }
 
+    private void moveAi(){
+        System.out.println(players.get(player).getName() +" in AI");
+        outputText = "AI Player is playing\n";
+        if (players.get(player) instanceof MonopolyAIPlayer) {
+            this.play(ROLL);
+
+            if (!ended) { //endTurn didn't get called in roll()
+                if (pieces[players.get(player).getPosition()] instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
+                    this.play(BUY);
+                    ended = false;
+                    //buy();
+                    System.out.println(players.get(player).getName() + " in AI3");
+                    outputText = "AI Player: " + players.get(player).getName() + "has bought a property.\n";
+                }
+                if (dice.isDouble() && players.get(player) instanceof MonopolyAIPlayer) {
+                    this.play(PASS);
+                    ended = false;
+                }
+            }
+        }
+
+    }
     /**
      * Method displays the user interface of the Monopoly Board that takes user input
      */

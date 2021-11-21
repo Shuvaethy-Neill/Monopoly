@@ -50,7 +50,7 @@ public abstract class BoardSpace extends JPanel {
         this.position = position;
         this.playerIcons = new ArrayList<>();
         this.playerIconPaths = new ArrayList<>(Arrays.asList("images/yellow-player.png", "images/blue-player.png",
-                "images/red-player.png", "images/purple-player.png"));
+                "images/red-player.png", "images/purple-player.png", "images/pink.png","images/greenp.png","images/burgundyP.png","images/turquoiseP.png"));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         ImageIcon temp1 = new ImageIcon(path);
