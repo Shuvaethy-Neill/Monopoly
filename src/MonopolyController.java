@@ -1,18 +1,13 @@
 import javax.swing.*;
 import java.util.Objects;
 
-/**
- * WE NEED TO FIX THIS
- * bug where if user presses enter when asked for a username, the username becomes blank, we should prevent this..
- */
-
 public class MonopolyController {
     private MonopolyModel model;
     private MonopolyFrame view;
 
     private static final int MAX_PLAYERS = 8;
 
-    private int totalPlayers;
+    private int aiPlayers;
     private int humanPlayers;
 
     public MonopolyController(MonopolyModel model, MonopolyFrame view) {
@@ -23,23 +18,48 @@ public class MonopolyController {
         for (int i = 0; i < humanPlayers; i++) {
             model.addPlayer(getPlayerInformation());
         }
+        for (int i = 1; i <= aiPlayers; i++) {
+            model.addPlayer(new Player("Player " + (humanPlayers + i)));
+        }
     }
 
-    /** Returns the number of players the user decides to play with
-     * @return the number the user has chosen
-     */
-    private int getNumPlayers() {
-        Object[] options = new Object[MAX_PLAYERS-1];
+    private int getHumanPlayers() {
+        Object[] options = new Object[MAX_PLAYERS - 1];
         for (int i = 0; i < MAX_PLAYERS - 1; i++) {
             options[i] = i + 2;
         }
         boolean validInput = false;
         Object numPlayersObject = null;
-        String message = "How many players are there?";
+        String message = "How many human players are there?";
         while (!validInput) {
             numPlayersObject = JOptionPane.showInputDialog(
                     view, message, "Player Selection",
                     JOptionPane.PLAIN_MESSAGE, null, options, 2
+            );
+            if (numPlayersObject == null) {
+                message = "How many players are there?\nPlease press 'Ok', not 'Cancel'";
+            } else {
+                validInput = true;
+            }
+        }
+        return (int) numPlayersObject;
+    }
+
+    /** Returns the number of players the user decides to play with
+     * @return the number the user has chosen
+     */
+    private int aiPlayers() {
+        Object[] options = new Object[MAX_PLAYERS - humanPlayers + 1]; //0-7 index
+        for (int i = 0; i < MAX_PLAYERS - humanPlayers + 1; i++) {
+            options[i] = i;
+        }
+        boolean validInput = false;
+        Object numPlayersObject = null;
+        String message = "How many AI players are there?";
+        while (!validInput) {
+            numPlayersObject = JOptionPane.showInputDialog(
+                    view, message, "AI Player Selection",
+                    JOptionPane.PLAIN_MESSAGE, null, options, 0
             );
             if (numPlayersObject == null) {
                 message = "How many players are there?\nPlease press 'Ok', not 'Cancel'";
