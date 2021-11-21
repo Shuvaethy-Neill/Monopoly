@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 /**
  * Represents each board square on the Monopoly board
  */

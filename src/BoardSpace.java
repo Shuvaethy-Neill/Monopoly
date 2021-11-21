@@ -1,5 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,6 +26,8 @@ public abstract class BoardSpace extends JPanel {
      */
     private final String type;
 
+    private final String path;
+
     /**
      * Image for the board space
      */
@@ -37,7 +42,15 @@ public abstract class BoardSpace extends JPanel {
 
     private ArrayList<String> playerIconPaths;
 
+    private JLabel houseIcon;
+
+    private JLabel hotelIcon;
+
     private JPanel playerIconPanel;
+
+    private JPanel houseHotelPanel;
+
+    private Image backgroundImage;
 
 
     /**
@@ -47,24 +60,33 @@ public abstract class BoardSpace extends JPanel {
         super(new BorderLayout());
         this.name = name;
         this.type = type;
+        this.path = path;
         this.position = position;
         this.playerIcons = new ArrayList<>();
         this.playerIconPaths = new ArrayList<>(Arrays.asList("images/yellow-player.png", "images/blue-player.png",
                 "images/red-player.png", "images/purple-player.png", "images/pink.png","images/greenp.png","images/burgundyP.png","images/turquoiseP.png"));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        ImageIcon temp1 = new ImageIcon(path);
-        ImageIcon temp2 = new ImageIcon(temp1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-        this.square = new JLabel(temp2, JLabel.CENTER);
-        this.add(square, BorderLayout.CENTER);
+        readBackgroundImage();
+
+        houseHotelPanel = new JPanel(new GridLayout(1,4));
+        houseHotelPanel.setPreferredSize(new Dimension(80,20));
+        houseHotelPanel.setOpaque(false);
+        this.add(houseHotelPanel, BorderLayout.PAGE_START);
+
+        ImageIcon tempHouseIcon = new ImageIcon("images/house.png");
+        houseIcon = new JLabel(new ImageIcon(tempHouseIcon.getImage().getScaledInstance(20,20,Image.SCALE_FAST)));
+        ImageIcon tempHotelIcon = new ImageIcon("images/hotel.png");
+        hotelIcon = new JLabel(new ImageIcon(tempHotelIcon.getImage().getScaledInstance(20,20,Image.SCALE_FAST)));
 
         playerIconPanel = new JPanel(new GridLayout(1,8));
-        playerIconPanel.setPreferredSize(new Dimension(80,20));
-        this.add(playerIconPanel, BorderLayout.PAGE_START);
+        playerIconPanel.setPreferredSize(new Dimension(80,10));
+        playerIconPanel.setOpaque(false);
+        this.add(playerIconPanel, BorderLayout.PAGE_END);
 
-        for (int i = 0; i < playerIconPaths.size(); i++) {
-            ImageIcon playerIcon = new ImageIcon(playerIconPaths.get(i));
-            playerIcons.add(new JLabel(new ImageIcon(playerIcon.getImage().getScaledInstance(20,20, Image.SCALE_DEFAULT))));
+        for (String playerIconPath : playerIconPaths) {
+            ImageIcon playerIcon = new ImageIcon(playerIconPath);
+            playerIcons.add(new JLabel(new ImageIcon(playerIcon.getImage().getScaledInstance(10, 10, Image.SCALE_FAST))));
         }
 
         this.setPreferredSize(new Dimension(40, 40));
@@ -110,8 +132,28 @@ public abstract class BoardSpace extends JPanel {
         playerIconPanel.removeAll();
     }
 
+    public void addHouseHotel(int playerIndex) {
+    }
+
+    public void removeHouseHotel() {
+    }
+
+    private void readBackgroundImage() {
+        try {
+            Image inputImage = ImageIO.read(new File(path));
+            backgroundImage = inputImage.getScaledInstance(80,80,Image.SCALE_FAST);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * An abstract method for displaying information about the board space
      */
     public abstract String displayInfo();
+
+    public void paintComponent (Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(backgroundImage, 0, 0, this);
+    }
 }

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.IOException;
 
 /**
  * The Tax class extends BoardSpace and represents
