@@ -56,7 +56,7 @@ public class Utility extends Property {
             text += "\nThis utility costs $" + getPrice();
         }
         else{
-            text += "\nThe rent for this utility is $" + getRent() + ".";
+            text += "\nThe rent for this utility is $" + getRent() + " multiplied by your dice roll.";
         }
         return text;
     }
