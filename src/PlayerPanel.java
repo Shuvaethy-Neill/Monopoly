@@ -63,9 +63,9 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
             JList<String> list = new JList<>(listModel);
             list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             list.setSelectedIndex(0);
-            list.setVisibleRowCount(5);
+            list.setVisibleRowCount(9);
             JScrollPane listScrollPane = new JScrollPane(list);
-            list.setBackground(colours[playerIndex]);
+            //list.setBackground(colours[playerIndex]);
             individualPlayerPanels[playerIndex].add(listScrollPane);
         }
     }

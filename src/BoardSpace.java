@@ -58,7 +58,7 @@ public abstract class BoardSpace extends JPanel {
         this.square = new JLabel(temp2, JLabel.CENTER);
         this.add(square, BorderLayout.CENTER);
 
-        playerIconPanel = new JPanel(new GridLayout(1,4));
+        playerIconPanel = new JPanel(new GridLayout(1,8));
         playerIconPanel.setPreferredSize(new Dimension(80,20));
         this.add(playerIconPanel, BorderLayout.PAGE_START);
 

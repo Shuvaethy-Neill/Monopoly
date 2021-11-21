@@ -162,6 +162,10 @@ public class MonopolyModel {
      * @return name of the player
      */
     public String start() {
+        for (int i = 0; i < players.size(); i++){
+            System.out.println(players.get(i) instanceof MonopolyAIPlayer);
+        }
+        System.out.println();
         player = rand.nextInt(players.size());
         outputText = "Starting the game...\n" + players.get(player).getName() + " will start!";
         notifyViews();
@@ -406,6 +410,7 @@ public class MonopolyModel {
                 buy();
             }
             if (!dice.isDouble()) {
+                System.out.println("wrong" + players.get(player).getName());
                 endTurn();
             }
         } else if (command.equals(ROLL)) {

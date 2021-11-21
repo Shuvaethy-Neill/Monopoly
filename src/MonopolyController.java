@@ -18,11 +18,15 @@ public class MonopolyController {
         for (int i = 0; i < humanPlayers; i++) { //adding human player to model
             model.addPlayer(getPlayerInformation());
         }
+        System.out.println(aiPlayers); //add ai players to model
         for (int i = 1; i <= aiPlayers; i++) {
             model.addPlayer(new MonopolyAIPlayer("Player " + (humanPlayers + i)));
         }
     }
 
+    /** Returns the number of human players the user decides to play with
+     * @return the number the user has chosen
+     */
     private int getHumanPlayers() {
         Object[] options = new Object[MAX_PLAYERS - 1];
         for (int i = 0; i < MAX_PLAYERS - 1; i++) {
@@ -45,7 +49,7 @@ public class MonopolyController {
         return (int) numPlayersObject;
     }
 
-    /** Returns the number of players the user decides to play with
+    /** Returns the number of ai players the user decides to play with
      * @return the number the user has chosen
      */
     private int aiPlayers() {
