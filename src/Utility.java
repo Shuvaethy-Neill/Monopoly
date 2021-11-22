@@ -30,7 +30,6 @@ public class Utility extends Property {
      * @return int, the price of utility
      */
 
-    //HAVE TO CHANGE THIS!! I think you multiply with dice roll value??
     public int getRent() {
         int utilityCount = 0;
         int rent;
