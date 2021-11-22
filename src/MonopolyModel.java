@@ -86,7 +86,7 @@ public class MonopolyModel {
 
     /**
      *Method to update all the views and notify them
-     * that an event has occured
+     * that an event has occurred
      */
     public void notifyViews() {
         for (MonopolyView v : monopolyViews) {
@@ -233,35 +233,7 @@ public class MonopolyModel {
             endTurn();
         }
         else if (pieces[players.get(player).getPosition()] instanceof Jail) {
-            if ((pieces[players.get(player).getPosition()]).getType().equals("go to jail")){ //kinda smellyy
-                players.get(player).setJailStatus(true);
-                players.get(player).move(18); //will update once all pieces are on boards
-                if (players.get(player) instanceof MonopolyAIPlayer){
-                    ended = true;
-                    aiTurnEndText();
-                }
-                endTurn();
-            }
-            else{
-                //what happens when they're in jail or if they're passing by
-                if (!players.get(player).isInJail()){
-                    outputText += "\nYou're just visiting jail. This is a free space\n";
-                    if (players.get(player) instanceof MonopolyAIPlayer){
-                        ended = true;
-                        aiTurnEndText();
-                    }
-                    endTurn();
-                }
-                else{ //actually in jail
-                    players.get(player).incrementTurn();
-                    if (players.get(player).getTurns() == 3){
-                        buy();
-                    }
-                    if (players.get(player) instanceof MonopolyAIPlayer){ended = true;}
-                    endTurn();
-                }
-            }
-
+            handleJail();
         }
         else if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
             this.playerStatus = Status.UNDECIDED;
@@ -316,6 +288,39 @@ public class MonopolyModel {
         }
     }
 
+    /**
+     * Method to handle when a player lands in jail
+     */
+    private void handleJail(){
+        if ((pieces[players.get(player).getPosition()]).getType().equals("go to jail")){ //kinda smellyy
+            players.get(player).setJailStatus(true);
+            players.get(player).move(18); //will update once all pieces are on boards
+            if (players.get(player) instanceof MonopolyAIPlayer){
+                ended = true;
+                aiTurnEndText();
+            }
+            endTurn();
+        }
+        else{
+            //what happens when they're in jail or if they're passing by
+            if (!players.get(player).isInJail()){
+                outputText += "\nYou're just visiting jail. This is a free space\n";
+                if (players.get(player) instanceof MonopolyAIPlayer){
+                    ended = true;
+                    aiTurnEndText();
+                }
+                endTurn();
+            }
+            else{ //actually in jail
+                players.get(player).incrementTurn();
+                if (players.get(player).getTurns() == 3){
+                    buy();
+                }
+                if (players.get(player) instanceof MonopolyAIPlayer){ended = true;}
+                endTurn();
+            }
+        }
+    }
     /**
      * Notifies and handles when a player passes go.
      */
