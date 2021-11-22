@@ -439,7 +439,11 @@ public class MonopolyModel {
                 buy();
             }
             if (!dice.isDouble()) {
-                System.out.println("wrong" + players.get(player).getName());
+                if(players.get(player) instanceof MonopolyAIPlayer) {
+                    outputText = "AI Players have completed their turns." +
+                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
+                            + "\nNow it's " + players.get(player).getName() + "'s turn!";
+                }
                 endTurn();
             }
         } else if (command.equals(ROLL)) {
