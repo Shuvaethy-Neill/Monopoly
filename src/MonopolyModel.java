@@ -13,7 +13,7 @@ import java.util.Random;
 
 //bugs to note:
     //- when player before AI buys a property, it doesnt give them confirmation that they bought it (since AI text is too speedy) BUT it does show in side panel so not a big deal???
-    //- if ai rolled doubles, it shows "your turn is now over" instead of usual "AI players have completed their turn" since we call pass in that case. We can change or keep? nt a big deal
+    //- if ai rolled doubles, it shows "your turn is now over" instead of usual "AI players have completed their turn" since we call pass in that case. We can change or keep? nt a big deal -changed
     // if ai player goes to jail, it shows what they rolled along with that message. Should we change it to the generic ai turn completed message to keep it consistent?
         //also it makes user choose what ai does in jail
     //index out of bounds error for bankruptcy with ai
@@ -361,7 +361,7 @@ public class MonopolyModel {
             players.get(player).doTransaction(50);
             players.get(player).setJailStatus(false);
             System.out.println("here");
-            outputText+="\nSuccessfully took $50 from your account, you are free to leave!\n";
+            outputText+="\nSuccessfully took $50 from your account, you are free to leave jail!\n";
         }
         else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
             players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account
@@ -392,6 +392,7 @@ public class MonopolyModel {
         else {
             System.out.println(players.get(player).getName() + "in else");
             this.playerStatus = Status.UNDECIDED;
+
             System.out.println((players.get(player) instanceof MonopolyAIPlayer)+ players.get(player).getName());
             if (players.get(player) instanceof MonopolyAIPlayer) {
                 moveAi();
@@ -401,15 +402,12 @@ public class MonopolyModel {
     }
 
     private void moveAi(){
-        System.out.println(players.get(player).getName() +" in AI");
-        outputText = "AI Player is playing\n";
         this.play(ROLL);
         System.out.println(players.get(player).getName() +" HERRREE");
         //for some reason it won't come here????
         if (!ended) { //endTurn didn't get called in roll()
-            if (pieces[players.get(player).getPosition()] instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
+            if (pieces[players.get(player).getPosition()] instanceof Property || pieces[players.get(player).getPosition()] instanceof Jail && players.get(player) instanceof MonopolyAIPlayer) {
                 this.play(BUY);
-                //buy();
                 System.out.println(players.get(player).getName() + " in AI3");
                 outputText = "AI Players have completed their turns." +
                         "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
@@ -447,7 +445,8 @@ public class MonopolyModel {
         } else if (command.equals(ROLL)) {
             roll();
         } else if (command.equals(PASS)) {
-            outputText= players.get(player).getName() + " has passed their turn! Passing to next player.\n";
+            if (players.get(player) instanceof MonopolyAIPlayer){outputText+="AI player has passed/completed their turn! Passing to next player.\n"; }
+            else{outputText= players.get(player).getName() + " has passed their turn! Passing to next player.\n";}
             endTurn();
         }
         else if (command.equals(QUIT)) {
