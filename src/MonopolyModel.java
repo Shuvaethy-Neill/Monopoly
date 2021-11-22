@@ -14,8 +14,6 @@ import java.util.Random;
 //bugs to note:
     //- when player before AI buys a property, it doesnt give them confirmation that they bought it (since AI text is too speedy) BUT it does show in side panel so not a big deal???
     //- if ai rolled doubles, it shows "your turn is now over" instead of usual "AI players have completed their turn" since we call pass in that case. We can change or keep? nt a big deal -changed
-    // if ai player goes to jail, it shows what they rolled along with that message. Should we change it to the generic ai turn completed message to keep it consistent?
-        //also it makes user choose what ai does in jail
     //index out of bounds error for bankruptcy with ai
 
 public class MonopolyModel {
@@ -197,6 +195,14 @@ public class MonopolyModel {
     }
 
     /**
+     * Helper method that displays the generic text for when AI is done their turn
+     */
+    private void aiTurnEndText(){
+        outputText = "AI Players have completed their turns." +
+                "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
+    }
+
+    /**
      * Method that rolls the dice and handles actions users could take on a certain
      * boardspace such as pay rent or pay tax
      */
@@ -238,9 +244,7 @@ public class MonopolyModel {
                 players.get(player).move(18); //will update once all pieces are on boards
                 if (players.get(player) instanceof MonopolyAIPlayer){
                     ended = true;
-                    outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
-                            //+ "\nNow it's " + players.get(player).getName() + "'s turn!";
+                    aiTurnEndText();
                 }
                 endTurn();
             }
@@ -248,7 +252,10 @@ public class MonopolyModel {
                 //what happens when they're in jail or if they're passing by
                 if (!players.get(player).isInJail()){
                     outputText += "\nYou're just visiting jail. This is a free space\n";
-                    if (players.get(player) instanceof MonopolyAIPlayer){ended = true;}
+                    if (players.get(player) instanceof MonopolyAIPlayer){
+                        ended = true;
+                        aiTurnEndText();
+                    }
                     endTurn();
                 }
                 else{ //actually in jail
@@ -272,9 +279,7 @@ public class MonopolyModel {
             if (!dice.isDouble()) {
                 if (players.get(player) instanceof MonopolyAIPlayer){
                     ended = true;
-                    outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
-                            //+ "\nNow it's " + players.get(player).getName() + "'s turn!";
+                    aiTurnEndText();
                 }
                 endTurn();
             }
@@ -284,9 +289,7 @@ public class MonopolyModel {
             if (!dice.isDouble()) {
                 if (players.get(player) instanceof MonopolyAIPlayer) {
                     ended = true;
-                    outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
-                            //+ "\nNow it's " + players.get(player).getName() + "'s turn!";
+                    aiTurnEndText();
                 }
                 endTurn();
             }
@@ -297,9 +300,7 @@ public class MonopolyModel {
             if (!dice.isDouble()) {
                 if (players.get(player) instanceof MonopolyAIPlayer){
                     ended = true;
-                    outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
-                            //"\nNow it's " + players.get(player).getName() + "'s turn!";
+                    aiTurnEndText();
                 }
                 endTurn();
             }
@@ -320,16 +321,12 @@ public class MonopolyModel {
             if (!dice.isDouble()) {
                 if (players.get(player) instanceof MonopolyAIPlayer){
                     ended = true;
-                    outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
-                            //+ "\nNow it's " + players.get(player).getName() + "'s turn!";
+                    aiTurnEndText();
                 }
                 endTurn();
             }
         }
     }
-
-
 
     private void passedGo(){
         if(!players.get(player).isInJail()) {
@@ -436,20 +433,15 @@ public class MonopolyModel {
                 System.out.println(players.get(player).getName() + "before buy");
                 this.play(BUY);
                 System.out.println(players.get(player).getName() + " in AI3");
-                outputText = "AI Players have completed their turns." +
-                        "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
-                            +"\nNow it's " +players.get(player).getName() + "'s turn!";
+                aiTurnEndText();
+                outputText += "\nNow it's " +players.get(player).getName() + "'s turn!";
             }
             if (dice.isDouble() && players.get(player) instanceof MonopolyAIPlayer) {
                 this.play(PASS);
             }
         }
         ended = false;
-
-
     }
-
-
 
     /**
      * Method displays the user interface of the Monopoly Board that takes user input
