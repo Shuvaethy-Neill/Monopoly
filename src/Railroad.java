@@ -3,8 +3,8 @@ import java.awt.*;
 import java.util.Objects;
 
 /**
- * The Property class extends BoardSpace and represents
- * a space that is specifically a property
+ * The Railroad class extends Property and represents
+ * a space that is specifically a railroad property
  *
  * @author Shuvaethy Neill
  * @version 1.0
@@ -13,10 +13,12 @@ import java.util.Objects;
 public class Railroad extends Property {
 
     /**
-     * The Property constructor
+     * The ColouredProperty constructor
      *
-     * @param name String, The name of the property
+     * @param name  String, The name of the property
      * @param price int, The price of the property
+     * @param type String, type of property
+     * @param colour String, The color of the property
      */
     public Railroad(String name, int price, String type, String colour, String path, int position) {
         super(name, price, type, colour,  path, position);
