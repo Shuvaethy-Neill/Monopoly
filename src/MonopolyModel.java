@@ -31,7 +31,7 @@ public class MonopolyModel {
 
     private static final String HELP = "Help";
     private static final String ROLL = "Roll Dice";
-    private static final String BUY = "Buy Property";
+    private static final String BUY = "Buy";
     private static final String PASS = "Pass";
     private static final String QUIT = "Quit";
 
