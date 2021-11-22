@@ -166,9 +166,6 @@ public class MonopolyModel {
      * @return name of the player
      */
     public String start() {
-        for (int i = 0; i < players.size(); i++){
-            //System.out.println(players.get(i) instanceof MonopolyAIPlayer);
-        }
         System.out.println();
         player = rand.nextInt(players.size());
         outputText = "Starting the game...\n" + players.get(player).getName() + " will start!";
@@ -218,7 +215,6 @@ public class MonopolyModel {
             endTurn();
         } // If 3 doubles rolled end turn
 
-
         if (!players.get(player).isInJail()) {
             outputText += "Rolling the Dice! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
@@ -257,8 +253,6 @@ public class MonopolyModel {
                     endTurn();
                 }
                 else{ //actually in jail
-                    //this.playerStatus = Status.JAIL;
-                    //System.out.println("in jail");
                     players.get(player).incrementTurn();
                     if (players.get(player).getTurns() == 3){
                         buy();
@@ -267,9 +261,6 @@ public class MonopolyModel {
                     endTurn();
                 }
             }
-
-            //System.out.print(ended + " rooll\n");
-
 
         }
         else if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
@@ -309,7 +300,6 @@ public class MonopolyModel {
             } else {
                 outputText+="\nTaking the money from your account\n";
                 if(pieces[players.get(player).getPosition()] instanceof Utility){
-                    //System.out.println("here");
                     players.get(player).doTransaction((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue()); // Deducts the cost from account
                     ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue());
                 }
@@ -326,12 +316,16 @@ public class MonopolyModel {
         }
     }
 
+    /**
+     * Notifies and handles when a player passes go.
+     */
     private void passedGo(){
         if(!players.get(player).isInJail()) {
             players.get(player).setMoney(((Go) pieces[0]).getAmount());
             outputText += "\nYou passed Go! Collecting $200!\n";
         }
     }
+
     /**
      * Method checks if the Player is bankrupt
      *
@@ -356,8 +350,6 @@ public class MonopolyModel {
                 players.get(player).getProperties().get(i).sell();
             }
             if(getPlayers().size() > 2) {
-                System.out.println(player);
-                System.out.println(players.size());
                 this.playerStatus = Status.BANKRUPT2;
                 players.remove(player);
                 player = player -1 ; //set the current player
@@ -381,7 +373,6 @@ public class MonopolyModel {
         if (pieces[players.get(player).getPosition()] instanceof Jail){
             players.get(player).doTransaction(50);
             players.get(player).setJailStatus(false);
-            //System.out.println("here");
             outputText+="\nSuccessfully took $50 from your account, you are free to leave jail!\n";
         }
         else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
@@ -401,8 +392,7 @@ public class MonopolyModel {
      */
     public void endTurn() {
         players.get(player).resetNumDoublesRolled();
-        //System.out.println(players.get(player).getName() + "before");
-        player++; //should be incrementing??????
+        player++;
         if (player > players.size() - 1) {
             player = 0;
         }
@@ -414,10 +404,8 @@ public class MonopolyModel {
             }
         }
         else {
-            //System.out.println(players.get(player).getName() + "in else");
             this.playerStatus = Status.UNDECIDED;
 
-            //System.out.println((players.get(player) instanceof MonopolyAIPlayer)+ players.get(player).getName());
             if (players.get(player) instanceof MonopolyAIPlayer) {
                 moveAi();
             }
@@ -425,15 +413,14 @@ public class MonopolyModel {
         }
     }
 
+    /**
+     * Method to handle the AI player actions
+     */
     private void moveAi(){
         this.play(ROLL);
-        //System.out.println(players.get(player).getName() +" HERRREE");
-        //for some reason it won't come here????
         if (!ended) { //endTurn didn't get called in roll()
             if (pieces[players.get(player).getPosition()] instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
-                //System.out.println(players.get(player).getName() + "before buy");
                 this.play(BUY);
-                //System.out.println(players.get(player).getName() + " in AI3");
                 aiTurnEndText();
                 outputText += "\nNow it's " +players.get(player).getName() + "'s turn!";
             }
