@@ -193,7 +193,7 @@ public class MonopolyModel {
      * Helper method that displays the generic text for when AI is done their turn
      */
     private void aiTurnEndText(){
-        outputText += "AI Players have completed their turns." +
+        outputText = "AI Players have completed their turns." +
                 "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
     }
 
@@ -385,7 +385,7 @@ public class MonopolyModel {
             players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
             ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
             ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
-            outputText="Successfully purchased!\n";
+            outputText+="Successfully purchased!\n";
         }
         else {
             outputText= "\nUnfortunately the property you are on is not available for purchase.";
