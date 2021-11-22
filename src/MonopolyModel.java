@@ -16,7 +16,6 @@ import java.util.Random;
     //- if ai rolled doubles, it shows "your turn is now over" instead of usual "AI players have completed their turn" since we call pass in that case. We can change or keep? nt a big deal
     // if ai player goes to jail, it shows what they rolled along with that message. Should we change it to the generic ai turn completed message to keep it consistent?
         //also it makes user choose what ai does in jail
-    //player landed on go and didnt end turn. ex, duriing an ai's turn had to manually click pass and it went to next ai's turn (same situation with human player)
     //index out of bounds error for bankruptcy with ai
 
 public class MonopolyModel {
