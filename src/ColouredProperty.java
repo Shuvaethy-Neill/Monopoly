@@ -3,8 +3,8 @@ import java.awt.*;
 import java.util.Objects;
 
 /**
- * The Property class extends BoardSpace and represents
- * a space that is specifically a property
+ * The ColouredProperty class extends Property and represents
+ * a space that is specifically a coloured type of property
  *
  * @author Shuvaethy Neill
  * @version 1.0
@@ -13,17 +13,16 @@ import java.util.Objects;
 public class ColouredProperty extends Property {
 
     /**
-     * The Property constructor
+     * The ColouredProperty constructor
      *
      * @param name  String, The name of the property
      * @param price int, The price of the property
+     * @param type String, type of property
      * @param color String, The color of the property
      */
     public ColouredProperty(String name, int price, String type, String color, String path, int position) {
         super(name, price, type, color, path, position);
-    }
-
-    /**
+    }/**
      * Determines if a property is equivalent to another property
      *
      * @param o Object, the object to be compared with the object this method is called on
@@ -36,4 +35,6 @@ public class ColouredProperty extends Property {
         ColouredProperty property = (ColouredProperty) o;
         return this.isAvailable == property.isAvailable && this.price == property.price && Objects.equals(this.color, property.color) && Objects.equals(this.owner, property.owner);
     }
+
+
 }
