@@ -173,6 +173,7 @@ public class MonopolyModel {
         for (int i = 0; i < players.size(); i++){
             System.out.println(players.get(i) instanceof MonopolyAIPlayer);
         }
+        System.out.println();
         player = rand.nextInt(players.size());
         outputText = "Starting the game...\n" + players.get(player).getName() + " will start!";
         if (players.get(player) instanceof MonopolyAIPlayer){
@@ -226,6 +227,7 @@ public class MonopolyModel {
         }
         players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
         outputText += pieces[players.get(player).getPosition()].displayInfo();
+
         if(checkBankruptcy()){
             if (players.get(player) instanceof MonopolyAIPlayer){ended = true;}
             endTurn();
@@ -237,8 +239,8 @@ public class MonopolyModel {
                 if (players.get(player) instanceof MonopolyAIPlayer){
                     ended = true;
                     outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
-                            + "\nNow it's " + players.get(player).getName() + "'s turn!";
+                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
+                            //+ "\nNow it's " + players.get(player).getName() + "'s turn!";
                 }
                 endTurn();
             }
@@ -261,6 +263,9 @@ public class MonopolyModel {
                 }
             }
 
+            System.out.print(ended + " rooll\n");
+
+
         }
         else if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
             this.playerStatus = Status.UNDECIDED;
@@ -268,8 +273,8 @@ public class MonopolyModel {
                 if (players.get(player) instanceof MonopolyAIPlayer){
                     ended = true;
                     outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
-                            + "\nNow it's " + players.get(player).getName() + "'s turn!";
+                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
+                            //+ "\nNow it's " + players.get(player).getName() + "'s turn!";
                 }
                 endTurn();
             }
@@ -280,8 +285,8 @@ public class MonopolyModel {
                 if (players.get(player) instanceof MonopolyAIPlayer) {
                     ended = true;
                     outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
-                            + "\nNow it's " + players.get(player).getName() + "'s turn!";
+                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
+                            //+ "\nNow it's " + players.get(player).getName() + "'s turn!";
                 }
                 endTurn();
             }
@@ -293,8 +298,8 @@ public class MonopolyModel {
                 if (players.get(player) instanceof MonopolyAIPlayer){
                     ended = true;
                     outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
-                            + "\nNow it's " + players.get(player).getName() + "'s turn!";
+                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
+                            //"\nNow it's " + players.get(player).getName() + "'s turn!";
                 }
                 endTurn();
             }
@@ -305,6 +310,7 @@ public class MonopolyModel {
             } else {
                 outputText+="\nTaking the money from your account\n";
                 if(pieces[players.get(player).getPosition()] instanceof Utility){
+                    System.out.println("here");
                     players.get(player).doTransaction((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue()); // Deducts the cost from account
                     ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue());
                 }
@@ -315,10 +321,9 @@ public class MonopolyModel {
                 if (players.get(player) instanceof MonopolyAIPlayer){
                     ended = true;
                     outputText = "AI Players have completed their turns." +
-                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
-                            + "\nNow it's " + players.get(player).getName() + "'s turn!";
+                            "\nCheck the side panels to see where they landed and if they bought\nnew property.\n";
+                            //+ "\nNow it's " + players.get(player).getName() + "'s turn!";
                 }
-
                 endTurn();
             }
         }
@@ -409,6 +414,9 @@ public class MonopolyModel {
         outputText += "\nNow it's "+ (players.get(player).getName()) + "'s turn!";
         if(players.get(player).isInJail()){
             this.playerStatus=Status.JAIL;
+            if(players.get(player) instanceof MonopolyAIPlayer){
+                this.play(BUY);
+            }
         }
         else {
             //System.out.println(players.get(player).getName() + "in else");
@@ -426,8 +434,8 @@ public class MonopolyModel {
         this.play(ROLL);
         //for some reason it won't come here????
         if (!ended) { //endTurn didn't get called in roll()
-            if ((pieces[players.get(player).getPosition()] instanceof Property || pieces[players.get(player).getPosition()] instanceof Jail) && players.get(player) instanceof MonopolyAIPlayer) {
-                //System.out.println(players.get(player).getName() + "before buy");
+            if (pieces[players.get(player).getPosition()] instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
+                System.out.println(players.get(player).getName() + "before buy");
                 this.play(BUY);
                 outputText = "AI Players have completed their turns." +
                         "\nCheck the side panels to see where they landed and if they bought\nnew property.\n"
