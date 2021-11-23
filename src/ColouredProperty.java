@@ -6,7 +6,7 @@ import java.util.Objects;
  * The ColouredProperty class extends Property and represents
  * a space that is specifically a coloured type of property
  *
- * @author Shuvaethy Neill
+ * @author Shuvaethy Neill, Harsimran Kanwar
  * @version 1.0
  * @since 2021-11-17
  */
