@@ -1,10 +1,12 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * The BoardSpace class is an abstract class that
@@ -140,7 +142,8 @@ public abstract class BoardSpace extends JPanel {
 
     private void readBackgroundImage() {
         try {
-            Image inputImage = ImageIO.read(new File(path));
+            BufferedImage inputImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(String.valueOf(new File(path)))));
+            //Image inputImage = ImageIO.read(new File(path));
             backgroundImage = inputImage.getScaledInstance(80,80,Image.SCALE_FAST);
         } catch (IOException e) {
             e.printStackTrace();
