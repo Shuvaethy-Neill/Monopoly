@@ -7,7 +7,7 @@ import java.io.IOException;
  * @version 3.0
  * @since 2021-11-21
  */
-
+//testing
 
 public enum BoardSquares {
     GO("GO", "images/Go.jpg", 0),
