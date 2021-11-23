@@ -28,32 +28,35 @@ public abstract class BoardSpace extends JPanel {
      */
     private final String type;
 
-    private final String path;
-
     /**
-     * Image for the board space
+     * The path of the background image for this board space
      */
-    private JLabel square;
+    private final String path;
 
     /**
      * Position number of the BoardSpace
      */
     private final int position;
 
+    /**
+     * An arraylist of all the player icons
+     */
     private ArrayList<JLabel> playerIcons;
 
+    /**
+     * An arraylist of the path of each player icon
+     */
     private ArrayList<String> playerIconPaths;
 
-    private JLabel houseIcon;
-
-    private JLabel hotelIcon;
-
+    /**
+     * The panel that the player icons are displayed in
+     */
     private JPanel playerIconPanel;
 
-    private JPanel houseHotelPanel;
-
+    /**
+     * The background image for this board space
+     */
     private Image backgroundImage;
-
 
     /**
      * The constructor for a BoardSpace object
@@ -71,23 +74,12 @@ public abstract class BoardSpace extends JPanel {
 
         readBackgroundImage();
 
-        houseHotelPanel = new JPanel(new GridLayout(1,4));
-        houseHotelPanel.setPreferredSize(new Dimension(80,20));
-        houseHotelPanel.setOpaque(false);
-        this.add(houseHotelPanel, BorderLayout.PAGE_START);
-
-        ImageIcon tempHouseIcon = new ImageIcon("images/house.png");
-        houseIcon = new JLabel(new ImageIcon(tempHouseIcon.getImage().getScaledInstance(20,20,Image.SCALE_FAST)));
-        ImageIcon tempHotelIcon = new ImageIcon("images/hotel.png");
-        hotelIcon = new JLabel(new ImageIcon(tempHotelIcon.getImage().getScaledInstance(20,20,Image.SCALE_FAST)));
-
         playerIconPanel = new JPanel(new GridLayout(1,8));
         playerIconPanel.setPreferredSize(new Dimension(80,10));
         playerIconPanel.setOpaque(false);
         this.add(playerIconPanel, BorderLayout.CENTER);
 
         for (String playerIconPath : playerIconPaths) {
-            //ImageIcon playerIcon = new ImageIcon(playerIconPath);
             ImageIcon playerIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(playerIconPath)));
             playerIcons.add(new JLabel(new ImageIcon(playerIcon.getImage().getScaledInstance(10, 10, Image.SCALE_FAST))));
         }
@@ -114,33 +106,33 @@ public abstract class BoardSpace extends JPanel {
     }
 
     /**
+     * A getter for the position of this board space
      *
+     * @return int, the position of this board space
      */
     public int getPosition() {
         return this.position;
     }
 
     /**
+     * Add a player icon to this board space
      *
-     * @param playerIndex
+     * @param playerIndex int, the index of the player to add
      */
     public void addPlayerIcon(int playerIndex) {
         playerIconPanel.add(playerIcons.get(playerIndex));
     }
 
     /**
-     *
+     * Remove all player icons from this board space
      */
     public void clearPlayerIcons() {
         playerIconPanel.removeAll();
     }
 
-    public void addHouseHotel(int playerIndex) {
-    }
-
-    public void removeHouseHotel() {
-    }
-
+    /**
+     * Read the background image for this board space
+     */
     private void readBackgroundImage() {
         try {
             BufferedImage inputImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(String.valueOf(new File(path)))));
@@ -156,6 +148,11 @@ public abstract class BoardSpace extends JPanel {
      */
     public abstract String displayInfo();
 
+    /**
+     * Paint this board space normally but also add a background image
+     *
+     * @param g Graphics
+     */
     public void paintComponent (Graphics g) {
         //super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, this);
