@@ -84,10 +84,11 @@ public abstract class BoardSpace extends JPanel {
         playerIconPanel = new JPanel(new GridLayout(1,8));
         playerIconPanel.setPreferredSize(new Dimension(80,10));
         playerIconPanel.setOpaque(false);
-        this.add(playerIconPanel, BorderLayout.PAGE_END);
+        this.add(playerIconPanel, BorderLayout.CENTER);
 
         for (String playerIconPath : playerIconPaths) {
-            ImageIcon playerIcon = new ImageIcon(playerIconPath);
+            //ImageIcon playerIcon = new ImageIcon(playerIconPath);
+            ImageIcon playerIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(playerIconPath)));
             playerIcons.add(new JLabel(new ImageIcon(playerIcon.getImage().getScaledInstance(10, 10, Image.SCALE_FAST))));
         }
 
@@ -156,7 +157,7 @@ public abstract class BoardSpace extends JPanel {
     public abstract String displayInfo();
 
     public void paintComponent (Graphics g) {
-        super.paintComponent(g);
+        //super.paintComponent(g);
         g.drawImage(backgroundImage, 0, 0, this);
     }
 }
