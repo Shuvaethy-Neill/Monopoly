@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * MonopolyFrame Class that extends from the JFrame Class and implements from the
@@ -90,7 +91,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         instructionPanel.add(instructionInfo, BorderLayout.WEST);
         instructionPanel.add(buttonPanel, BorderLayout.CENTER);
 
-        // Panel to contain the 2 dices
+        // Panel to contain the 2 dice
         dicePanel = new JPanel();
         dicePanel.setPreferredSize(new Dimension(250, 150));
         dice1 = new DiceDisplay();
@@ -98,6 +99,78 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         dicePanel.add(dice1);
         dicePanel.add(dice2);
         instructionPanel.add(dicePanel, BorderLayout.EAST);
+
+        // Create menu bar and add option to buy a house
+        JMenuBar menuBar = new JMenuBar();
+        JMenu buildMenu = new JMenu("Build House/Hotel");
+        menuBar.add(buildMenu);
+        JMenuItem buildItem = new JMenuItem("Build House/Hotel");
+        buildItem.addActionListener(e -> buildHouseHotel());
+        buildMenu.add(buildItem);
+        this.setJMenuBar(menuBar);
+    }
+
+    /**
+     * Checks which properties the player can build a house or hotel on and builds a house on the one selected by the player
+     */
+    private void buildHouseHotel() {
+        Player currentPlayer = model.getPlayers().get(model.getPlayer());
+        HashMap<String, ArrayList<ColouredProperty>> playerColours = new HashMap<>();
+        ArrayList<String> possibleColoursForBuilding = new ArrayList<>();
+        for (Property property : currentPlayer.getProperties()) {
+            if (property.getType().equals("colouredProperty")) {
+                if (!playerColours.containsKey(property.getColor())) {
+                    playerColours.put(property.getColor(), new ArrayList<>());
+                }
+                playerColours.get(property.getColor()).add((ColouredProperty) property);
+
+                if ((playerColours.get(property.getColor()).size() == ((ColouredProperty) property).getSetSize()) &&
+                        !possibleColoursForBuilding.contains(property.getColor())) {
+                    possibleColoursForBuilding.add(property.getColor());
+                }
+            }
+        }
+
+        if (possibleColoursForBuilding.size() == 0) {
+            JOptionPane.showMessageDialog(this, "You cannot build any houses/hotels because " +
+                    "you don't have any full property sets yet!");
+        } else {
+            Object[] options = possibleColoursForBuilding.toArray();
+            boolean validInput = false;
+            Object choice = null;
+            String message = "You can build on any of the following color sets!";
+            while (!validInput) {
+                choice = JOptionPane.showInputDialog(this, message, "Color Choice",
+                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+                if (choice == null) {
+                    message = "You can build on any of the following color sets!\nPlease press 'Ok', not 'Cancel'";
+                } else {
+                    validInput = true;
+                }
+            }
+
+            ColouredProperty propertyToBuildOn = null;
+            int tempNum = 4;
+            for (ColouredProperty property : playerColours.get((String) choice)) {
+                if ((property).getHouseHotelStatus().getNum() <= tempNum) {
+                    propertyToBuildOn = (property);
+                    tempNum = propertyToBuildOn.getHouseHotelStatus().getNum();
+                }
+            }
+            if (propertyToBuildOn == null) {
+                JOptionPane.showMessageDialog(this, "You cannot build any more on these " +
+                        "properties!\nThey already have hotels!");
+            } else if (propertyToBuildOn.getHouseHotelPrice() > currentPlayer.getMoney()) {
+                JOptionPane.showMessageDialog(this, "You do not have enough money to buy a " +
+                        "house or hotel");
+            } else {
+                currentPlayer.doTransaction(propertyToBuildOn.getHouseHotelPrice());
+                propertyToBuildOn.addHouseHotel();
+                model.notifyViews();
+                JOptionPane.showMessageDialog(this, "House successfully built on " +
+                        propertyToBuildOn.getName() + " for " + propertyToBuildOn.getHouseHotelPrice() + "!");
+            }
+        }
     }
 
     /**
@@ -138,7 +211,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             helpButton.setEnabled(false);
 
             JOptionPane.showMessageDialog(this, "Game over! Thanks for playing!");
-            //System.exit(0); having this enabled ruins the test cases
+            System.exit(0);
         }
         else if(e.status == MonopolyModel.Status.BANKRUPT2) {
             JOptionPane.showMessageDialog(this, "Current player has been eliminated.");

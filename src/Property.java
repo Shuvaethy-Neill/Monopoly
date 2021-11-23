@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -10,7 +8,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2021-10-22
  */
-public class Property extends BoardSpace {
+public abstract class Property extends BoardSpace {
     /**
      * Whether the property is available or not
      */
@@ -22,27 +20,35 @@ public class Property extends BoardSpace {
     protected final int price;
 
     /**
-     * The color group of the property
+     * The owner of the property
      */
-    protected final String color;
-
     protected Player owner;
 
-    private ImageIcon square;
+    /**
+     * The color of the property
+     */
+    protected final String color;
 
     /**
      * The Property constructor
      *
      * @param name String, The name of the property
      * @param price int, The price of the property
-     * @param color String, The color of the property
      */
     public Property(String name, int price, String type, String color, String path, int position) {
         super(name, type, path, position);
         this.isAvailable = true;
-        this.price = price;
         this.color = color;
-        this.square = new ImageIcon(path);
+        this.price = price;
+    }
+
+    /**
+     * Getter for the color of the property
+     *
+     * @return String, the color of the property
+     */
+    public String getColor() {
+        return color;
     }
 
     /**
@@ -72,14 +78,7 @@ public class Property extends BoardSpace {
         return price;
     }
 
-    /**
-     * Getter for the color of the property
-     *
-     * @return String, the color of the property
-     */
-    public String getColor() {
-        return color;
-    }
+
 
     /**
      * Getter for the owner of the property
@@ -122,9 +121,7 @@ public class Property extends BoardSpace {
      *
      * @return int, the price of rent
      */
-    public int getRent() {
-        return (int) Math.round(Math.pow(price, 3) * 0.000001 + Math.pow(price, 2) * -0.0007 + price * 0.2014 - 7.5593);
-    }
+    public abstract int getRent();
 
     /**
      * Displays property landed on along with if it's available for purchase or they pay rent.
@@ -136,7 +133,7 @@ public class Property extends BoardSpace {
             text += "\nThis property costs $" + getPrice();
         }
         else{
-            text += "\nThe rent for this property is $" + getRent() + ".";
+            text += "\nThe rent for this property is $";
         }
         return text;
     }
@@ -152,7 +149,7 @@ public class Property extends BoardSpace {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Property property = (Property) o;
-        return isAvailable == property.isAvailable && price == property.price && Objects.equals(color, property.color) && Objects.equals(owner, property.owner);
+        return isAvailable == property.isAvailable && price == property.price && Objects.equals(owner, property.owner);
     }
 
     /**
@@ -162,6 +159,6 @@ public class Property extends BoardSpace {
      */
     @Override
     public String toString() {
-        return "Name: " + this.getName() + ", Color: " + this.getColor() + ", Price: " + this.getPrice();
+        return "Name: " + this.getName() + ", Color: " + ", Price: " + this.getPrice();
     }
 }

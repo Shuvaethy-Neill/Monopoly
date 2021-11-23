@@ -11,9 +11,6 @@ import java.util.Random;
  * @since 2021-11-21
  */
 
-//bugs to note:
-    //- when player before AI buys a property, it doesnt give them confirmation that they bought it (since AI text is too speedy) BUT it does show in side panel so not a big deal???
-
 public class MonopolyModel {
 
     private List<MonopolyView> monopolyViews;
