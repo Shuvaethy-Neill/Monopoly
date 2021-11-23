@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * BoardPanel Class that extends from the JPanel Class
@@ -81,7 +82,8 @@ public class BoardPanel extends JPanel implements MonopolyView {
         monopolyLabelConstraints.gridx = 1;
         monopolyLabelConstraints.gridy = 1;
 
-        monopolyLabel = new JLabel(new ImageIcon("images/logo.jpg"), JLabel.CENTER);
+        //monopolyLabel = new JLabel(new ImageIcon("images/logo.jpg"), JLabel.CENTER);
+        monopolyLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/logo.jpg"))), JLabel.CENTER);
     }
 
     /**
