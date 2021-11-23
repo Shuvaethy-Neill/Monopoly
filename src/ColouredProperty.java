@@ -121,11 +121,14 @@ public class ColouredProperty extends Property {
      */
     public void addHouseHotel() {
         if (propertyHouseHotelStatus.getNum() < 4) {
-            ImageIcon tempHouseIcon = new ImageIcon("images/house.png");
+            //ImageIcon tempHouseIcon = new ImageIcon("images/house.png");
+            ImageIcon tempHouseIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/house.png")));
+
             JLabel houseIcon = new JLabel(new ImageIcon(tempHouseIcon.getImage().getScaledInstance(20,20,Image.SCALE_FAST)));
             houseHotelPanel.add(houseIcon);
         } else {
-            ImageIcon tempHotelIcon = new ImageIcon("images/hotel.png");
+            //ImageIcon tempHotelIcon = new ImageIcon("images/hotel.png");
+            ImageIcon tempHotelIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/hotel.png")));
             JLabel hotelIcon = new JLabel(new ImageIcon(tempHotelIcon.getImage().getScaledInstance(20,20,Image.SCALE_FAST)));
             houseHotelPanel.removeAll();
             houseHotelPanel.add(hotelIcon);

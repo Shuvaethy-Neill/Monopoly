@@ -31,7 +31,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(1100,1000));
+        this.setPreferredSize(new Dimension(1000,900));
         this.model.addView(this);
 
         startButton = new JButton("Start");
