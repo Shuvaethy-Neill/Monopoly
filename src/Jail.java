@@ -9,8 +9,18 @@
  */
 
 public class Jail extends BoardSpace{
+
+    /**
+     *
+     */
     private String type;
 
+    /**
+     *
+     */
+    public Jail() {
+        this("", "", "", -1);
+    }
     /**
      * Constructor for the Jail Class
      * @param name String, name of the board square

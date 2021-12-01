@@ -29,12 +29,12 @@ public class ColouredProperty extends Property {
     /**
      * The price of a house or hotel for this property
      */
-    private final int houseHotelPrice;
+    private int houseHotelPrice;
 
     /**
      * The size of the colour group this property is a member of
      */
-    private final int setSize;
+    private int setSize;
 
     /**
      * The current status of the coloured property with respect to houses and hotels
@@ -45,6 +45,11 @@ public class ColouredProperty extends Property {
      * The JPanel that contains houses and hotels
      */
     private JPanel houseHotelPanel;
+
+
+    public ColouredProperty() {
+        this("", -1, "", "", "", -1, -1, -1);
+    }
 
     /**
      * The ColouredProperty constructor
@@ -142,6 +147,22 @@ public class ColouredProperty extends Property {
     public void resetHouseHotel() {
         propertyHouseHotelStatus = HouseHotel.NONE;
         houseHotelPanel.removeAll();
+    }
+
+    /**
+     *
+     * @param houseHotelPrice
+     */
+    public void setHouseHotelPrice(int houseHotelPrice) {
+        this.houseHotelPrice = houseHotelPrice;
+    }
+
+    /**
+     *
+     * @param setSize
+     */
+    public void setSetSize(int setSize) {
+        this.setSize = setSize;
     }
 
     /**

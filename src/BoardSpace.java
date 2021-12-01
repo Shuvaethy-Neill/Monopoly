@@ -21,22 +21,22 @@ public abstract class BoardSpace extends JPanel {
     /**
      * The name of the board space
      */
-    private final String name;
+    private String name;
 
     /**
      * The type of board space
      */
-    private final String type;
+    private String type;
 
     /**
      * The path of the background image for this board space
      */
-    private final String path;
+    private String path;
 
     /**
      * Position number of the BoardSpace
      */
-    private final int position;
+    private int position;
 
     /**
      * An arraylist of all the player icons
@@ -128,6 +128,38 @@ public abstract class BoardSpace extends JPanel {
      */
     public void clearPlayerIcons() {
         playerIconPanel.removeAll();
+    }
+
+    /**
+     *
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     *
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /**
+     *
+     * @param path
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    /**
+     *
+     * @param position
+     */
+    public void setPosition(int position) {
+        this.position = position;
     }
 
     /**

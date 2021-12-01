@@ -17,7 +17,7 @@ public abstract class Property extends BoardSpace {
     /**
      * The price of the property
      */
-    protected final int price;
+    protected int price;
 
     /**
      * The owner of the property
@@ -27,7 +27,7 @@ public abstract class Property extends BoardSpace {
     /**
      * The color of the property
      */
-    protected final String color;
+    protected String color;
 
     /**
      * The Property constructor
@@ -114,6 +114,30 @@ public abstract class Property extends BoardSpace {
         }
         this.owner = null;
         return false;
+    }
+
+    /**
+     *
+     * @param available
+     */
+    public void setIsAvailable(boolean available) {
+        this.isAvailable = available;
+    }
+
+    /**
+     *
+     * @param price
+     */
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    /**
+     *
+     * @param color
+     */
+    public void setColor(String color) {
+        this.color = color;
     }
 
     /**

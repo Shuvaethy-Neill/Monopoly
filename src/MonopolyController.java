@@ -1,5 +1,15 @@
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Stack;
 
 /**
  * Monopoly Controller class translates the user's interaction with the view
@@ -10,29 +20,69 @@ import java.util.Objects;
  * @since 2021-11-21
  */
 
-public class MonopolyController {
+public class MonopolyController extends DefaultHandler {
+    /**
+     *
+     */
     private MonopolyModel model;
+
+    /**
+     *
+     */
     private MonopolyFrame view;
 
+    /**
+     *
+     */
     private static final int MAX_PLAYERS = 8;
 
+    /**
+     *
+     */
     private int aiPlayers;
+
+    /**
+     *
+     */
     private int humanPlayers;
 
+    /**
+     *
+     */
+    private Stack<String> stack;
+
+    /**
+     *
+     */
+    private ArrayList<BoardSpace> boardSpaces;
+
+    /**
+     *
+     * @param model
+     * @param view
+     */
     public MonopolyController(MonopolyModel model, MonopolyFrame view) {
+        // Initialize Variables
         this.model = model;
         this.view = view;
+        this.boardSpaces = new ArrayList<>();
+        this.stack = new Stack<>();
+
+        // Get number of human players
         this.humanPlayers = getHumanPlayers();
         for (int i = 0; i < humanPlayers; i++) { //adding human player to model
             model.addPlayer(getPlayerInformation());
         }
+
+        // Get number of ai players
         this.aiPlayers = aiPlayers();
         for (int i = 1; i <= aiPlayers; i++) {
             model.addPlayer(new MonopolyAIPlayer("Player " + (humanPlayers + i)));
         }
     }
 
-    /** Returns the number of human players the user decides to play with
+    /**
+     * Returns the number of human players the user decides to play with
      * @return the number the user has chosen
      */
     private int getHumanPlayers() {
@@ -57,7 +107,8 @@ public class MonopolyController {
         return (int) numPlayersObject;
     }
 
-    /** Returns the number of ai players the user decides to play with
+    /**
+     * Returns the number of ai players the user decides to play with
      * @return the number the user has chosen
      */
     private int aiPlayers() {
@@ -83,7 +134,8 @@ public class MonopolyController {
     }
 
 
-    /** Returns the Player object with a username chosen by the user
+    /**
+     * Returns the Player object with a username chosen by the user
      * @return the player object
      */
     private Player getPlayerInformation() {
@@ -109,5 +161,70 @@ public class MonopolyController {
         }
 
         return new Player(playerName);
+    }
+
+    /**
+     *
+     * @param filename
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     */
+    public void importFromXmlFile(String filename) throws ParserConfigurationException, SAXException, IOException {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        parser.parse(filename, this);
+    }
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        super.startElement(uri, localName, qName, attributes);
+        this.stack.push(qName);
+        if (qName.equals("ColouredProperty")) {
+            this.boardSpaces.add(new ColouredProperty());
+        } else if (qName.equals("Railroad")) {
+            this.boardSpaces.add(new Railroad());
+        } else if (qName.equals("Utility")) {
+            this.boardSpaces.add(new Utility());
+        } else if (qName.equals("Tax")) {
+            this.boardSpaces.add(new Tax());
+        } else if (qName.equals("Go")) {
+            this.boardSpaces.add(new Go());
+        } else if (qName.equals("Free Parking")) {
+            this.boardSpaces.add(new FreeParking());
+        } else if (qName.equals("Jail")) {
+            this.boardSpaces.add(new Jail());
+        }
+    }
+
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+        super.endElement(uri, localName, qName);
+        this.stack.pop();
+    }
+
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        super.characters(ch, start, length);
+        String val = new String(ch, start, length);
+        if (!(val.length() == 0)) {
+            if (stack.peek().equals("name")) {
+                boardSpaces.get(boardSpaces.size() - 1).setName(val);
+            } else if (stack.peek().equals("path")) {
+                boardSpaces.get(boardSpaces.size() - 1).setPath(val);
+            } else if (stack.peek().equals("position")) {
+                boardSpaces.get(boardSpaces.size() - 1).setPosition(Integer.parseInt(val));
+            } else if (stack.peek().equals("price")) {
+                ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setPrice(Integer.parseInt(val));
+            } else if (stack.peek().equals("type")) {
+                boardSpaces.get(boardSpaces.size() - 1).setType(val);
+            } else if (stack.peek().equals("color")) {
+                ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setColor(val);
+            } else if (stack.peek().equals("houseHotelPrice")) {
+                ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setHouseHotelPrice(Integer.parseInt(val));
+            } else if (stack.peek().equals("setSize")) {
+                ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setSetSize(Integer.parseInt(val));
+            }
+        }
     }
 }

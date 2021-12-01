@@ -2,7 +2,7 @@
  * The Go class extends BoardSpace and specifically
  * represents the GO space
  *
- * @author Harsimran Kanwar, Shuvaethy Neill, Dorothy Tran
+ * @author Harsimran Kanwar, Shuvaethy Neill, Dorothy Tran, Evan Smedley
  * @verion 1.0
  * @since 2021-11-17
  */
@@ -12,6 +12,10 @@ public class Go extends BoardSpace {
      * The amount of money GO gives a player
      */
     private final int amount;
+
+    public Go() {
+        this("", "", -1);
+    }
 
     /**
      * GO constructor

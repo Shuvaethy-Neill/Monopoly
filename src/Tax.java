@@ -19,6 +19,13 @@ public class Tax extends BoardSpace {
     private ImageIcon square;
 
     /**
+     *
+     */
+    public Tax() {
+        this("", -1, "", -1);
+    }
+
+    /**
      * Constructor for the Tax Class
      *
      * @param name, the name of the tax space

@@ -13,6 +13,13 @@ import java.util.Objects;
 public class Railroad extends Property {
 
     /**
+     *
+     */
+    public Railroad() {
+        this("", -1, "", "", "", -1);
+    }
+
+    /**
      * The ColouredProperty constructor
      *
      * @param name  String, The name of the property

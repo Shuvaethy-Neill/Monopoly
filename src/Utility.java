@@ -13,6 +13,13 @@ import java.util.Objects;
 public class Utility extends Property {
 
     /**
+     *
+     */
+    public Utility() {
+        this("", -1, "", "", "", -1);
+    }
+
+    /**
      * The Utility constructor
      *
      * @param name  String, The name of the property
@@ -29,7 +36,6 @@ public class Utility extends Property {
      *
      * @return int, the price of utility
      */
-
     public int getRent() {
         int utilityCount = 0;
         int rent;

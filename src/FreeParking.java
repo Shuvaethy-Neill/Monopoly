@@ -13,6 +13,10 @@ public class FreeParking extends BoardSpace {
      */
     private int amount;
 
+    public FreeParking() {
+        this("", "", -1);
+    }
+
     /**
      * FreeParking constructor
      *
