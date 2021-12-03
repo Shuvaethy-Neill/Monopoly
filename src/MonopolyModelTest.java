@@ -74,6 +74,33 @@ public class MonopolyModelTest {
         assertTrue(mm.checkBankruptcy());
     }
 
+    @Test
+    public void passedGo() {
+        mm =  new MonopolyModel();
+        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
+        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
+        Player p1 = mm.getPlayers().get(mm.getPlayer());
+        mm.play("Roll Dice");
+        /*if(pieces[p1.getPosition()] instanceof Property || pieces[p1.getPosition()] instanceof Railroad || pieces[p1.getPosition()] instanceof Utility) {
+            p1.move(25);
+        }*/
+        // tryna get the player to auto move fully rotating 25 squares on the board wherever they rolled
+
+        assertEquals(1700.0, p1.getMoney(), 2);
+    }
+
+    @Test
+    public void jail() {
+        mm =  new MonopolyModel();
+        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
+        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
+        mm.play("Roll Dice");
+        Player p1 = mm.getPlayers().get(mm.getPlayer());
+        // tryna somehow get them to move to the jail boardsquare but for ours they move up spaces to start the game
+
+        // assertTrue(p1.isInJail());
+    }
+
     public void moveAI() {
     }
 }
