@@ -194,12 +194,14 @@ public class MonopolyModel {
     private void checkIfAI(Player player){
         if (player instanceof MonopolyAIPlayer){
             ended = true;
+            ((MonopolyAIPlayer) player).setRolled(false);
+            ((MonopolyAIPlayer) player).setBought(false);
             aiTurnEndText();
         }
     }
 
     /**
-     *
+     * Method to check if the roll was a double, and if so, end turn
      * @param dice
      */
     private void handleNonDoubleTurnRoll(Dice dice){
@@ -314,6 +316,7 @@ public class MonopolyModel {
             }
         }
     }
+
     /**
      * Notifies and handles when a player passes go.
      */
@@ -398,7 +401,7 @@ public class MonopolyModel {
         if(players.get(player).isInJail()){
             this.playerStatus=Status.JAIL;
             if(players.get(player) instanceof MonopolyAIPlayer){
-                this.play(BUY);
+                this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
             }
         }
         else {
@@ -407,7 +410,6 @@ public class MonopolyModel {
             if (players.get(player) instanceof MonopolyAIPlayer) {
                 moveAi();
             }
-
         }
     }
 
@@ -415,15 +417,15 @@ public class MonopolyModel {
      * Method to handle the AI player actions
      */
     private void moveAi(){
-        this.play(ROLL);
+        this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
         if (!ended) { //endTurn didn't get called in roll()
             if (pieces[players.get(player).getPosition()] instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
-                this.play(BUY);
+                this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
                 aiTurnEndText();
                 outputText += "\nNow it's " +players.get(player).getName() + "'s turn!";
             }
             if (dice.isDouble() && players.get(player) instanceof MonopolyAIPlayer) {
-                this.play(PASS);
+                this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
             }
         }
         ended = false;
@@ -449,7 +451,7 @@ public class MonopolyModel {
         } else if (command.equals(ROLL)) {
             roll();
         } else if (command.equals(PASS)) {
-            if (players.get(player) instanceof MonopolyAIPlayer){outputText+="AI player has passed/completed their turn! Passing to next player.\n"; }
+            if (players.get(player) instanceof MonopolyAIPlayer){outputText="AI player has passed/completed their turn! Passing to next player.\n"; }
             else{outputText= players.get(player).getName() + " has passed their turn! Passing to next player.\n";}
             endTurn();
         }
