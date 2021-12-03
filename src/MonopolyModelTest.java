@@ -4,21 +4,28 @@ import org.junit.runners.MethodSorters;
 import java.util.Locale;
 
 import static org.junit.Assert.*;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MonopolyModelTest {
     MonopolyModel mm; //model attribute
+    MonopolyFrame mf;
+    MonopolyController mc;
     private BoardSpace[] pieces;
 
     //NOTE: FOR TESTING USE 2 PLAYERS
+
+    @org.junit.Before
+    public void setUp() throws Exception {
+        mm = new MonopolyModel();
+        mf = new MonopolyFrame(mm);
+        mc = new MonopolyController(mm, mf);
+    }
 
     /**
      * Tests if the specified number of players are added
      */
     @Test
     public void getPlayers() {
-        mm = new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         assertEquals(2,mm.getPlayers().size()); //choose 2 players
     }
 
@@ -27,9 +34,6 @@ public class MonopolyModelTest {
      */
     @Test
     public void getOutputText() {
-        mm = new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         assertEquals("", mm.getOutputText());
         String prev = mm.getPlayers().get(mm.getPlayer()).getName();
         mm.play("Pass");
@@ -42,9 +46,6 @@ public class MonopolyModelTest {
      */
     @Test
     public void getPlayerStatus() {
-        mm = new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         assertEquals(MonopolyModel.Status.UNDECIDED,mm.getPlayerStatus());
         mm.play("Roll Dice");
         assertEquals(MonopolyModel.Status.PLAYING,mm.getPlayerStatus());
@@ -57,9 +58,6 @@ public class MonopolyModelTest {
      */
     @Test
     public void start() {
-        mm =  new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         String s = mm.start();
         assertEquals(mm.getPlayers().get(mm.getPlayer()).getName(),s);
     }
@@ -69,9 +67,6 @@ public class MonopolyModelTest {
      */
     @Test
     public void buyProperty() {
-        mm =  new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         mm.play("Roll Dice");
         String prev = mm.getPlayers().get(mm.getPlayer()).getName().toUpperCase(Locale.ROOT);
         mm.play("Buy");
@@ -84,9 +79,6 @@ public class MonopolyModelTest {
      */
     @Test
     public void zBankruptcy() {
-        mm =  new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         Player p1 = mm.getPlayers().get(mm.getPlayer());
         mm.play("Roll Dice");
         p1.doTransaction(1500); //force player to go bankrupt
@@ -98,9 +90,6 @@ public class MonopolyModelTest {
      */
     @Test
     public void passedGo() {
-        mm =  new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         Player p1 = mm.getPlayers().get(mm.getPlayer());
         mm.play("Roll Dice");
         p1.move(40);
@@ -113,9 +102,6 @@ public class MonopolyModelTest {
      */
     @Test
     public void jail() {
-        mm =  new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         //mm.play("Roll Dice");
         Player p1 = mm.getPlayers().get(mm.getPlayer());
         p1.move(28);
@@ -124,5 +110,10 @@ public class MonopolyModelTest {
     }
 
     public void moveAI() {
+        MonopolyAIPlayer AI1 = new MonopolyAIPlayer("AI1");
+        mm.addPlayer(AI1);
+        AI1.setRolled(true);
+        //check if getRollDecision matches the right condition?? ex. should be BUY
+
     }
 }
