@@ -10,6 +10,10 @@ public class MonopolyModelTest {
     private BoardSpace[] pieces;
 
     //NOTE: FOR TESTING USE 2 PLAYERS
+
+    /**
+     * Tests if the specified number of players are added
+     */
     @Test
     public void getPlayers() {
         mm = new MonopolyModel();
@@ -18,6 +22,9 @@ public class MonopolyModelTest {
         assertEquals(2,mm.getPlayers().size()); //choose 2 players
     }
 
+    /**
+     * Tests if the expected output text is displayed to the user
+     */
     @Test
     public void getOutputText() {
         mm = new MonopolyModel();
@@ -30,6 +37,9 @@ public class MonopolyModelTest {
                 mm.getPlayers().get(mm.getPlayer()).getName() +  "'s turn!", mm.getOutputText());
     }
 
+    /**
+     * Tests if the player's status changes when different button commands are selected
+     */
     @Test
     public void getPlayerStatus() {
         mm = new MonopolyModel();
@@ -42,6 +52,9 @@ public class MonopolyModelTest {
         assertEquals(MonopolyModel.Status.QUITTING,mm.getPlayerStatus());
     }
 
+    /**
+     *
+     */
     @Test
     public void start() {
         mm =  new MonopolyModel();
@@ -51,6 +64,9 @@ public class MonopolyModelTest {
         assertEquals(mm.getPlayers().get(mm.getPlayer()).getName(),s);
     }
 
+    /**
+     * Tests when the player selected the Buy command, a property is purchased
+     */
     @Test
     public void buyProperty() {
         mm =  new MonopolyModel();
@@ -63,6 +79,9 @@ public class MonopolyModelTest {
     }
 
     // Not reaching this test again for some reason
+    /**
+     * Tests if a player is bankrupt
+     */
     @Test
     public void zBankruptcy() {
         mm =  new MonopolyModel();
@@ -74,6 +93,9 @@ public class MonopolyModelTest {
         assertTrue(mm.checkBankruptcy());
     }
 
+    /**
+     * Tests whether a player receives $200 after fully rotating throughout the board passing the GO board square
+     */
     @Test
     public void passedGo() {
         mm =  new MonopolyModel();
@@ -81,14 +103,14 @@ public class MonopolyModelTest {
         MonopolyController mc = new MonopolyController(mm,monopolyFrame);
         Player p1 = mm.getPlayers().get(mm.getPlayer());
         mm.play("Roll Dice");
-        /*if(pieces[p1.getPosition()] instanceof Property || pieces[p1.getPosition()] instanceof Railroad || pieces[p1.getPosition()] instanceof Utility) {
-            p1.move(25);
-        }*/
-        // tryna get the player to auto move fully rotating 25 squares on the board wherever they rolled
-
+        p1.move(40);
+        mm.passedGo();
         assertEquals(1700.0, p1.getMoney(), 2);
     }
 
+    /**
+     * Method tests whether a player is sent to jail when they land on the Go To Jail board square
+     */
     @Test
     public void jail() {
         mm =  new MonopolyModel();
@@ -97,8 +119,7 @@ public class MonopolyModelTest {
         mm.play("Roll Dice");
         Player p1 = mm.getPlayers().get(mm.getPlayer());
         // tryna somehow get them to move to the jail boardsquare but for ours they move up spaces to start the game
-
-        // assertTrue(p1.isInJail());
+        assertTrue(p1.isInJail());
     }
 
     public void moveAI() {

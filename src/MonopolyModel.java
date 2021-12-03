@@ -317,7 +317,7 @@ public class MonopolyModel {
     /**
      * Notifies and handles when a player passes go.
      */
-    private void passedGo(){
+    public void passedGo(){
         if(!players.get(player).isInJail()) {
             players.get(player).setMoney(((Go) pieces[0]).getAmount());
             outputText += "\nYou passed Go! Collecting $200!\n";
