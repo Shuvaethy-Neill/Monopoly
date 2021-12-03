@@ -1,14 +1,13 @@
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-
 import java.util.Locale;
 
 import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MonopolyModelTest {
     MonopolyModel mm; //model attribute
-    BoardSpace[] pieces;
+    private BoardSpace[] pieces;
 
     //NOTE: FOR TESTING USE 2 PLAYERS
     @Test
@@ -27,7 +26,8 @@ public class MonopolyModelTest {
         assertEquals("", mm.getOutputText());
         String prev = mm.getPlayers().get(mm.getPlayer()).getName();
         mm.play("Pass");
-        assertEquals(prev + " has passed their turn! Passing to next player.\n\nNow it's " + mm.getPlayers().get(mm.getPlayer()).getName() +  "'s turn!", mm.getOutputText());
+        assertEquals(prev + " has passed their turn! Passing to next player.\n\nNow it's " +
+                mm.getPlayers().get(mm.getPlayer()).getName() +  "'s turn!", mm.getOutputText());
     }
 
     @Test
@@ -74,31 +74,6 @@ public class MonopolyModelTest {
         assertTrue(mm.checkBankruptcy());
     }
 
-    @Test
-    public void passedGo() {
-        mm =  new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
-        Player p1 = mm.getPlayers().get(mm.getPlayer());
-        mm.play("Roll Dice");
-        /*if(pieces[p1.getPosition()] instanceof Property || pieces[p1.getPosition()] instanceof Railroad || pieces[p1.getPosition()] instanceof Utility) {
-            p1.move(25);
-        }*/
-        assertEquals(1700.0, p1.getMoney(), 2);
-    }
-
-    @Test
-    public void jail() {
-        mm =  new MonopolyModel();
-        MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
-        MonopolyController mc = new MonopolyController(mm,monopolyFrame);
-        mm.play("Roll Dice");
-        Player p1 = mm.getPlayers().get(mm.getPlayer());
-        // tryna somehow get them to move to the jail boardsquare but for ours they move up spaces to start the game
-        assertTrue(p1.isInJail());
-    }
-
     public void moveAI() {
     }
-
 }
