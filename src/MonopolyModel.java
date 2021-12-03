@@ -186,6 +186,29 @@ public class MonopolyModel {
                 "Press the 'Quit' button to end and close the game";
     }
 
+
+    /**
+     * Method to check if player is an AI and end their turn if they are
+     * @param player
+     */
+    private void checkIfAI(Player player){
+        if (player instanceof MonopolyAIPlayer){
+            ended = true;
+            aiTurnEndText();
+        }
+    }
+
+    /**
+     *
+     * @param dice
+     */
+    private void handleNonDoubleTurnRoll(Dice dice){
+        if (!dice.isDouble()) {
+            checkIfAI(players.get(player));
+            endTurn();
+        }
+    }
+
     /**
      * Helper method that displays the generic text for when AI is done their turn
      */
@@ -226,43 +249,22 @@ public class MonopolyModel {
         outputText += pieces[players.get(player).getPosition()].displayInfo();
 
         if(checkBankruptcy()){
-            if (players.get(player) instanceof MonopolyAIPlayer){ended = true;}
+            checkIfAI(players.get(player));
             endTurn();
         }
         else if (pieces[players.get(player).getPosition()] instanceof Jail) {
             handleJail();
         }
-        else if (pieces[players.get(player).getPosition()] instanceof FreeParking) {
+        else if ((pieces[players.get(player).getPosition()] instanceof FreeParking) || (pieces[players.get(player).getPosition()] instanceof Go)) {
             this.playerStatus = Status.UNDECIDED;
-            if (!dice.isDouble()) {
-                if (players.get(player) instanceof MonopolyAIPlayer){
-                    ended = true;
-                    aiTurnEndText();
-                }
-                endTurn();
-            }
-        }
-        else if (pieces[players.get(player).getPosition()] instanceof Go) {
-            this.playerStatus = Status.UNDECIDED;
-            if (!dice.isDouble()) {
-                if (players.get(player) instanceof MonopolyAIPlayer) {
-                    ended = true;
-                    aiTurnEndText();
-                }
-                endTurn();
-            }
+            handleNonDoubleTurnRoll(dice);
         }
         else if (pieces[players.get(player).getPosition()] instanceof Tax) {
             players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
             this.playerStatus = Status.UNDECIDED;
-            if (!dice.isDouble()) {
-                if (players.get(player) instanceof MonopolyAIPlayer){
-                    ended = true;
-                    aiTurnEndText();
-                }
-                endTurn();
-            }
-        } else if ((pieces[players.get(player).getPosition()] instanceof Property) && !((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
+            handleNonDoubleTurnRoll(dice);
+        }
+        else if ((pieces[players.get(player).getPosition()] instanceof Property) && !((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
             // Player who owns the property gets rent
             if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
                 outputText+="\nYou do not need to pay rent since you own this property.\n";
@@ -275,13 +277,7 @@ public class MonopolyModel {
                 players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
                 ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
             }
-            if (!dice.isDouble()) {
-                if (players.get(player) instanceof MonopolyAIPlayer){
-                    ended = true;
-                    aiTurnEndText();
-                }
-                endTurn();
-            }
+            handleNonDoubleTurnRoll(dice);
         }
     }
 
