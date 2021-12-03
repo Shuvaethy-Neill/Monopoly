@@ -1,6 +1,6 @@
 # The Monopoly Game
-[Version 3.0] 
-November 22, 2021
+[Version 4.0] 
+December 6, 2021
 
 
 -----------------------------------------------------------------
@@ -29,8 +29,8 @@ DESCRIPTION
 - The milestone is composed of the following files:
 
 	Monopoly.jar
-	SYSC3110_M3_Documentation.pdf
-	SYSC3110_M3_UML.png
+	SYSC3110_M4_Documentation.pdf
+	SYSC3110_M4_UML.png
 	SequenceDiagram_PlayMethod.png
 
 - The jar file has '.java' and '.class' files for the following classes
@@ -62,16 +62,7 @@ DESCRIPTION
 CHANGELOG
 ===========
 
-For Milestone 3, the following changes were made:
-- Added the ability to play with AI players. Players have the choice when the game starts with a JOptionPane asking if the user would like to play with a specified number of AI players (up to 8 players in total including human players and AI players)
-- Added board pieces to represent players (both AI and human) on the Monopoly board and fixed layout of the board
-- Added features when a player purchases a house/hotel when they own three coloured properties
-- Added additional board squares: Go to Jail, Jail/Just Visiting, Railroads, Utilities, Community Chest & Chance
-- Implemented a Jail Class that handles players when they are sent to Jail or visiting which is handled in the MonopolyModel class
-- Implemented a Utility class to handle situations when a player lands on one of the two utility board squares (collect rent from the user) which is handled in the MonopolyModel class 
-- Implemented a Railroad class to handle situations when a player lands on one of the four railroad board squares (collect rent from the user)
-- Implemented a MonopolyAIPlayer class that extends the Player class to represent AI players in the game
-- Implemented a Go class that allows a user to collect $200 as they rotate through the Monopoly board (either land on Go or pass Go) and collect $200 (if they are not sent to Jail)
+For Milestone 4, the following changes were made:
 
 -----------------------------------------------------------------
 =============
@@ -86,9 +77,7 @@ All known issues have been resolved.
 ROADMAP AHEAD
 ===============
 
-Milestone 4:
-		Add save/load feature
-		Add international game versions with custom street names
+Project is completed
 		
 
 -----------------------------------------------------------------
