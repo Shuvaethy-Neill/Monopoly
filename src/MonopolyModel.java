@@ -284,7 +284,7 @@ public class MonopolyModel {
     /**
      * Method to handle when a player lands in jail
      */
-    private void handleJail(){
+    public void handleJail(){
         if ((pieces[players.get(player).getPosition()]).getType().equals("go to jail")){ //kinda smellyy
             players.get(player).setJailStatus(true);
             players.get(player).move(18); //will update once all pieces are on boards

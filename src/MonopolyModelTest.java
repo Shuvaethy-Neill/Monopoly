@@ -116,9 +116,10 @@ public class MonopolyModelTest {
         mm =  new MonopolyModel();
         MonopolyFrame monopolyFrame = new MonopolyFrame(mm);
         MonopolyController mc = new MonopolyController(mm,monopolyFrame);
-        mm.play("Roll Dice");
+        //mm.play("Roll Dice");
         Player p1 = mm.getPlayers().get(mm.getPlayer());
-        // tryna somehow get them to move to the jail boardsquare but for ours they move up spaces to start the game
+        p1.move(28);
+        mm.handleJail();
         assertTrue(p1.isInJail());
     }
 
