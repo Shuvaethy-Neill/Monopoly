@@ -211,7 +211,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             helpButton.setEnabled(false);
 
             JOptionPane.showMessageDialog(this, "Game over! Thanks for playing!");
-            //System.exit(0);
+            System.exit(0);
         }
         else if(e.status == MonopolyModel.Status.BANKRUPT2) {
             JOptionPane.showMessageDialog(this, "Current player has been eliminated.");

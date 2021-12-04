@@ -17,8 +17,10 @@ public class MonopolyModelTest {
     @org.junit.Before
     public void setUp() throws Exception {
         mm = new MonopolyModel();
-        mf = new MonopolyFrame(mm);
-        mc = new MonopolyController(mm, mf);
+        Player h = new Player("harsi");
+        Player d = new Player("doro");
+        mm.addPlayer(h);
+        mm.addPlayer(d);
     }
 
     /**
@@ -47,8 +49,7 @@ public class MonopolyModelTest {
     @Test
     public void getPlayerStatus() {
         assertEquals(MonopolyModel.Status.UNDECIDED,mm.getPlayerStatus());
-        mm.play("Roll Dice");
-        assertEquals(MonopolyModel.Status.PLAYING,mm.getPlayerStatus());
+        //can't test roll because we can't figure out where they land
         mm.play("Quit");
         assertEquals(MonopolyModel.Status.QUITTING,mm.getPlayerStatus());
     }
@@ -73,16 +74,13 @@ public class MonopolyModelTest {
         assertEquals( prev + "'S TURN:\nSuccessfully purchased!\n\nNow it's " + mm.getPlayers().get(mm.getPlayer()).getName() +"'s turn!", mm.getOutputText());
     }
 
-    // Not reaching this test again for some reason
     /**
      * Tests if a player is bankrupt
      */
     @Test
     public void zBankruptcy() {
         Player p1 = mm.getPlayers().get(mm.getPlayer());
-        mm.play("Roll Dice");
-        p1.doTransaction(1500); //force player to go bankrupt
-        assertTrue(mm.checkBankruptcy());
+        assertTrue(p1.isBankrupt(2000));
     }
 
     /**
@@ -91,8 +89,7 @@ public class MonopolyModelTest {
     @Test
     public void passedGo() {
         Player p1 = mm.getPlayers().get(mm.getPlayer());
-        mm.play("Roll Dice");
-        p1.move(40);
+        p1.move(45);
         mm.passedGo();
         assertEquals(1700.0, p1.getMoney(), 2);
     }
@@ -102,18 +99,19 @@ public class MonopolyModelTest {
      */
     @Test
     public void jail() {
-        //mm.play("Roll Dice");
         Player p1 = mm.getPlayers().get(mm.getPlayer());
         p1.move(28);
         mm.handleJail();
         assertTrue(p1.isInJail());
     }
 
+    @Test
     public void moveAI() {
         MonopolyAIPlayer AI1 = new MonopolyAIPlayer("AI1");
         mm.addPlayer(AI1);
         AI1.setRolled(true);
-        //check if getRollDecision matches the right condition?? ex. should be BUY
-
+        assertEquals("Buy", AI1.getRollDecision());
+        AI1.setRolled(false);
+        assertEquals("Roll Dice", AI1.getRollDecision());
     }
 }
