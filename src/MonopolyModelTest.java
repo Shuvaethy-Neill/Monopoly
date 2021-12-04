@@ -8,9 +8,6 @@ import static org.junit.Assert.*;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MonopolyModelTest {
     MonopolyModel mm; //model attribute
-    MonopolyFrame mf;
-    MonopolyController mc;
-    private BoardSpace[] pieces;
 
     //NOTE: FOR TESTING USE 2 PLAYERS
 
