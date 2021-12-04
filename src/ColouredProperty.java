@@ -24,7 +24,7 @@ public class ColouredProperty extends Property {
         private HouseHotel next() {
             return values[(this.ordinal() + 1) % values.length];
         }
-    };
+    }
 
     /**
      * The price of a house or hotel for this property

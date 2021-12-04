@@ -84,6 +84,7 @@ public class MonopolyController extends DefaultHandler {
         }
         else{
             model.importSerialize("MonopolyGame.txt");
+            System.out.println("imported!");
         }
     }
 
