@@ -468,7 +468,7 @@ public class MonopolyModel implements Serializable{
         try {
             FileOutputStream file = new FileOutputStream(filename);
             ObjectOutputStream outputStream = new ObjectOutputStream(file);
-
+            System.out.println("here");
             outputStream.writeObject(this);
             System.out.println("in model saving");
             outputStream.close();
