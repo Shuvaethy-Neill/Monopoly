@@ -17,7 +17,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     private JPanel instructionPanel;
     private JPanel buttonPanel;
     private JPanel dicePanel;
-    private JButton startButton, rollButton, buyButton, helpButton, passButton, quitButton;
+    private JButton startButton, rollButton, buyButton, helpButton, passButton, buildButton;
     private JTextArea instructionInfo;
     private DiceDisplay dice1;
     private DiceDisplay dice2;
@@ -64,9 +64,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             model.play(passButton.getText());
         });
 
-        quitButton = new JButton("Quit");
-        quitButton.setPreferredSize(new Dimension(200, 50));
-        quitButton.addActionListener( e -> model.play(quitButton.getText()));
+        buildButton = new JButton("Build House/Hotel");
+        buildButton.setPreferredSize(new Dimension(200, 50));
+        buildButton.addActionListener( e -> buildHouseHotel());
 
         buttonPanel = new JPanel(new GridLayout(3, 2));
         buttonPanel.setPreferredSize(new Dimension(400, 150));
@@ -75,7 +75,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         buttonPanel.add(buyButton);
         buttonPanel.add(helpButton);
         buttonPanel.add(passButton);
-        buttonPanel.add(quitButton);
+        buttonPanel.add(buildButton);
 
         instructionPanel = new JPanel(new BorderLayout());
         instructionPanel.setPreferredSize(new Dimension(1100,150));
@@ -100,21 +100,18 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         dicePanel.add(dice2);
         instructionPanel.add(dicePanel, BorderLayout.EAST);
 
-        // Create menu bar and add option to buy a house
+        // Create menu bar and add option to save or quit
         JMenuBar menuBar = new JMenuBar();
-        JMenu buildMenu = new JMenu("Build House/Hotel");
-        menuBar.add(buildMenu);
-        JMenuItem buildItem = new JMenuItem("Build House/Hotel");
-        buildItem.addActionListener(e -> buildHouseHotel());
-        buildMenu.add(buildItem);
+        JMenu menu = new JMenu("Menu");
+        menuBar.add(menu);
 
-        JMenu saveMenu = new JMenu("Save Game");
-        menuBar.add(saveMenu);
         JMenuItem saveItem = new JMenuItem("Save Game");
         saveItem.addActionListener(e -> model.saveSerialize("MonopolyGame.txt"));
-        saveMenu.add(saveItem);
+        menu.add(saveItem);
 
-
+        JMenuItem quitItem = new JMenuItem("Quit");
+        quitItem.addActionListener(e -> model.play(quitItem.getText()));
+        menu.add(quitItem);
 
         this.setJMenuBar(menuBar);
     }
