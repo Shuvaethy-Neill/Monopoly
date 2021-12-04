@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.EventObject;
 
@@ -9,7 +10,7 @@ import java.util.EventObject;
  * @verion 1.0
  * @since 2021-10-22
  */
-public class MonopolyEvent extends EventObject {
+public class MonopolyEvent extends EventObject implements Serializable {
 
     private Dice dice;
     private String instruction;

@@ -67,20 +67,34 @@ public class MonopolyController extends DefaultHandler {
         this.view = view;
         this.boardSpaces = new ArrayList<>();
         this.stack = new Stack<>();
+        //ask user if they want to load
+        int state = gameState(); //load =1 new=0
+        if(state==0) {
+            // Get number of human players
+            this.humanPlayers = getHumanPlayers();
+            for (int i = 0; i < humanPlayers; i++) { //adding human player to model
+                model.addPlayer(getPlayerInformation());
+            }
 
-        // Get number of human players
-        this.humanPlayers = getHumanPlayers();
-        for (int i = 0; i < humanPlayers; i++) { //adding human player to model
-            model.addPlayer(getPlayerInformation());
+            // Get number of ai players
+            this.aiPlayers = aiPlayers();
+            for (int i = 1; i <= aiPlayers; i++) {
+                model.addPlayer(new MonopolyAIPlayer("Player " + (humanPlayers + i)));
+            }
         }
-
-        // Get number of ai players
-        this.aiPlayers = aiPlayers();
-        for (int i = 1; i <= aiPlayers; i++) {
-            model.addPlayer(new MonopolyAIPlayer("Player " + (humanPlayers + i)));
+        else{
+            model.importSerialize("MonopolyGame.txt");
         }
     }
 
+
+    private int gameState(){
+        Object[] options = { "New Game", "Load Previous Game" };
+        int s = JOptionPane.showOptionDialog(null, "How would you like to start?", "Monopoly",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                options, options[0]);
+        return s;
+    }
     /**
      * Returns the number of human players the user decides to play with
      * @return the number the user has chosen

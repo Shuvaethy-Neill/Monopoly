@@ -12,7 +12,7 @@ import java.util.Random;
  * @since 2021-11-21
  */
 
-public class MonopolyModel {
+public class MonopolyModel implements Serializable{
 
     private List<MonopolyView> monopolyViews;
 
@@ -36,7 +36,7 @@ public class MonopolyModel {
 
     private String outputText; //text to notify user of decisions made
 
-    public enum Status {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2, QUITTING, JAIL};
+    public enum Status implements Serializable {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2, QUITTING, JAIL};
 
     private Status playerStatus;
     private boolean ended;

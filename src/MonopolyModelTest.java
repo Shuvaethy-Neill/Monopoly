@@ -1,6 +1,8 @@
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+
+import java.io.File;
 import java.util.Locale;
 
 import static org.junit.Assert.*;
@@ -110,5 +112,14 @@ public class MonopolyModelTest {
         assertEquals("Buy", AI1.getRollDecision());
         AI1.setRolled(false);
         assertEquals("Roll Dice", AI1.getRollDecision());
+    }
+
+    @Test
+    public void saveSerialize(){
+        mm.saveSerialize("testFile.txt");
+        assertTrue(new File("testFile.txt").exists());
+        MonopolyModel mm2 = new MonopolyModel();
+        /* mm2 = mm2.importSerialize("testFile.txt");
+        assertEquals(mm,mm2); //to do this we need an equals method in MonopolyModel */
     }
 }

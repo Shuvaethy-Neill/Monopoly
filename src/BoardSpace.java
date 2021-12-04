@@ -17,7 +17,7 @@ import java.util.Objects;
  * @version 3.0
  * @since 2021-11-21
  */
-public abstract class BoardSpace extends JPanel implements Serializable {
+public abstract class BoardSpace extends JPanel {
 
     /**
      * The name of the board space

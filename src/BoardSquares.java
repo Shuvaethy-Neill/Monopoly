@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Represents each board square on the Monopoly board
