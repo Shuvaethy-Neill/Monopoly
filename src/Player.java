@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
  * @version 1.0
  * @since 2021-10-24
  */
-public class Player {
+public class Player implements Serializable {
 
     private String name; //name of player
     private double money; //how much money player has

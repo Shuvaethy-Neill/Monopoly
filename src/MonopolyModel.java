@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -460,4 +461,37 @@ public class MonopolyModel {
         }
         notifyViews();
     }
+
+
+    public void saveSerialize(String filename){ //save file
+        try {
+            FileOutputStream file = new FileOutputStream(filename);
+            ObjectOutputStream outputStream = new ObjectOutputStream(file);
+
+            outputStream.writeObject(this);
+
+            outputStream.close();
+            file.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public MonopolyModel importSerialize(String filename) { //import file
+        MonopolyModel mm = null;
+        try {
+            FileInputStream f = new FileInputStream(filename);
+            ObjectInputStream i = new ObjectInputStream(f);
+            mm = (MonopolyModel) i.readObject();
+            i.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+
+        }
+        return mm;
+    }
+
+
 }

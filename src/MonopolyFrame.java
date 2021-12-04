@@ -31,7 +31,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(1000,900));
+        this.setPreferredSize(new Dimension(900,800));
         this.model.addView(this);
 
         startButton = new JButton("Start");
@@ -211,7 +211,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             helpButton.setEnabled(false);
 
             JOptionPane.showMessageDialog(this, "Game over! Thanks for playing!");
-            System.exit(0);
+            //System.exit(0);
         }
         else if(e.status == MonopolyModel.Status.BANKRUPT2) {
             JOptionPane.showMessageDialog(this, "Current player has been eliminated.");
