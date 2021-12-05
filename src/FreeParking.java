@@ -1,3 +1,7 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
+
 /**
  * The FreeParking class extends BoardSpace and represents
  * a space that is specifically free parking
@@ -25,6 +29,9 @@ public class FreeParking extends BoardSpace {
     public FreeParking(String name, String path, int position) {
         super(name, "free parking", path, position);
         this.amount = 0;
+
+        ImageIcon freeParkingIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/free_parking.icon")));
+        centerPanel.add(new JLabel(new ImageIcon(freeParkingIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
     /**

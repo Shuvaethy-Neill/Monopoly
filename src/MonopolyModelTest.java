@@ -88,7 +88,7 @@ public class MonopolyModelTest {
     @Test
     public void passedGo() {
         Player p1 = mm.getPlayers().get(mm.getPlayer());
-        p1.move(45);
+        p1.move(45, 36);
         mm.passedGo();
         assertEquals(1700.0, p1.getMoney(), 2);
     }
@@ -99,7 +99,7 @@ public class MonopolyModelTest {
     @Test
     public void jail() {
         Player p1 = mm.getPlayers().get(mm.getPlayer());
-        p1.move(28);
+        p1.move(28, 36);
         mm.handleJail();
         assertTrue(p1.isInJail());
     }
