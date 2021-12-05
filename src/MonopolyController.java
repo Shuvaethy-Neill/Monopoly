@@ -83,7 +83,12 @@ public class MonopolyController extends DefaultHandler {
             }
         }
         else{
-            model.importSerialize("MonopolyGame.txt");
+            this.model = model.importSerialize("MonopolyGame.txt");
+            this.view = new MonopolyFrame(this.model);
+            BoardPanel boardPanel = new BoardPanel(this.model);
+            PlayerPanel playerPanel = new PlayerPanel(this.model);
+            view.addPanels(boardPanel, playerPanel);
+
             System.out.println("imported!");
         }
     }

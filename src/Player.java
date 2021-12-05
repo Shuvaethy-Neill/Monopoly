@@ -65,6 +65,8 @@ public class Player implements Serializable {
         return position;
     }
 
+    public String getPositionName() {return positionName;}
+
     /**
      * This method returns the number of turns a player has taken in jail.
      * @return int, turns taken by player in jail
@@ -165,7 +167,7 @@ public class Player implements Serializable {
      * This method identifies the player's state of bankruptcy
      * @return boolean, true if bankrupt or false otherwise
      */
-    public boolean isBankrupt(int toPay){
+    public boolean getBankrupt(int toPay){
         if(money < toPay){bankrupt = true;} //might be bankrupt before 0
         return bankrupt;
     }

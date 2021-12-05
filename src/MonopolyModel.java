@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
@@ -336,12 +335,12 @@ public class MonopolyModel implements Serializable{
         boolean check = false;
 
         if (pieces[players.get(player).getPosition()] instanceof Tax) {
-            check = players.get(player).isBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
+            check = players.get(player).getBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
         } else if (pieces[players.get(player).getPosition()] instanceof Property) {
             if ((!((Property) pieces[players.get(player).getPosition()]).isAvailable()) && (!(((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))))) { //property not available
-                check = players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
+                check = players.get(player).getBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
             } else {
-                check = (players.get(player).isBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice()));
+                check = (players.get(player).getBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice()));
             }
         }
 
@@ -539,13 +538,10 @@ public class MonopolyModel implements Serializable{
 
 
     public void saveSerialize(String filename){ //save file
-        System.out.println("beginning");
         try {
             FileOutputStream file = new FileOutputStream(filename);
             ObjectOutputStream outputStream = new ObjectOutputStream(file);
-            System.out.println("here");
             outputStream.writeObject(this);
-            System.out.println("in model saving");
             outputStream.close();
             file.close();
         } catch (FileNotFoundException e) {

@@ -73,7 +73,7 @@ public abstract class BoardSpace extends JPanel {
                 "images/red-player.png", "images/purple-player.png", "images/greenp.png", "images/pink.png","images/burgundyP.png","images/turquoiseP.png"));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        readBackgroundImage();
+        //readBackgroundImage();
 
         playerIconPanel = new JPanel(new GridLayout(1,8));
         playerIconPanel.setPreferredSize(new Dimension(80,10));
@@ -166,7 +166,7 @@ public abstract class BoardSpace extends JPanel {
     /**
      * Read the background image for this board space
      */
-    private void readBackgroundImage() {
+    public void readBackgroundImage() {
         try {
             BufferedImage inputImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(String.valueOf(new File(path)))));
             //Image inputImage = ImageIO.read(new File(path));

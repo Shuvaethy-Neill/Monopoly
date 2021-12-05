@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
  * @version 2.0
  * @since 2021-11-21
  */
-public class BoardPanel extends JPanel implements MonopolyView {
+public class BoardPanel extends JPanel implements MonopolyView, Serializable {
 
     private MonopolyModel model;
 
