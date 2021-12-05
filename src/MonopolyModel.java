@@ -381,30 +381,32 @@ public class MonopolyModel implements Serializable{
             players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
             ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
             ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
-            updatePropertyLists();
+            if(pieces[players.get(player).getPosition()] instanceof ColouredProperty) {
+                updatePropertyLists((ColouredProperty) (pieces[players.get(player).getPosition()]));
+            }
             outputText+="Successfully purchased!\n";
         }
         else {
             outputText= "\nUnfortunately the property you are on is not available for purchase.";
         }
     }
-    private void updatePropertyLists(){
+    private void updatePropertyLists(ColouredProperty property){
         Player currentPlayer = this.getPlayers().get(player);
-        for (Property property : currentPlayer.getProperties()) {
-            if (property.getType().equals("colouredProperty")) {
-                //if property colour is not in list add colour
-                if (!currentPlayer.getPlayerColours().containsKey(property.getColor())) {
-                    currentPlayer.getPlayerColours().put(property.getColor(), new ArrayList<>());
-                }
-                //if property not in list, then add
-                if(!currentPlayer.getPlayerColours().containsValue((ColouredProperty) property)) {
-                    currentPlayer.getPlayerColours().get(property.getColor()).add((ColouredProperty) property);
-                }
-                if ((currentPlayer.getPlayerColours().get(property.getColor()).size() == ((ColouredProperty) property).getSetSize()) &&
-                        !currentPlayer.getPossibleColoursForBuilding().contains(property.getColor())) {
-                    currentPlayer.getPossibleColoursForBuilding().add(property.getColor());
-                }
-            }
+        //if property colour is not in list add colour
+        if (!currentPlayer.getPlayerColours().containsKey(property.getColor())) {
+            currentPlayer.getPlayerColours().put(property.getColor(), new ArrayList<>());
+        }
+        //if property not in list, then add
+        if(!currentPlayer.getPlayerColours().containsValue(property)) {
+            System.out.println("adding "+ property);
+            currentPlayer.getPlayerColours().get(property.getColor()).add(property);
+        }
+        if ((currentPlayer.getPlayerColours().get(property.getColor()).size() == (property).getSetSize()) &&
+                !currentPlayer.getPossibleColoursForBuilding().contains(property.getColor())) {
+            System.out.println(property.getColor() + " owned set size " + currentPlayer.getPlayerColours().get(property.getColor()).size());
+            System.out.println("set size" + (property).getSetSize());
+
+            currentPlayer.getPossibleColoursForBuilding().add(property.getColor());
         }
     }
 
@@ -415,7 +417,6 @@ public class MonopolyModel implements Serializable{
         this.playerStatus = Status.BUILDING;
         Player currentPlayer = this.getPlayers().get(player);
 
-        //when moving lists to Player just change to if(currentPlayer.possibleColoursForBuilding.size() == 0)
         if (currentPlayer.getPossibleColoursForBuilding().size() == 0) {
             currentPlayer.setCanBuild(false);
             outputText += "You cannot build any houses/hotels because you don't have any\nfull property sets yet!";

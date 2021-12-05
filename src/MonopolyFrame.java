@@ -155,22 +155,13 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         else if(e.status == MonopolyModel.Status.BUILDING) {
             if(((Player)(e.getCurrentPlayers().get(e.getPlayer()))).getCanBuild()){
                 Object[] options = ((Player)(e.getCurrentPlayers().get(e.getPlayer()))).getPossibleColoursForBuilding().toArray();
-                boolean validInput = false;
                 Object choice = null;
                 String message = "You can build on any of the following color sets!";
-                while (!validInput) {
-
                 choice = JOptionPane.showInputDialog(this, message, "Color Choice",
-                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
-                    if (choice == null) {
-                        message = "You can build on any of the following color sets!\nPlease press 'Ok', not 'Cancel'";
-                    } else {
-                        validInput = true;
-                    }
+                        JOptionPane.PLAIN_MESSAGE, null, options, null);
+                if(choice != null) {
+                    controller.getHousesandHotelInfo(choice);
                 }
-                controller.getHousesandHotelInfo(choice);
-
             }
 
             rollButton.setEnabled(true);
