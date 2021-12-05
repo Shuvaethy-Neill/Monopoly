@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
@@ -79,8 +80,6 @@ public abstract class Property extends BoardSpace {
         return price;
     }
 
-
-
     /**
      * Getter for the owner of the property
      *
@@ -131,6 +130,7 @@ public abstract class Property extends BoardSpace {
      */
     public void setPrice(int price) {
         this.price = price;
+        centerPanel.add(new JLabel("$" + String.valueOf(price)), JLabel.CENTER);
     }
 
     /**
