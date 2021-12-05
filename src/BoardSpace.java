@@ -18,6 +18,17 @@ import java.util.Objects;
  */
 public abstract class BoardSpace extends JPanel {
 
+//    /**
+//     *
+//     */
+//    public enum BoardSpaceIcon {
+//        COLOURED_PROPERTY_ICON(), RAILROAD_ICON(), UTILITY_ICON(), TAX_ICON(), GO_ICON(), FREE_PARKING_ICON(), JAIL_ICON();
+//        public static Image image;
+//        BoardSpaceIcon(String path) {
+//
+//        }
+//    }
+
     /**
      * The name of the board space
      */
@@ -29,14 +40,13 @@ public abstract class BoardSpace extends JPanel {
     private String type;
 
     /**
-     * The path of the background image for this board space
-     */
-    private String path;
-
-    /**
      * Position number of the BoardSpace
      */
     private int position;
+
+    private Image backgroundImage;
+
+    private String path;
 
     /**
      * An arraylist of all the player icons
@@ -54,11 +64,6 @@ public abstract class BoardSpace extends JPanel {
     private JPanel playerIconPanel;
 
     /**
-     * The background image for this board space
-     */
-    private Image backgroundImage;
-
-    /**
      * The constructor for a BoardSpace object
      */
     public BoardSpace(String name, String type, String path, int position) {
@@ -72,7 +77,7 @@ public abstract class BoardSpace extends JPanel {
                 "images/red-player.png", "images/purple-player.png", "images/greenp.png", "images/pink.png","images/burgundyP.png","images/turquoiseP.png"));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        readBackgroundImage();
+        //this. backgroundImage = readBackgroundImage(path);
 
         playerIconPanel = new JPanel(new GridLayout(1,8));
         playerIconPanel.setPreferredSize(new Dimension(80,10));
@@ -165,14 +170,16 @@ public abstract class BoardSpace extends JPanel {
     /**
      * Read the background image for this board space
      */
-    private void readBackgroundImage() {
+    private Image readBackgroundImage(String path) {
+        Image image = null;
         try {
             BufferedImage inputImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(String.valueOf(new File(path)))));
             //Image inputImage = ImageIO.read(new File(path));
-            backgroundImage = inputImage.getScaledInstance(80,80,Image.SCALE_FAST);
+            image = inputImage.getScaledInstance(80,80,Image.SCALE_FAST);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return image;
     }
 
     /**

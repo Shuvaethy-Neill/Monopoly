@@ -1,0 +1,322 @@
+<BoardSquares>
+    <Go>
+        <name>Go</name>
+        <path>images/Go.jpg</path>
+        <position>0</position>
+    </Go>
+
+    <ColouredProperty>
+        <name>MEDITERRANEAN AVENUE</name>
+        <price>60</price>
+        <color>brown</color>
+        <path>images/mediterranean-avenue.jpg</path>
+        <position>1</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>2</setSize>
+    </ColouredProperty>
+
+    <FreeParking>
+        <name>COMMUNITY CHEST</name>
+        <path>images/community-chest.jpg</path>
+        <position>2</position>
+    </FreeParking>
+
+    <ColouredProperty>
+        <name>BALTIC AVENUE</name>
+        <price>60</price>
+        <color>brown</color>
+        <path>images/baltic.jpg</path>
+        <position>3</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>2</setSize>
+    </ColouredProperty>
+
+    <Tax>
+        <name>INCOME TAX</name>
+        <cost>200</cost>
+        <path>images/income-tax.jpg</path>
+        <position>4</position>
+    </Tax>
+
+    <Railroad>
+        <name>READING RAILROAD</name>
+        <price>200</price>
+        <color>brown</color>
+        <path>images/reading-railroad.jpg</path>
+        <position>5</position>
+    </Railroad>
+
+    <ColouredProperty>
+        <name>ORIENTAL_AVENUE</name>
+        <price>100</price>
+        <color>light blue</color>
+        <path>images/oriental-avenue.jpg</path>
+        <position>6</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <FreeParking>
+        <name>CHANCE</name>
+        <path>images/chance.jpg</path>
+        <position>7</position>
+    </FreeParking>
+
+    <ColouredProperty>
+        <name>VERMONT AVENUE</name>
+        <price>100</price>
+        <color>light blue</color>
+        <path>images/vermont-avenue.jpg</path>
+        <position>8</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>CONNECTICUT AVENUE</name>
+        <price>120</price>
+        <color>light blue</color>
+        <path>images/connecticut.jpg</path>
+        <position>9</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Jail>
+        <name>JAIL</name>
+        <path>images/jail-just-visiting.jpg</path>
+        <type>jail</type>
+        <position>10</position>
+    </Jail>
+
+    <ColouredProperty>
+        <name>ST. CHARLES PLACE</name>
+        <price>140</price>
+        <color>magenta</color>
+        <path>images/st-charles-place.jpg</path>
+        <position>11</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Utility>
+        <name>ELECTRIC COMPANY</name>
+        <price>150</price>
+        <color>black</color>
+        <path>images/electric-company.jpg</path>
+        <position>12</position>
+    </Utility>
+
+    <ColouredProperty>
+        <name>STATES AVENUE</name>
+        <price>140</price>
+        <color>magenta</color>
+        <path>images/states-avenue.jpg</path>
+        <position>13</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>VIRGINIA AVENUE</name>
+        <price>160</price>
+        <color>magenta</color>
+        <path>images/virginia-avenue.jpg</path>
+        <position>14</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Railroad>
+        <name>PENNSYLVANIA RAILROAD</name>
+        <price>200</price>
+        <color>black</color>
+        <path>images/pennsylvania-railroad.jpg</path>
+        <position>15</position>
+    </Railroad>
+
+    <ColouredProperty>
+        <name>ST. JAMES PLACE</name>
+        <price>180</price>
+        <color>orange</color>
+        <path>images/st-james-place.kpg</path>
+        <position>16</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>TENNESSEE AVENUE</name>
+        <price>180</price>
+        <color>orange</color>
+        <path>images/tennessee-avenue.jpg</path>
+        <position>17</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>NEW YORK AVENUE</name>
+        <price>200</price>
+        <color>orange</color>
+        <path>images/new-york-avenue.jpg</path>
+        <position>18</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <FreeParking>
+        <name>FREE PARKING</name>
+        <path>images/free-parking.jpg</path>
+        <position>19</position>
+    </FreeParking>
+
+    <ColouredProperty>
+        <name>KENTUCKY AVENUE</name>
+        <price>220</price>
+        <color>red</color>
+        <path>images/kentucky-avenue.jpg</path>
+        <position>20</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>INDIANA AVENUE</name>
+        <price>220</price>
+        <color>red</color>
+        <path>images/indiana-avenue.jpg</path>
+        <position>21</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>ILLINOIS AVENUE</name>
+        <price>240</price>
+        <color>red</color>
+        <path>images/illinois-avenue.jpg</path>
+        <position>22</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Railroad>
+        <name>B &amp; O RAILROAD</name>
+        <price>200</price>
+        <color>black</color>
+        <path>images/bo.jpg</path>
+        <position>23</position>
+    </Railroad>
+
+    <ColouredProperty>
+        <name>ATLANTIC AVENUE</name>
+        <price>260</price>
+        <color>yellow</color>
+        <path>images/atlantic-avenue.jpg</path>
+        <position>24</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>VENTNOR AVENUE</name>
+        <price>260</price>
+        <color>yellow</color>
+        <path>images/ventnor-avenue.jpg</path>
+        <position>25</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Utility>
+        <name>WATER WORKS</name>
+        <price>150</price>
+        <color>black</color>
+        <path>images/water-works.jpg</path>
+        <position>26</position>
+    </Utility>
+
+    <ColouredProperty>
+        <name>MARVIN GARDENS</name>
+        <price>280</price>
+        <color>yellow</color>
+        <path>images/marvin-gardens</path>
+        <position>27</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Jail>
+        <name>GO TO JAIL</name>
+        <path>images/go-to-jail.jpg</path>
+        <type>go to jail</type>
+        <position>28</position>
+    </Jail>
+
+    <ColouredProperty>
+        <name>PACIFIC AVENUE</name>
+        <price>300</price>
+        <color>green</color>
+        <path>images/pacific-avenue.jpg</path>
+        <position>29</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>NORTH CAROLINA AVENUE</name>
+        <price>300</price>
+        <color>green</color>
+        <path>images/north-carolina-avenue.jpg</path>
+        <position>30</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>PENNSYLVANIA AVENUE</name>
+        <price>320</price>
+        <color>green</color>
+        <path>images/pennsylvania-avenue.jpg</path>
+        <position>31</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Railroad>
+        <name>SHORT LINE</name>
+        <price>200</price>
+        <color>black</color>
+        <path>images/short-line-railroad.jpg</path>
+        <position>32</position>
+    </Railroad>
+
+    <ColouredProperty>
+        <name>PARK PLACE</name>
+        <price>350</price>
+        <color>blue</color>
+        <path>images/park-place.jpg</path>
+        <position>33</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Tax>
+        <name>LUXURY TAX</name>
+        <cost>100</cost>
+        <path>images/luxury-tax.jpg</path>
+        <position>34</position>
+    </Tax>
+
+    <ColouredProperty>
+        <name>BOARDWALK</name>
+        <price>400</price>
+        <color>blue</color>
+        <path>images/boardwalk.jpg</path>
+        <position>35</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+</BoardSquares>

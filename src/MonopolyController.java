@@ -8,7 +8,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -21,6 +20,7 @@ import java.util.Stack;
  */
 
 public class MonopolyController extends DefaultHandler {
+
     /**
      *
      */
@@ -79,6 +79,10 @@ public class MonopolyController extends DefaultHandler {
         for (int i = 1; i <= aiPlayers; i++) {
             model.addPlayer(new MonopolyAIPlayer("Player " + (humanPlayers + i)));
         }
+
+        // Get game version
+        importFromXmlFile(getGameVersionFilename());
+        model.setPieces(boardSpaces);
     }
 
     /**
@@ -133,6 +137,23 @@ public class MonopolyController extends DefaultHandler {
         return (int) numPlayersObject;
     }
 
+    private String getGameVersionFilename() {
+        boolean validInput = false;
+        String versionFilename = "";
+        String message = "Please type the filename for the version you would like to play.";
+        while (!validInput) {
+            versionFilename = (String) JOptionPane.showInputDialog(view, message, "Version Filename", JOptionPane.PLAIN_MESSAGE);
+            if (versionFilename == null) {
+                message = "Please type the filename for the version you would like to player.\nPlease try again and press 'Ok' not 'Cancel'";
+            } else if (versionFilename.equals("")) {
+                message = "Please type the filename for the version you would like to player.\nThe filename cannot be blank.";
+            } else {
+                validInput = true;
+            }
+        }
+        return "src/versions/" + versionFilename + ".xml";
+    }
+
 
     /**
      * Returns the Player object with a username chosen by the user
@@ -170,10 +191,16 @@ public class MonopolyController extends DefaultHandler {
      * @throws SAXException
      * @throws IOException
      */
-    public void importFromXmlFile(String filename) throws ParserConfigurationException, SAXException, IOException {
+    public void importFromXmlFile(String filename){
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        SAXParser parser = factory.newSAXParser();
-        parser.parse(filename, this);
+        SAXParser parser = null;
+        try {
+            parser = factory.newSAXParser();
+            parser.parse(filename, this);
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -182,16 +209,22 @@ public class MonopolyController extends DefaultHandler {
         this.stack.push(qName);
         if (qName.equals("ColouredProperty")) {
             this.boardSpaces.add(new ColouredProperty());
+            boardSpaces.get(boardSpaces.size() - 1).setType("colouredProperty");
         } else if (qName.equals("Railroad")) {
             this.boardSpaces.add(new Railroad());
+            boardSpaces.get(boardSpaces.size() - 1).setType("railroad");
         } else if (qName.equals("Utility")) {
             this.boardSpaces.add(new Utility());
+            boardSpaces.get(boardSpaces.size() - 1).setType("utility");
         } else if (qName.equals("Tax")) {
             this.boardSpaces.add(new Tax());
+            boardSpaces.get(boardSpaces.size() - 1).setType("tax");
         } else if (qName.equals("Go")) {
             this.boardSpaces.add(new Go());
+            boardSpaces.get(boardSpaces.size() - 1).setType("go");
         } else if (qName.equals("Free Parking")) {
             this.boardSpaces.add(new FreeParking());
+            boardSpaces.get(boardSpaces.size() - 1).setType("freeParking");
         } else if (qName.equals("Jail")) {
             this.boardSpaces.add(new Jail());
         }
@@ -215,11 +248,11 @@ public class MonopolyController extends DefaultHandler {
             } else if (stack.peek().equals("position")) {
                 boardSpaces.get(boardSpaces.size() - 1).setPosition(Integer.parseInt(val));
             } else if (stack.peek().equals("price")) {
-                ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setPrice(Integer.parseInt(val));
+                ((Property) boardSpaces.get(boardSpaces.size() - 1)).setPrice(Integer.parseInt(val));
             } else if (stack.peek().equals("type")) {
                 boardSpaces.get(boardSpaces.size() - 1).setType(val);
             } else if (stack.peek().equals("color")) {
-                ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setColor(val);
+                ((Property) boardSpaces.get(boardSpaces.size() - 1)).setColor(val);
             } else if (stack.peek().equals("houseHotelPrice")) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setHouseHotelPrice(Integer.parseInt(val));
             } else if (stack.peek().equals("setSize")) {

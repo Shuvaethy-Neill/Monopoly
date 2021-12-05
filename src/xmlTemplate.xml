@@ -1,0 +1,53 @@
+<BoardSquares>
+    <Go>
+        <name>Go</name>
+        <path>images/Go.jpg</path>
+        <position>0</position>
+    </Go>
+
+    <ColouredProperty>
+        <name></name>
+        <price></price>
+        <color></color>
+        <path></path>
+        <position></position>
+        <houseHotelPrice></houseHotelPrice>
+        <setSize></setSize>
+    </ColouredProperty>
+
+    <FreeParking>
+        <name></name>
+        <path></path>
+        <position></position>
+    </FreeParking>
+
+    <Railroad>
+        <name></name>
+        <price></price>
+        <color></color>
+        <path></path>
+        <position></position>
+    </Railroad>
+
+    <Utility>
+        <name></name>
+        <price></price>
+        <color></color>
+        <path></path>
+        <position></position>
+    </Utility>
+
+    <Tax>
+        <name></name>
+        <cost></cost>
+        <path></path>
+        <position></position>
+    </Tax>
+
+    <Jail>
+        <name></name>
+        <path></path>
+        <type></type>
+        <position></position>
+    </Jail>
+</BoardSquares>
