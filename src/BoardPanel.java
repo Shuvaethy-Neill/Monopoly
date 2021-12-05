@@ -41,7 +41,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
      * Method that creates the layout of the Monopoly Board
      */
     private void initializeLayout() {
-        BoardSpace[] boardSpaces = model.getPieces();
+        BoardSpace[] boardSpaces = model.getPieces().toArray(new BoardSpace[0]);
         this.boardSpaceConstraints = new GridBagConstraints[boardSpaces.length];
 
         dimension = ((boardSpaces.length % 4 == 0) ? (boardSpaces.length / 4 + 1) : (boardSpaces.length / 4 + 2));
@@ -95,7 +95,7 @@ public class BoardPanel extends JPanel implements MonopolyView {
         ArrayList<Player> players = model.getPlayers();
 
         for (int i = 0; i < boardSpaceConstraints.length; i++) {
-            BoardSpace currentSpace = model.getPieces()[i];
+            BoardSpace currentSpace = model.getPieces().get(i);
             currentSpace.setPreferredSize(new Dimension(725/dimension, 725/dimension));
             currentSpace.clearPlayerIcons();
 

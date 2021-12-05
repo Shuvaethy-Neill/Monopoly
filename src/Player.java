@@ -150,9 +150,9 @@ public class Player implements Serializable {
      * given the value of their dice roll
      * @param spaces , the amount of spaces they need to move on the board
      */
-    public void move(int spaces) {
-        if(position + spaces >= BoardSquares.values().length) {
-            position = ((position + spaces) - BoardSquares.values().length); //loops around the board
+    public void move(int spaces, int totalSpaces) {
+        if(position + spaces >= totalSpaces) {
+            position = ((position + spaces) - totalSpaces); //loops around the board
             reset = true;
         }
         else{

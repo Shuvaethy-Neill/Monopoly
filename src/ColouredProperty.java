@@ -46,6 +46,8 @@ public class ColouredProperty extends Property {
      */
     private JPanel houseHotelPanel;
 
+    private String colorHex;
+
 
     public ColouredProperty() {
         this("", -1, "", "", "", -1, -1, -1);
@@ -67,7 +69,6 @@ public class ColouredProperty extends Property {
 
         houseHotelPanel = new JPanel(new GridLayout(1,4));
         houseHotelPanel.setPreferredSize(new Dimension(80,20));
-        houseHotelPanel.setOpaque(false);
         this.add(houseHotelPanel, BorderLayout.PAGE_START);
     }
 
@@ -163,6 +164,15 @@ public class ColouredProperty extends Property {
      */
     public void setSetSize(int setSize) {
         this.setSize = setSize;
+    }
+
+    /**
+     *
+     * @param colorHex
+     */
+    public void setColorHex(String colorHex) {
+        this.colorHex = colorHex;
+        houseHotelPanel.setBackground(Color.decode(colorHex));
     }
 
     /**

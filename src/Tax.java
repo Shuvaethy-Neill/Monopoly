@@ -1,5 +1,7 @@
 import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * The Tax class extends BoardSpace and represents
@@ -34,6 +36,9 @@ public class Tax extends BoardSpace {
     public Tax(String name, int cost, String path, int position) {
         super(name, "tax", path, position);
         this.cost = cost;
+
+        ImageIcon taxIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/tax.png")));
+        centerPanel.add(new JLabel(new ImageIcon(taxIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
     /**

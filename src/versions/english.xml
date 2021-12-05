@@ -4,7 +4,7 @@
 
 <BoardSquares>
     <Go>
-        <name>Go</name>
+        <name>GO</name>
         <path>images/Go.jpg</path>
         <position>0</position>
     </Go>
@@ -13,6 +13,7 @@
         <name>MEDITERRANEAN AVENUE</name>
         <price>60</price>
         <color>brown</color>
+        <colorHex>#900C3F</colorHex>
         <position>1</position>
         <houseHotelPrice>50</houseHotelPrice>
         <setSize>2</setSize>
@@ -27,6 +28,7 @@
         <name>BALTIC AVENUE</name>
         <price>60</price>
         <color>brown</color>
+        <colorHex>#900C3F</colorHex>
         <position>3</position>
         <houseHotelPrice>50</houseHotelPrice>
         <setSize>2</setSize>
@@ -41,14 +43,14 @@
     <Railroad>
         <name>READING RAILROAD</name>
         <price>200</price>
-        <color>brown</color>
         <position>5</position>
     </Railroad>
 
     <ColouredProperty>
-        <name>ORIENTAL_AVENUE</name>
+        <name>ORIENTAL AVENUE</name>
         <price>100</price>
         <color>light blue</color>
+        <colorHex>#A3F6FF</colorHex>
         <position>6</position>
         <houseHotelPrice>50</houseHotelPrice>
         <setSize>3</setSize>
@@ -63,6 +65,7 @@
         <name>VERMONT AVENUE</name>
         <price>100</price>
         <color>light blue</color>
+        <colorHex>#A3F6FF</colorHex>
         <position>8</position>
         <houseHotelPrice>50</houseHotelPrice>
         <setSize>3</setSize>
@@ -72,6 +75,7 @@
         <name>CONNECTICUT AVENUE</name>
         <price>120</price>
         <color>light blue</color>
+        <colorHex>#A3F6FF</colorHex>
         <position>9</position>
         <houseHotelPrice>50</houseHotelPrice>
         <setSize>3</setSize>
@@ -87,6 +91,7 @@
         <name>ST. CHARLES PLACE</name>
         <price>140</price>
         <color>magenta</color>
+        <colorHex>#D0008C</colorHex>
         <position>11</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -95,7 +100,6 @@
     <Utility>
         <name>ELECTRIC COMPANY</name>
         <price>150</price>
-        <color>black</color>
         <position>12</position>
     </Utility>
 
@@ -103,6 +107,7 @@
         <name>STATES AVENUE</name>
         <price>140</price>
         <color>magenta</color>
+        <colorHex>#D0008C</colorHex>
         <position>13</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -112,6 +117,7 @@
         <name>VIRGINIA AVENUE</name>
         <price>160</price>
         <color>magenta</color>
+        <colorHex>#D0008C</colorHex>
         <position>14</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -120,7 +126,6 @@
     <Railroad>
         <name>PENNSYLVANIA RAILROAD</name>
         <price>200</price>
-        <color>black</color>
         <position>15</position>
     </Railroad>
 
@@ -128,6 +133,7 @@
         <name>ST. JAMES PLACE</name>
         <price>180</price>
         <color>orange</color>
+        <colorHex>#FF8C19</colorHex>
         <position>16</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -137,6 +143,7 @@
         <name>TENNESSEE AVENUE</name>
         <price>180</price>
         <color>orange</color>
+        <colorHex>#FF8C19</colorHex>
         <position>17</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -146,6 +153,7 @@
         <name>NEW YORK AVENUE</name>
         <price>200</price>
         <color>orange</color>
+        <colorHex>#FF8C19</colorHex>
         <position>18</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -160,6 +168,7 @@
         <name>KENTUCKY AVENUE</name>
         <price>220</price>
         <color>red</color>
+        <colorHex>#FF0000</colorHex>
         <position>20</position>
         <houseHotelPrice>150</houseHotelPrice>
         <setSize>3</setSize>
@@ -169,6 +178,7 @@
         <name>INDIANA AVENUE</name>
         <price>220</price>
         <color>red</color>
+        <colorHex>#FF0000</colorHex>
         <position>21</position>
         <houseHotelPrice>150</houseHotelPrice>
         <setSize>3</setSize>
@@ -178,15 +188,15 @@
         <name>ILLINOIS AVENUE</name>
         <price>240</price>
         <color>red</color>
+        <colorHex>#FF0000</colorHex>
         <position>22</position>
         <houseHotelPrice>150</houseHotelPrice>
         <setSize>3</setSize>
     </ColouredProperty>
 
     <Railroad>
-        <name>B &amp; O RAILROAD</name>
+        <name>B + O RAILROAD</name>
         <price>200</price>
-        <color>black</color>
         <position>23</position>
     </Railroad>
 
@@ -194,6 +204,7 @@
         <name>ATLANTIC AVENUE</name>
         <price>260</price>
         <color>yellow</color>
+        <colorHex>#FFFE00</colorHex>
         <position>24</position>
         <houseHotelPrice>150</houseHotelPrice>
         <setSize>3</setSize>
@@ -203,6 +214,7 @@
         <name>VENTNOR AVENUE</name>
         <price>260</price>
         <color>yellow</color>
+        <colorHex>#FFFE00</colorHex>
         <position>25</position>
         <houseHotelPrice>150</houseHotelPrice>
         <setSize>3</setSize>
@@ -211,7 +223,6 @@
     <Utility>
         <name>WATER WORKS</name>
         <price>150</price>
-        <color>black</color>
         <position>26</position>
     </Utility>
 
@@ -219,6 +230,7 @@
         <name>MARVIN GARDENS</name>
         <price>280</price>
         <color>yellow</color>
+        <colorHex>#FFFE00</colorHex>
         <position>27</position>
         <houseHotelPrice>150</houseHotelPrice>
         <setSize>3</setSize>
@@ -234,6 +246,7 @@
         <name>PACIFIC AVENUE</name>
         <price>300</price>
         <color>green</color>
+        <colorHex>#00C430</colorHex>
         <position>29</position>
         <houseHotelPrice>200</houseHotelPrice>
         <setSize>3</setSize>
@@ -243,6 +256,7 @@
         <name>NORTH CAROLINA AVENUE</name>
         <price>300</price>
         <color>green</color>
+        <colorHex>#00C430</colorHex>
         <position>30</position>
         <houseHotelPrice>200</houseHotelPrice>
         <setSize>3</setSize>
@@ -252,6 +266,7 @@
         <name>PENNSYLVANIA AVENUE</name>
         <price>320</price>
         <color>green</color>
+        <colorHex>#00C430</colorHex>
         <position>31</position>
         <houseHotelPrice>200</houseHotelPrice>
         <setSize>3</setSize>
@@ -260,7 +275,6 @@
     <Railroad>
         <name>SHORT LINE</name>
         <price>200</price>
-        <color>black</color>
         <position>32</position>
     </Railroad>
 
@@ -268,6 +282,7 @@
         <name>PARK PLACE</name>
         <price>350</price>
         <color>blue</color>
+        <colorHex>#0089FF</colorHex>
         <position>33</position>
         <houseHotelPrice>200</houseHotelPrice>
         <setSize>3</setSize>
@@ -283,6 +298,7 @@
         <name>BOARDWALK</name>
         <price>400</price>
         <color>blue</color>
+        <colorHex>#0089FF</colorHex>
         <position>35</position>
         <houseHotelPrice>200</houseHotelPrice>
         <setSize>3</setSize>

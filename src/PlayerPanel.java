@@ -55,7 +55,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView {
         DefaultListModel<String> listModel = new DefaultListModel<>();
 
         individualPlayerPanels[playerIndex].add(new JLabel("Money: " + currentPlayer.getMoney()));
-        individualPlayerPanels[playerIndex].add(new JLabel("Position: " + model.getPieces()[currentPlayer.getPosition()].getName()));
+        individualPlayerPanels[playerIndex].add(new JLabel("Position: " + model.getPieces().get(currentPlayer.getPosition()).getName()));
 
         if (currentPlayer.getProperties().size() == 0) {
             individualPlayerPanels[playerIndex].add(new JLabel("Properties: None"));

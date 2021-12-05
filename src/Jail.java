@@ -1,3 +1,6 @@
+import javax.swing.*;
+import java.awt.*;
+import java.util.Objects;
 
 /**
  * Jail Class that extends the BoardSpace Class for
@@ -23,14 +26,24 @@ public class Jail extends BoardSpace{
     }
     /**
      * Constructor for the Jail Class
-     * @param name String, name of the board square
      * @param path String, path directory
+     * @param name String, name of the board square
      * @param type String, type of property
+     * @param s
      * @param position int, position number on the board
      */
-    public Jail(String name, String path, String type,int position) {
-        super(name, type, path, position);
+    public Jail(String name, String type, String s, int position) {
+        super(name, type, s, position);
         this.type = type;
+
+        ImageIcon jailIcon;
+        if (type.equals("go to jail")) {
+            jailIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/go_to_jail.png")));
+        } else {
+            jailIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/in_jail.png")));
+
+        }
+        centerPanel.add(new JLabel(new ImageIcon(jailIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
     /**
