@@ -17,7 +17,7 @@ public class MonopolyModel implements Serializable{
 
     private Dice dice;
 
-    private BoardSpace[] pieces;
+    private ArrayList<BoardSpace> pieces;
 
     private static final String HELP = "Help";
     private static final String ROLL = "Roll Dice";
@@ -45,21 +45,15 @@ public class MonopolyModel implements Serializable{
     public MonopolyModel() {
         rand = new Random();
         dice = new Dice();
-        pieces = new BoardSpace[BoardSquares.values().length];
+
         position = 0;
         player = 0;
         playerStatus = Status.UNDECIDED;
         outputText="";
         ended = false;
-        for (BoardSquares s : BoardSquares.values()) {
-            if (position == BoardSquares.values().length) {
-                continue;
-            } else {
-                pieces[position] = s.boardSpace;
-            }
-            position += 1;
-        }
+
         players = new ArrayList<>();
+        pieces = new ArrayList<>();
 
         monopolyViews = new ArrayList<>();
     }
@@ -144,9 +138,15 @@ public class MonopolyModel implements Serializable{
      *
      * @return BoardSpace[], The array of BoardSpace pieces
      */
-    public BoardSpace[] getPieces() {
+    public ArrayList<BoardSpace> getPieces() {
         return pieces;
     }
+
+    /**
+     *
+     * @param pieces
+     */
+    public void setPieces(ArrayList<BoardSpace> pieces) { this.pieces = pieces; }
 
     /**
      * Method gets the BoardSpace piece position
@@ -154,7 +154,7 @@ public class MonopolyModel implements Serializable{
      * @return BoardSpace, the board space piece
      */
     public BoardSpace getP(int i) {
-        return pieces[i];
+        return pieces.get(i);
     }
 
     /**
@@ -239,44 +239,44 @@ public class MonopolyModel implements Serializable{
         if (!players.get(player).isInJail()) {
             outputText += "Rolling the Dice! You rolled : " + dice.toString() +
                     "\nYou will move up " + dice.getRollValue() + " spaces on the board!";
-            players.get(player).move(dice.getRollValue()); //move the player to right position
+            players.get(player).move(dice.getRollValue(), pieces.size()); //move the player to right position
         }
         else { outputText += "You are in Jail!\n";}
 
         if (players.get(player).checkReset()){
             passedGo();
         }
-        players.get(player).setPositionName(pieces[players.get(player).getPosition()].toString()); //tell player where they are located
-        outputText += pieces[players.get(player).getPosition()].displayInfo();
+        players.get(player).setPositionName(pieces.get(players.get(player).getPosition()).toString()); //tell player where they are located
+        outputText += pieces.get(players.get(player).getPosition()).displayInfo();
 
         if(checkBankruptcy()){
             checkIfAI(players.get(player));
             endTurn();
         }
-        else if (pieces[players.get(player).getPosition()] instanceof Jail) {
+        else if (pieces.get(players.get(player).getPosition()) instanceof Jail) {
             handleJail();
         }
-        else if ((pieces[players.get(player).getPosition()] instanceof FreeParking) || (pieces[players.get(player).getPosition()] instanceof Go)) {
+        else if ((pieces.get(players.get(player).getPosition()) instanceof FreeParking) || (pieces.get(players.get(player).getPosition()) instanceof Go)) {
             this.playerStatus = Status.UNDECIDED;
             handleNonDoubleTurnRoll(dice);
         }
-        else if (pieces[players.get(player).getPosition()] instanceof Tax) {
-            players.get(player).doTransaction(((Tax) pieces[players.get(player).getPosition()]).getCost());
+        else if (pieces.get(players.get(player).getPosition()) instanceof Tax) {
+            players.get(player).doTransaction(((Tax) pieces.get(players.get(player).getPosition())).getCost());
             this.playerStatus = Status.UNDECIDED;
             handleNonDoubleTurnRoll(dice);
         }
-        else if ((pieces[players.get(player).getPosition()] instanceof Property) && !((Property) pieces[players.get(player).getPosition()]).isAvailable()) { // Property is not available
+        else if ((pieces.get(players.get(player).getPosition()) instanceof Property) && !((Property) pieces.get(players.get(player).getPosition())).isAvailable()) { // Property is not available
             // Player who owns the property gets rent
-            if (((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
+            if (((Property) pieces.get(players.get(player).getPosition())).getOwner().equals(players.get(player))) { // If the player lands on themselves, do nothing
                 outputText+="\nYou do not need to pay rent since you own this property.\n";
             } else {
                 outputText+="\nTaking the money from your account\n";
-                if(pieces[players.get(player).getPosition()] instanceof Utility){
-                    players.get(player).doTransaction((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue()); // Deducts the cost from account
-                    ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney((((Property) pieces[players.get(player).getPosition()]).getRent()) * dice.getRollValue());
+                if(pieces.get(players.get(player).getPosition()) instanceof Utility){
+                    players.get(player).doTransaction((((Property) pieces.get(players.get(player).getPosition())).getRent()) * dice.getRollValue()); // Deducts the cost from account
+                    ((Property) pieces.get(players.get(player).getPosition())).getOwner().setMoney((((Property) pieces.get(players.get(player).getPosition())).getRent()) * dice.getRollValue());
                 }
-                players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getRent()); // Deducts the cost from account
-                ((Property) pieces[players.get(player).getPosition()]).getOwner().setMoney(((Property) pieces[players.get(player).getPosition()]).getRent()); // adds the rent cost to the owner's account
+                players.get(player).doTransaction(((Property) pieces.get(players.get(player).getPosition())).getRent()); // Deducts the cost from account
+                ((Property) pieces.get(players.get(player).getPosition())).getOwner().setMoney(((Property) pieces.get(players.get(player).getPosition())).getRent()); // adds the rent cost to the owner's account
             }
             handleNonDoubleTurnRoll(dice);
         }
@@ -286,9 +286,9 @@ public class MonopolyModel implements Serializable{
      * Method to handle when a player lands in jail
      */
     public void handleJail(){
-        if ((pieces[players.get(player).getPosition()]).getType().equals("go to jail")){ //kinda smellyy
+        if ((pieces.get(players.get(player).getPosition())).getType().equals("go to jail")){ //kinda smellyy
             players.get(player).setJailStatus(true);
-            players.get(player).move(18); //will update once all pieces are on boards
+            players.get(player).move(18, pieces.size()); //will update once all pieces are on boards
             if (players.get(player) instanceof MonopolyAIPlayer){
                 ended = true;
                 aiTurnEndText();
@@ -321,7 +321,7 @@ public class MonopolyModel implements Serializable{
      */
     public void passedGo(){
         if(!players.get(player).isInJail()) {
-            players.get(player).setMoney(((Go) pieces[0]).getAmount());
+            players.get(player).setMoney(((Go) pieces.get(0)).getAmount());
             outputText += "\nYou passed Go! Collecting $200!\n";
         }
     }
@@ -334,13 +334,13 @@ public class MonopolyModel implements Serializable{
     public boolean checkBankruptcy() {
         boolean check = false;
 
-        if (pieces[players.get(player).getPosition()] instanceof Tax) {
-            check = players.get(player).getBankrupt(((Tax) pieces[players.get(player).getPosition()]).getCost());
-        } else if (pieces[players.get(player).getPosition()] instanceof Property) {
-            if ((!((Property) pieces[players.get(player).getPosition()]).isAvailable()) && (!(((Property) pieces[players.get(player).getPosition()]).getOwner().equals(players.get(player))))) { //property not available
-                check = players.get(player).getBankrupt(((Property) pieces[players.get(player).getPosition()]).getRent());
+        if (pieces.get(players.get(player).getPosition()) instanceof Tax) {
+            check = players.get(player).isBankrupt(((Tax) pieces.get(players.get(player).getPosition())).getCost());
+        } else if (pieces.get(players.get(player).getPosition()) instanceof Property) {
+            if ((!((Property) pieces.get(players.get(player).getPosition())).isAvailable()) && (!(((Property) pieces.get(players.get(player).getPosition())).getOwner().equals(players.get(player))))) { //property not available
+                check = players.get(player).isBankrupt(((Property) pieces.get(players.get(player).getPosition())).getRent());
             } else {
-                check = (players.get(player).getBankrupt(((Property) pieces[players.get(player).getPosition()]).getPrice()));
+                check = (players.get(player).isBankrupt(((Property) pieces.get(players.get(player).getPosition())).getPrice()));
             }
         }
 
@@ -370,16 +370,16 @@ public class MonopolyModel implements Serializable{
      * Method to buy a property
      */
     private void buy() {
-        if (pieces[players.get(player).getPosition()] instanceof Jail){
+        if (pieces.get(players.get(player).getPosition()) instanceof Jail){
             players.get(player).doTransaction(50);
             players.get(player).setJailStatus(false);
             outputText+="\nSuccessfully took $50 from your account, you are free to leave jail!\n";
         }
-        else if (((Property) pieces[players.get(player).getPosition()]).isAvailable()) {
-            players.get(player).doTransaction(((Property) pieces[players.get(player).getPosition()]).getPrice()); // price of property is deducted from player's account
-            players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
-            ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
-            ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
+        else if (((Property) pieces.get(players.get(player).getPosition())).isAvailable()) {
+            players.get(player).doTransaction(((Property) pieces.get(players.get(player).getPosition())).getPrice()); // price of property is deducted from player's account
+            players.get(player).addProperty(((Property) pieces.get(players.get(player).getPosition()))); // property is added to player's account
+            ((Property) pieces.get(players.get(player).getPosition())).purchase(); //set property to unavailable
+            ((Property) pieces.get(players.get(player).getPosition())).setOwner(players.get(player)); //set owner
             outputText+="Successfully purchased!\n";
         }
         else {
@@ -490,7 +490,7 @@ public class MonopolyModel implements Serializable{
     private void moveAi(){
         this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
         if (!ended) { //endTurn didn't get called in roll()
-            if (pieces[players.get(player).getPosition()] instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
+            if (pieces.get(players.get(player).getPosition()) instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
                 this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
                 aiTurnEndText();
                 outputText += "\nNow it's " +players.get(player).getName() + "'s turn!";
@@ -513,7 +513,7 @@ public class MonopolyModel implements Serializable{
         }
         else if (command.equals(BUY)) {
             // The situation when the player purchases a property
-            if (pieces[players.get(player).getPosition()] instanceof Property || pieces[players.get(player).getPosition()] instanceof Jail) {
+            if (pieces.get(players.get(player).getPosition()) instanceof Property || pieces.get(players.get(player).getPosition()) instanceof Jail) {
                 buy();
             }
             if (!dice.isDouble()) {
@@ -538,10 +538,13 @@ public class MonopolyModel implements Serializable{
 
 
     public void saveSerialize(String filename){ //save file
+        System.out.println("beginning");
         try {
             FileOutputStream file = new FileOutputStream(filename);
             ObjectOutputStream outputStream = new ObjectOutputStream(file);
+            System.out.println("here");
             outputStream.writeObject(this);
+            System.out.println("in model saving");
             outputStream.close();
             file.close();
         } catch (FileNotFoundException e) {

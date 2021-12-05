@@ -29,6 +29,9 @@ public class Utility extends Property {
      */
     public Utility(String name, int price, String type, String colour, String path, int position) {
         super(name, price, type, colour, path, position);
+
+        ImageIcon utilityIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/utility.png")));
+        centerPanel.add(new JLabel(new ImageIcon(utilityIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
     /**

@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Objects;
 
 /**
@@ -22,6 +23,8 @@ public class Player implements Serializable {
     private boolean inJail; //is player in jail?
     private ArrayList<Property> properties; //list of properties player owns
     private boolean canBuild;
+    private HashMap<String, ArrayList<ColouredProperty>> playerColours;
+    private ArrayList<String> possibleColoursForBuilding;
 
     /**
      * Constructor for Player class
@@ -39,6 +42,8 @@ public class Player implements Serializable {
         this.inJail=false;
         this.properties = new ArrayList<Property>();
         this.canBuild = false;
+        this.playerColours = new HashMap<>();
+        this.possibleColoursForBuilding = new ArrayList<>();
     }
 
     /**
@@ -152,9 +157,9 @@ public class Player implements Serializable {
      * given the value of their dice roll
      * @param spaces , the amount of spaces they need to move on the board
      */
-    public void move(int spaces) {
-        if(position + spaces >= BoardSquares.values().length) {
-            position = ((position + spaces) - BoardSquares.values().length); //loops around the board
+    public void move(int spaces, int totalSpaces) {
+        if(position + spaces >= totalSpaces) {
+            position = ((position + spaces) - totalSpaces); //loops around the board
             reset = true;
         }
         else{
@@ -219,6 +224,14 @@ public class Player implements Serializable {
 
     public void setCanBuild(boolean val){
         this.canBuild = val;
+    }
+
+    public HashMap<String, ArrayList<ColouredProperty>> getPlayerColours(){
+        return playerColours;
+    }
+
+    public ArrayList<String> getPossibleColoursForBuilding() {
+        return possibleColoursForBuilding;
     }
 
     /**

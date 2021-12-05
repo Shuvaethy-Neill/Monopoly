@@ -30,11 +30,6 @@ public abstract class BoardSpace extends JPanel {
     private String type;
 
     /**
-     * The path of the background image for this board space
-     */
-    private String path;
-
-    /**
      * Position number of the BoardSpace
      */
     private int position;
@@ -54,10 +49,7 @@ public abstract class BoardSpace extends JPanel {
      */
     private JPanel playerIconPanel;
 
-    /**
-     * The background image for this board space
-     */
-    private Image backgroundImage;
+    protected JPanel centerPanel;
 
     /**
      * The constructor for a BoardSpace object
@@ -66,26 +58,28 @@ public abstract class BoardSpace extends JPanel {
         super(new BorderLayout());
         this.name = name;
         this.type = type;
-        this.path = path;
         this.position = position;
         this.playerIcons = new ArrayList<>();
         this.playerIconPaths = new ArrayList<>(Arrays.asList("images/yellow-player.png", "images/blue-player.png",
                 "images/red-player.png", "images/purple-player.png", "images/greenp.png", "images/pink.png","images/burgundyP.png","images/turquoiseP.png"));
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        //readBackgroundImage();
-
         playerIconPanel = new JPanel(new GridLayout(1,8));
         playerIconPanel.setPreferredSize(new Dimension(80,10));
         playerIconPanel.setOpaque(false);
-        this.add(playerIconPanel, BorderLayout.CENTER);
+        this.add(playerIconPanel, BorderLayout.PAGE_END);
 
         for (String playerIconPath : playerIconPaths) {
             ImageIcon playerIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource(playerIconPath)));
             playerIcons.add(new JLabel(new ImageIcon(playerIcon.getImage().getScaledInstance(10, 10, Image.SCALE_FAST))));
         }
 
+        centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setOpaque(false);
+        this.add(centerPanel, BorderLayout.CENTER);
+
         this.setPreferredSize(new Dimension(40, 40));
+        this.setBackground(Color.lightGray);
     }
 
     /**
@@ -137,6 +131,9 @@ public abstract class BoardSpace extends JPanel {
      */
     public void setName(String name) {
         this.name = name;
+        JLabel nameLabel = new JLabel("<html><div style='text-align: center;'>" + name + "</div></html>", JLabel.CENTER);
+        nameLabel.setFont(new Font("Serif", Font.PLAIN, 8));
+        centerPanel.add(nameLabel, BorderLayout.PAGE_START);
     }
 
     /**
@@ -149,14 +146,6 @@ public abstract class BoardSpace extends JPanel {
 
     /**
      *
-     * @param path
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    /**
-     *
      * @param position
      */
     public void setPosition(int position) {
@@ -164,30 +153,7 @@ public abstract class BoardSpace extends JPanel {
     }
 
     /**
-     * Read the background image for this board space
-     */
-    public void readBackgroundImage() {
-        try {
-            BufferedImage inputImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(String.valueOf(new File(path)))));
-            //Image inputImage = ImageIO.read(new File(path));
-            backgroundImage = inputImage.getScaledInstance(80,80,Image.SCALE_FAST);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * An abstract method for displaying information about the board space
      */
     public abstract String displayInfo();
-
-    /**
-     * Paint this board space normally but also add a background image
-     *
-     * @param g Graphics
-     */
-    public void paintComponent (Graphics g) {
-        //super.paintComponent(g);
-        g.drawImage(backgroundImage, 0, 0, this);
-    }
 }

@@ -21,39 +21,12 @@ import java.util.Stack;
  */
 
 public class MonopolyController extends DefaultHandler {
-    /**
-     *
-     */
     private MonopolyModel model;
-
-    /**
-     *
-     */
     private MonopolyFrame view;
-
-    /**
-     *
-     */
     private static final int MAX_PLAYERS = 8;
-
-    /**
-     *
-     */
     private int aiPlayers;
-
-    /**
-     *
-     */
     private int humanPlayers;
-
-    /**
-     *
-     */
     private Stack<String> stack;
-
-    /**
-     *
-     */
     private ArrayList<BoardSpace> boardSpaces;
 
     /**
@@ -67,6 +40,7 @@ public class MonopolyController extends DefaultHandler {
         this.view = view;
         this.boardSpaces = new ArrayList<>();
         this.stack = new Stack<>();
+
         //ask user if they want to load
         int state = gameState(); //load =1 new=0
         if(state==0) {
@@ -81,6 +55,10 @@ public class MonopolyController extends DefaultHandler {
             for (int i = 1; i <= aiPlayers; i++) {
                 model.addPlayer(new MonopolyAIPlayer("Player " + (humanPlayers + i)));
             }
+
+            // Get game version
+            importFromXmlFile(getGameVersionFilename());
+            model.setPieces(boardSpaces);
         }
         else{
             this.model = model.importSerialize("MonopolyGame.txt");
@@ -153,7 +131,6 @@ public class MonopolyController extends DefaultHandler {
         return (int) numPlayersObject;
     }
 
-
     /**
      * Returns the Player object with a username chosen by the user
      * @return the player object
@@ -183,6 +160,56 @@ public class MonopolyController extends DefaultHandler {
         return new Player(playerName);
     }
 
+    public void getHousesandHotelInfo(Object choice){
+        Player currentPlayer = model.getPlayers().get(model.getPlayer());
+
+        ColouredProperty propertyToBuildOn = null;
+        int tempNum = 4;
+        for (ColouredProperty property : currentPlayer.getPlayerColours().get((String) choice)) {
+            if ((property).getHouseHotelStatus().getNum() <= tempNum) {
+                propertyToBuildOn = (property);
+                tempNum = propertyToBuildOn.getHouseHotelStatus().getNum();
+            }
+        }
+        if (propertyToBuildOn == null) {
+            currentPlayer.setCanBuild(false);
+            JOptionPane.showMessageDialog(view, "You cannot build any more on these " +
+                    "properties!\nThey already have hotels!");
+        } else if (propertyToBuildOn.getHouseHotelPrice() > currentPlayer.getMoney()) {
+            currentPlayer.setCanBuild(false);
+            JOptionPane.showMessageDialog(view, "You do not have enough money to buy a " +
+                    "house or hotel");
+        } else {
+            currentPlayer.setCanBuild(true);
+            currentPlayer.doTransaction(propertyToBuildOn.getHouseHotelPrice());
+            propertyToBuildOn.addHouseHotel();
+            model.notifyViews();
+            JOptionPane.showMessageDialog(view, "House successfully built on " +
+                    propertyToBuildOn.getName() + " for " + propertyToBuildOn.getHouseHotelPrice() + "!");
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    private String getGameVersionFilename() {
+        boolean validInput = false;
+        String versionFilename = "";
+        String message = "Please type the filename for the version you would like to play.";
+        while (!validInput) {
+            versionFilename = (String) JOptionPane.showInputDialog(view, message, "Version Filename", JOptionPane.PLAIN_MESSAGE);
+            if (versionFilename == null) {
+                message = "Please type the filename for the version you would like to player.\nPlease try again and press 'Ok' not 'Cancel'";
+            } else if (versionFilename.equals("")) {
+                message = "Please type the filename for the version you would like to player.\nThe filename cannot be blank.";
+            } else {
+                validInput = true;
+            }
+        }
+        return "src/versions/" + versionFilename + ".xml";
+    }
+
     /**
      *
      * @param filename
@@ -190,10 +217,16 @@ public class MonopolyController extends DefaultHandler {
      * @throws SAXException
      * @throws IOException
      */
-    public void importFromXmlFile(String filename) throws ParserConfigurationException, SAXException, IOException {
+    public void importFromXmlFile(String filename) {
         SAXParserFactory factory = SAXParserFactory.newInstance();
-        SAXParser parser = factory.newSAXParser();
-        parser.parse(filename, this);
+        SAXParser parser = null;
+        try {
+            parser = factory.newSAXParser();
+            parser.parse(filename, this);
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -201,17 +234,37 @@ public class MonopolyController extends DefaultHandler {
         super.startElement(uri, localName, qName, attributes);
         this.stack.push(qName);
         if (qName.equals("ColouredProperty")) {
-            this.boardSpaces.add(new ColouredProperty());
+            ColouredProperty newColouredProperty = new ColouredProperty();
+            newColouredProperty.setType("colouredProperty");
+            this.boardSpaces.add(newColouredProperty);
+
         } else if (qName.equals("Railroad")) {
-            this.boardSpaces.add(new Railroad());
+            Railroad newRailroad = new Railroad();
+            newRailroad.setType("railroad");
+            newRailroad.setColor("black");
+            this.boardSpaces.add(newRailroad);
+
         } else if (qName.equals("Utility")) {
-            this.boardSpaces.add(new Utility());
+            Utility newUtility = new Utility();
+            newUtility.setType("utility");
+            newUtility.setColor("black");
+            this.boardSpaces.add(newUtility);
+
         } else if (qName.equals("Tax")) {
-            this.boardSpaces.add(new Tax());
+            Tax newTax = new Tax();
+            newTax.setType("tax");
+            this.boardSpaces.add(newTax);
+
         } else if (qName.equals("Go")) {
-            this.boardSpaces.add(new Go());
+            Go newGo = new Go();
+            newGo.setType("go");
+            this.boardSpaces.add(newGo);
+
         } else if (qName.equals("Free Parking")) {
-            this.boardSpaces.add(new FreeParking());
+            FreeParking newFreeParking = new FreeParking();
+            newFreeParking.setType("freeParking");
+            this.boardSpaces.add(newFreeParking);
+
         } else if (qName.equals("Jail")) {
             this.boardSpaces.add(new Jail());
         }
@@ -230,16 +283,17 @@ public class MonopolyController extends DefaultHandler {
         if (!(val.length() == 0)) {
             if (stack.peek().equals("name")) {
                 boardSpaces.get(boardSpaces.size() - 1).setName(val);
-            } else if (stack.peek().equals("path")) {
-                boardSpaces.get(boardSpaces.size() - 1).setPath(val);
+                System.out.println(val);
             } else if (stack.peek().equals("position")) {
                 boardSpaces.get(boardSpaces.size() - 1).setPosition(Integer.parseInt(val));
             } else if (stack.peek().equals("price")) {
-                ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setPrice(Integer.parseInt(val));
+                ((Property) boardSpaces.get(boardSpaces.size() - 1)).setPrice(Integer.parseInt(val));
             } else if (stack.peek().equals("type")) {
                 boardSpaces.get(boardSpaces.size() - 1).setType(val);
             } else if (stack.peek().equals("color")) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setColor(val);
+            } else if (stack.peek().equals("colorHex")) {
+                ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setColorHex(val);
             } else if (stack.peek().equals("houseHotelPrice")) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setHouseHotelPrice(Integer.parseInt(val));
             } else if (stack.peek().equals("setSize")) {

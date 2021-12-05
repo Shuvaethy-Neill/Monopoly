@@ -14,6 +14,7 @@ import java.util.HashMap;
 public class MonopolyFrame extends JFrame implements MonopolyView {
 
     private MonopolyModel model;
+    private MonopolyController controller;
     private JPanel instructionPanel;
     private JPanel buttonPanel;
     private JPanel dicePanel;
@@ -29,6 +30,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     public MonopolyFrame(MonopolyModel model) {
         super("The Monopoly Game!");
         this.model = model;
+        this.controller = new MonopolyController(model, this);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(900,800));
@@ -146,20 +148,9 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         instructionInfo.setText(e.getInstruction());
 
-        //no way of updating if a player can build or not if we disable button so i think we should just show the error in the panel
-        /*
-        if(!((Player)(e.getCurrentPlayers().get(e.getPlayer()))).getCanBuild()){
-            buildButton.setEnabled(false);
-        }
-        else{
-            buildButton.setEnabled(true);
-        }
-
-         */
-
         if (e.status == MonopolyModel.Status.PLAYING){
             buyButton.setEnabled(true);
-            buildButton.setEnabled(true);
+            buildButton.setEnabled(false);
             if(!e.getDice().isDouble()) {
                 rollButton.setEnabled(false);
             }
@@ -167,7 +158,23 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         else if(e.status == MonopolyModel.Status.BUILDING) {
             if(((Player)(e.getCurrentPlayers().get(e.getPlayer()))).getCanBuild()){
-                //uhmmmmmmm
+                Object[] options = ((Player)(e.getCurrentPlayers().get(e.getPlayer()))).getPossibleColoursForBuilding().toArray();
+                boolean validInput = false;
+                Object choice = null;
+                String message = "You can build on any of the following color sets!";
+                while (!validInput) {
+
+                choice = JOptionPane.showInputDialog(this, message, "Color Choice",
+                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+                    if (choice == null) {
+                        message = "You can build on any of the following color sets!\nPlease press 'Ok', not 'Cancel'";
+                    } else {
+                        validInput = true;
+                    }
+                }
+                controller.getHousesandHotelInfo(choice);
+
             }
 
             rollButton.setEnabled(true);
@@ -177,6 +184,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         }
         else if(e.status == MonopolyModel.Status.BANKRUPT) {
             rollButton.setEnabled(false);
+            buildButton.setEnabled(false);
             buyButton.setEnabled(false);
             passButton.setEnabled(false);
             helpButton.setEnabled(false);
@@ -190,6 +198,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
             rollButton.setEnabled(true);
             buyButton.setEnabled(false);
+            buildButton.setEnabled(false);
             passButton.setEnabled(false);
             helpButton.setEnabled(true);
         }
@@ -201,6 +210,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             }
 
             rollButton.setEnabled(true);
+            buildButton.setEnabled(false);
             buyButton.setEnabled(false);
             passButton.setEnabled(false);
             helpButton.setEnabled(true);
@@ -208,10 +218,12 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         else if (e.status == MonopolyModel.Status.JAIL){
             rollButton.setEnabled(true);
             buyButton.setEnabled(true);
+            buildButton.setEnabled(false);
             passButton.setEnabled(false);
             helpButton.setEnabled(false);
         }
         else{
+            buildButton.setEnabled(true);
             rollButton.setEnabled(true);
             buyButton.setEnabled(false);
             passButton.setEnabled(true);
