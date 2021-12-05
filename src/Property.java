@@ -130,7 +130,9 @@ public abstract class Property extends BoardSpace {
      */
     public void setPrice(int price) {
         this.price = price;
-        centerPanel.add(new JLabel("$" + String.valueOf(price)), JLabel.CENTER);
+        JLabel priceLabel = new JLabel("<html><div style='text-align: center;'>" + String.valueOf(price) + "</div></html>", JLabel.CENTER);
+        priceLabel.setFont(new Font("Serif", Font.PLAIN, 8));
+        centerPanel.add(priceLabel, BorderLayout.PAGE_END);
     }
 
     /**

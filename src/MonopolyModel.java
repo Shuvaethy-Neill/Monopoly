@@ -335,12 +335,12 @@ public class MonopolyModel implements Serializable{
         boolean check = false;
 
         if (pieces.get(players.get(player).getPosition()) instanceof Tax) {
-            check = players.get(player).isBankrupt(((Tax) pieces.get(players.get(player).getPosition())).getCost());
+            check = players.get(player).getBankrupt(((Tax) pieces.get(players.get(player).getPosition())).getCost());
         } else if (pieces.get(players.get(player).getPosition()) instanceof Property) {
             if ((!((Property) pieces.get(players.get(player).getPosition())).isAvailable()) && (!(((Property) pieces.get(players.get(player).getPosition())).getOwner().equals(players.get(player))))) { //property not available
-                check = players.get(player).isBankrupt(((Property) pieces.get(players.get(player).getPosition())).getRent());
+                check = players.get(player).getBankrupt(((Property) pieces.get(players.get(player).getPosition())).getRent());
             } else {
-                check = (players.get(player).isBankrupt(((Property) pieces.get(players.get(player).getPosition())).getPrice()));
+                check = (players.get(player).getBankrupt(((Property) pieces.get(players.get(player).getPosition())).getPrice()));
             }
         }
 
