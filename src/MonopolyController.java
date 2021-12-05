@@ -21,39 +21,12 @@ import java.util.Stack;
  */
 
 public class MonopolyController extends DefaultHandler {
-    /**
-     *
-     */
     private MonopolyModel model;
-
-    /**
-     *
-     */
     private MonopolyFrame view;
-
-    /**
-     *
-     */
     private static final int MAX_PLAYERS = 8;
-
-    /**
-     *
-     */
     private int aiPlayers;
-
-    /**
-     *
-     */
     private int humanPlayers;
-
-    /**
-     *
-     */
     private Stack<String> stack;
-
-    /**
-     *
-     */
     private ArrayList<BoardSpace> boardSpaces;
 
     /**
@@ -176,6 +149,35 @@ public class MonopolyController extends DefaultHandler {
         }
 
         return new Player(playerName);
+    }
+
+    public void getHousesandHotelInfo(Object choice){
+        Player currentPlayer = model.getPlayers().get(model.getPlayer());
+
+        ColouredProperty propertyToBuildOn = null;
+        int tempNum = 4;
+        for (ColouredProperty property : currentPlayer.getPlayerColours().get((String) choice)) {
+            if ((property).getHouseHotelStatus().getNum() <= tempNum) {
+                propertyToBuildOn = (property);
+                tempNum = propertyToBuildOn.getHouseHotelStatus().getNum();
+            }
+        }
+        if (propertyToBuildOn == null) {
+            currentPlayer.setCanBuild(false);
+            JOptionPane.showMessageDialog(view, "You cannot build any more on these " +
+                    "properties!\nThey already have hotels!");
+        } else if (propertyToBuildOn.getHouseHotelPrice() > currentPlayer.getMoney()) {
+            currentPlayer.setCanBuild(false);
+            JOptionPane.showMessageDialog(view, "You do not have enough money to buy a " +
+                    "house or hotel");
+        } else {
+            currentPlayer.setCanBuild(true);
+            currentPlayer.doTransaction(propertyToBuildOn.getHouseHotelPrice());
+            propertyToBuildOn.addHouseHotel();
+            model.notifyViews();
+            JOptionPane.showMessageDialog(view, "House successfully built on " +
+                    propertyToBuildOn.getName() + " for " + propertyToBuildOn.getHouseHotelPrice() + "!");
+        }
     }
 
     /**

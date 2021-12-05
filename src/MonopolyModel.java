@@ -381,10 +381,30 @@ public class MonopolyModel implements Serializable{
             players.get(player).addProperty(((Property) pieces[players.get(player).getPosition()])); // property is added to player's account
             ((Property) pieces[players.get(player).getPosition()]).purchase(); //set property to unavailable
             ((Property) pieces[players.get(player).getPosition()]).setOwner(players.get(player)); //set owner
+            updatePropertyLists();
             outputText+="Successfully purchased!\n";
         }
         else {
             outputText= "\nUnfortunately the property you are on is not available for purchase.";
+        }
+    }
+    private void updatePropertyLists(){
+        Player currentPlayer = this.getPlayers().get(player);
+        for (Property property : currentPlayer.getProperties()) {
+            if (property.getType().equals("colouredProperty")) {
+                //if property colour is not in list add colour
+                if (!currentPlayer.getPlayerColours().containsKey(property.getColor())) {
+                    currentPlayer.getPlayerColours().put(property.getColor(), new ArrayList<>());
+                }
+                //if property not in list, then add
+                if(!currentPlayer.getPlayerColours().containsValue((ColouredProperty) property)) {
+                    currentPlayer.getPlayerColours().get(property.getColor()).add((ColouredProperty) property);
+                }
+                if ((currentPlayer.getPlayerColours().get(property.getColor()).size() == ((ColouredProperty) property).getSetSize()) &&
+                        !currentPlayer.getPossibleColoursForBuilding().contains(property.getColor())) {
+                    currentPlayer.getPossibleColoursForBuilding().add(property.getColor());
+                }
+            }
         }
     }
 
@@ -394,69 +414,14 @@ public class MonopolyModel implements Serializable{
     private void buildHouseHotel() {
         this.playerStatus = Status.BUILDING;
         Player currentPlayer = this.getPlayers().get(player);
-        //move these two lists to Player class
-        HashMap<String, ArrayList<ColouredProperty>> playerColours = new HashMap<>();
-        ArrayList<String> possibleColoursForBuilding = new ArrayList<>();
-        for (Property property : currentPlayer.getProperties()) {
-            if (property.getType().equals("colouredProperty")) {
-                if (!playerColours.containsKey(property.getColor())) {
-                    playerColours.put(property.getColor(), new ArrayList<>());
-                }
-                playerColours.get(property.getColor()).add((ColouredProperty) property);
-
-                if ((playerColours.get(property.getColor()).size() == ((ColouredProperty) property).getSetSize()) &&
-                        !possibleColoursForBuilding.contains(property.getColor())) {
-                    possibleColoursForBuilding.add(property.getColor());
-                }
-            }
-        }
 
         //when moving lists to Player just change to if(currentPlayer.possibleColoursForBuilding.size() == 0)
-        if (possibleColoursForBuilding.size() == 0) {
+        if (currentPlayer.getPossibleColoursForBuilding().size() == 0) {
             currentPlayer.setCanBuild(false);
-            outputText = "You cannot build any houses/hotels because you don't have any\nfull property sets yet!";
+            outputText += "You cannot build any houses/hotels because you don't have any\nfull property sets yet!";
         } else {
             currentPlayer.setCanBuild(true);
-            Object[] options = possibleColoursForBuilding.toArray();
-            boolean validInput = false;
-            Object choice = null;
-            String message = "You can build on any of the following color sets!";
-            while (!validInput) {
-                //wait if we move the JOptionPane to view, how will we get the choice? pass through controller?
-                // UHM need another method that takes that param in??
-                /*
-                choice = JOptionPane.showInputDialog(this, message, "Color Choice",
-                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
-                 */
-                if (choice == null) {
-                    message = "You can build on any of the following color sets!\nPlease press 'Ok', not 'Cancel'";
-                } else {
-                    validInput = true;
-                }
-            }
-
-            ColouredProperty propertyToBuildOn = null;
-            int tempNum = 4;
-            for (ColouredProperty property : playerColours.get((String) choice)) {
-                if ((property).getHouseHotelStatus().getNum() <= tempNum) {
-                    propertyToBuildOn = (property);
-                    tempNum = propertyToBuildOn.getHouseHotelStatus().getNum();
-                }
-            }
-            if (propertyToBuildOn == null) {
-                currentPlayer.setCanBuild(false);
-                outputText = "You cannot build any more on these properties! They already have hotels!";
-            } else if (propertyToBuildOn.getHouseHotelPrice() > currentPlayer.getMoney()) {
-                currentPlayer.setCanBuild(false);
-                outputText = "You do not have enough money to buy a house or hotel";
-            } else {
-                currentPlayer.setCanBuild(true);
-                currentPlayer.doTransaction(propertyToBuildOn.getHouseHotelPrice());
-                propertyToBuildOn.addHouseHotel();
-                outputText = "House successfully built on " +
-                        propertyToBuildOn.getName() + " \nfor " + propertyToBuildOn.getHouseHotelPrice() + "!";
-            }
         }
     }
 
