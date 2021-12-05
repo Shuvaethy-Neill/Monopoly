@@ -29,7 +29,7 @@ public class MonopolyModel implements Serializable{
 
     private int position;
 
-    private int player; // current player
+    private int player; // current player index
 
     private ArrayList<Player> players;
 
@@ -394,6 +394,7 @@ public class MonopolyModel implements Serializable{
     private void buildHouseHotel() {
         this.playerStatus = Status.BUILDING;
         Player currentPlayer = this.getPlayers().get(player);
+        //move these two lists to Player class
         HashMap<String, ArrayList<ColouredProperty>> playerColours = new HashMap<>();
         ArrayList<String> possibleColoursForBuilding = new ArrayList<>();
         for (Property property : currentPlayer.getProperties()) {
