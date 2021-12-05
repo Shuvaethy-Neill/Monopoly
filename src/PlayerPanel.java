@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @version 3.0
  * @since 2021-11-21
  */
-public class PlayerPanel extends JTabbedPane implements MonopolyView {
+public class PlayerPanel extends JTabbedPane implements MonopolyView, Serializable {
 
     private MonopolyModel model;
     private JPanel[] individualPlayerPanels;

@@ -109,7 +109,11 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
         menuBar.add(menu);
 
         JMenuItem saveItem = new JMenuItem("Save Game");
-        saveItem.addActionListener(e -> model.saveSerialize("MonopolyGame.txt"));
+        saveItem.addActionListener(e -> {
+            model.saveSerialize("MonopolyGame.txt");
+            System.out.println("SAVED!");
+            System.exit(0);
+        });
         menu.add(saveItem);
 
         JMenuItem quitItem = new JMenuItem("Quit");
