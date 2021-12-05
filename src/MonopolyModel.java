@@ -410,6 +410,7 @@ public class MonopolyModel implements Serializable{
             }
         }
 
+        //when moving lists to Player just change to if(currentPlayer.possibleColoursForBuilding.size() == 0)
         if (possibleColoursForBuilding.size() == 0) {
             currentPlayer.setCanBuild(false);
             outputText = "You cannot build any houses/hotels because you don't have any\nfull property sets yet!";
@@ -420,6 +421,8 @@ public class MonopolyModel implements Serializable{
             Object choice = null;
             String message = "You can build on any of the following color sets!";
             while (!validInput) {
+                //wait if we move the JOptionPane to view, how will we get the choice? pass through controller?
+                // UHM need another method that takes that param in??
                 /*
                 choice = JOptionPane.showInputDialog(this, message, "Color Choice",
                         JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
