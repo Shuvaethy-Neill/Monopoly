@@ -21,6 +21,7 @@ public class Player implements Serializable {
     boolean reset; //check if player looped around board
     private boolean inJail; //is player in jail?
     private ArrayList<Property> properties; //list of properties player owns
+    private boolean canBuild;
 
     /**
      * Constructor for Player class
@@ -37,6 +38,7 @@ public class Player implements Serializable {
         this.reset = false;
         this.inJail=false;
         this.properties = new ArrayList<Property>();
+        this.canBuild = false;
     }
 
     /**
@@ -207,6 +209,14 @@ public class Player implements Serializable {
      */
     public ArrayList<Property> getProperties () {
         return properties;
+    }
+
+    public boolean getCanBuild(){
+        return canBuild;
+    }
+
+    public void setCanBuild(boolean val){
+        this.canBuild = val;
     }
 
     /**

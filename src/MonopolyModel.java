@@ -1,8 +1,6 @@
+import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+import java.util.*;
 
 /**
  * The MonopolyModel Class that contains the MVC Model of the Monopoly board
@@ -25,6 +23,7 @@ public class MonopolyModel implements Serializable{
     private static final String HELP = "Help";
     private static final String ROLL = "Roll Dice";
     private static final String BUY = "Buy";
+    private static final String BUILD = "Build House/Hotel";
     private static final String PASS = "Pass";
     private static final String QUIT = "Quit";
 
@@ -36,7 +35,7 @@ public class MonopolyModel implements Serializable{
 
     private String outputText; //text to notify user of decisions made
 
-    public enum Status implements Serializable {UNDECIDED,PLAYING, BANKRUPT, BANKRUPT2, QUITTING, JAIL};
+    public enum Status implements Serializable {UNDECIDED,PLAYING, BUILDING, BANKRUPT, BANKRUPT2, QUITTING, JAIL};
 
     private Status playerStatus;
     private boolean ended;
@@ -390,6 +389,74 @@ public class MonopolyModel implements Serializable{
     }
 
     /**
+     * Checks which properties the player can build a house or hotel on and builds a house on the one selected by the player
+     */
+    private void buildHouseHotel() {
+        this.playerStatus = Status.BUILDING;
+        Player currentPlayer = this.getPlayers().get(player);
+        HashMap<String, ArrayList<ColouredProperty>> playerColours = new HashMap<>();
+        ArrayList<String> possibleColoursForBuilding = new ArrayList<>();
+        for (Property property : currentPlayer.getProperties()) {
+            if (property.getType().equals("colouredProperty")) {
+                if (!playerColours.containsKey(property.getColor())) {
+                    playerColours.put(property.getColor(), new ArrayList<>());
+                }
+                playerColours.get(property.getColor()).add((ColouredProperty) property);
+
+                if ((playerColours.get(property.getColor()).size() == ((ColouredProperty) property).getSetSize()) &&
+                        !possibleColoursForBuilding.contains(property.getColor())) {
+                    possibleColoursForBuilding.add(property.getColor());
+                }
+            }
+        }
+
+        if (possibleColoursForBuilding.size() == 0) {
+            currentPlayer.setCanBuild(false);
+            outputText = "You cannot build any houses/hotels because you don't have any\nfull property sets yet!";
+        } else {
+            currentPlayer.setCanBuild(true);
+            Object[] options = possibleColoursForBuilding.toArray();
+            boolean validInput = false;
+            Object choice = null;
+            String message = "You can build on any of the following color sets!";
+            while (!validInput) {
+                /*
+                choice = JOptionPane.showInputDialog(this, message, "Color Choice",
+                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+                 */
+                if (choice == null) {
+                    message = "You can build on any of the following color sets!\nPlease press 'Ok', not 'Cancel'";
+                } else {
+                    validInput = true;
+                }
+            }
+
+            ColouredProperty propertyToBuildOn = null;
+            int tempNum = 4;
+            for (ColouredProperty property : playerColours.get((String) choice)) {
+                if ((property).getHouseHotelStatus().getNum() <= tempNum) {
+                    propertyToBuildOn = (property);
+                    tempNum = propertyToBuildOn.getHouseHotelStatus().getNum();
+                }
+            }
+            if (propertyToBuildOn == null) {
+                currentPlayer.setCanBuild(false);
+                outputText = "You cannot build any more on these properties! They already have hotels!";
+            } else if (propertyToBuildOn.getHouseHotelPrice() > currentPlayer.getMoney()) {
+                currentPlayer.setCanBuild(false);
+                outputText = "You do not have enough money to buy a house or hotel";
+            } else {
+                currentPlayer.setCanBuild(true);
+                currentPlayer.doTransaction(propertyToBuildOn.getHouseHotelPrice());
+                propertyToBuildOn.addHouseHotel();
+                outputText = "House successfully built on " +
+                        propertyToBuildOn.getName() + " \nfor " + propertyToBuildOn.getHouseHotelPrice() + "!";
+            }
+        }
+    }
+
+    /**
      * Method passes the turn to the next player in the game
      */
     public void endTurn() {
@@ -449,7 +516,11 @@ public class MonopolyModel implements Serializable{
             if (!dice.isDouble()) {
                 endTurn();
             }
-        } else if (command.equals(ROLL)) {
+        }
+        else if(command.equals(BUILD)){
+            buildHouseHotel();
+        }
+        else if (command.equals(ROLL)) {
             roll();
         } else if (command.equals(PASS)) {
             if (players.get(player) instanceof MonopolyAIPlayer){outputText="AI player has passed/completed their turn! Passing to next player.\n"; }

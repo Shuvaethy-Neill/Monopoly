@@ -36,7 +36,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         startButton = new JButton("Start");
         startButton.setPreferredSize(new Dimension(200, 50));
-        startButton.addActionListener( e -> { //instructionInfo.setText("Starting game....\n" + model.start() + " will start!" );
+        startButton.addActionListener( e -> {
             model.start();
             startButton.setEnabled(false);
         });
@@ -66,7 +66,8 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         buildButton = new JButton("Build House/Hotel");
         buildButton.setPreferredSize(new Dimension(200, 50));
-        buildButton.addActionListener( e -> buildHouseHotel());
+        buildButton.setEnabled(false);
+        buildButton.addActionListener( e -> model.play(buildButton.getText()));
 
         buttonPanel = new JPanel(new GridLayout(3, 2));
         buttonPanel.setPreferredSize(new Dimension(400, 150));
@@ -117,69 +118,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     }
 
     /**
-     * Checks which properties the player can build a house or hotel on and builds a house on the one selected by the player
-     */
-    private void buildHouseHotel() {
-        Player currentPlayer = model.getPlayers().get(model.getPlayer());
-        HashMap<String, ArrayList<ColouredProperty>> playerColours = new HashMap<>();
-        ArrayList<String> possibleColoursForBuilding = new ArrayList<>();
-        for (Property property : currentPlayer.getProperties()) {
-            if (property.getType().equals("colouredProperty")) {
-                if (!playerColours.containsKey(property.getColor())) {
-                    playerColours.put(property.getColor(), new ArrayList<>());
-                }
-                playerColours.get(property.getColor()).add((ColouredProperty) property);
-
-                if ((playerColours.get(property.getColor()).size() == ((ColouredProperty) property).getSetSize()) &&
-                        !possibleColoursForBuilding.contains(property.getColor())) {
-                    possibleColoursForBuilding.add(property.getColor());
-                }
-            }
-        }
-
-        if (possibleColoursForBuilding.size() == 0) {
-            JOptionPane.showMessageDialog(this, "You cannot build any houses/hotels because " +
-                    "you don't have any full property sets yet!");
-        } else {
-            Object[] options = possibleColoursForBuilding.toArray();
-            boolean validInput = false;
-            Object choice = null;
-            String message = "You can build on any of the following color sets!";
-            while (!validInput) {
-                choice = JOptionPane.showInputDialog(this, message, "Color Choice",
-                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-                if (choice == null) {
-                    message = "You can build on any of the following color sets!\nPlease press 'Ok', not 'Cancel'";
-                } else {
-                    validInput = true;
-                }
-            }
-
-            ColouredProperty propertyToBuildOn = null;
-            int tempNum = 4;
-            for (ColouredProperty property : playerColours.get((String) choice)) {
-                if ((property).getHouseHotelStatus().getNum() <= tempNum) {
-                    propertyToBuildOn = (property);
-                    tempNum = propertyToBuildOn.getHouseHotelStatus().getNum();
-                }
-            }
-            if (propertyToBuildOn == null) {
-                JOptionPane.showMessageDialog(this, "You cannot build any more on these " +
-                        "properties!\nThey already have hotels!");
-            } else if (propertyToBuildOn.getHouseHotelPrice() > currentPlayer.getMoney()) {
-                JOptionPane.showMessageDialog(this, "You do not have enough money to buy a " +
-                        "house or hotel");
-            } else {
-                currentPlayer.doTransaction(propertyToBuildOn.getHouseHotelPrice());
-                propertyToBuildOn.addHouseHotel();
-                model.notifyViews();
-                JOptionPane.showMessageDialog(this, "House successfully built on " +
-                        propertyToBuildOn.getName() + " for " + propertyToBuildOn.getHouseHotelPrice() + "!");
-            }
-        }
-    }
-
-    /**
      * Method that adds the panels to each section of the frame
      * @param boardPanel BoardPanel, the Monopoly Board Panel
      * @param playerPanel PlayerPanel, the Monopoly Player Panel
@@ -204,11 +142,34 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
 
         instructionInfo.setText(e.getInstruction());
 
+        //no way of updating if a player can build or not if we disable button so i think we should just show the error in the panel
+        /*
+        if(!((Player)(e.getCurrentPlayers().get(e.getPlayer()))).getCanBuild()){
+            buildButton.setEnabled(false);
+        }
+        else{
+            buildButton.setEnabled(true);
+        }
+
+         */
+
         if (e.status == MonopolyModel.Status.PLAYING){
             buyButton.setEnabled(true);
+            buildButton.setEnabled(true);
             if(!e.getDice().isDouble()) {
                 rollButton.setEnabled(false);
             }
+        }
+
+        else if(e.status == MonopolyModel.Status.BUILDING) {
+            if(((Player)(e.getCurrentPlayers().get(e.getPlayer()))).getCanBuild()){
+                //uhmmmmmmm
+            }
+
+            rollButton.setEnabled(true);
+            buyButton.setEnabled(false);
+            passButton.setEnabled(true);
+            helpButton.setEnabled(true);
         }
         else if(e.status == MonopolyModel.Status.BANKRUPT) {
             rollButton.setEnabled(false);

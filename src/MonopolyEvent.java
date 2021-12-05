@@ -16,6 +16,7 @@ public class MonopolyEvent extends EventObject implements Serializable {
     private String instruction;
     MonopolyModel.Status status;
     private ArrayList currentPlayers;
+    private int player;
 
     /**
      * Constructor for MonopolyEvent
@@ -27,6 +28,7 @@ public class MonopolyEvent extends EventObject implements Serializable {
         this.instruction = source.getOutputText();
         this.status = source.getPlayerStatus();
         this.currentPlayers = source.getPlayers();
+        this.player = source.getPlayer();
     }
 
     /**
@@ -52,6 +54,10 @@ public class MonopolyEvent extends EventObject implements Serializable {
      */
     public Dice getDice() {
         return dice;
+    }
+
+    public int getPlayer(){
+        return player;
     }
 
 }
