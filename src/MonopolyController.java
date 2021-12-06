@@ -71,10 +71,20 @@ public class MonopolyController extends DefaultHandler {
      * @return
      */
     private int gameState(){
+        boolean validInput = false;
         Object[] options = { "New Game", "Load Previous Game" };
-        int s = JOptionPane.showOptionDialog(null, "How would you like to start?", "Monopoly",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
-                options, options[0]);
+        int s = -1;
+        String message = "How would you like to start?";
+        while (!validInput) {
+            s = JOptionPane.showOptionDialog(null, message, "Monopoly",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                    options, options[0]);
+            if (s == 0 || s == 1) {
+                validInput = true;
+            } else {
+                message = "How would you like to start?\nPlease make a valid selection";
+            }
+        }
         return s;
     }
     /**
@@ -263,6 +273,8 @@ public class MonopolyController extends DefaultHandler {
                 boardSpaces.get(boardSpaces.size() - 1).setType(val);
             } else if (stack.peek().equals("color")) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setColor(val);
+            } else if (stack.peek().equals("cost")) {
+                ((Tax) boardSpaces.get(boardSpaces.size() - 1)).setCost(Integer.parseInt(val));
             } else if (stack.peek().equals("colorHex")) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setColorHex(val);
             } else if (stack.peek().equals("houseHotelPrice")) {

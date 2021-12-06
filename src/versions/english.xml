@@ -285,7 +285,7 @@
         <colorHex>#0089FF</colorHex>
         <position>33</position>
         <houseHotelPrice>200</houseHotelPrice>
-        <setSize>3</setSize>
+        <setSize>2</setSize>
     </ColouredProperty>
 
     <Tax>
@@ -301,7 +301,7 @@
         <colorHex>#0089FF</colorHex>
         <position>35</position>
         <houseHotelPrice>200</houseHotelPrice>
-        <setSize>3</setSize>
+        <setSize>2</setSize>
     </ColouredProperty>
 
 </BoardSquares>

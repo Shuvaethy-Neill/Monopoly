@@ -368,6 +368,9 @@ public class MonopolyModel implements Serializable {
                 this.playerStatus = Status.BANKRUPT2;
                 players.remove(player);
                 //player = player-1 ; //set the current player
+                if (player > players.size() - 1) {
+                    player = 0;
+                }
             }
             else{
                 this.playerStatus = Status.BANKRUPT;

@@ -152,4 +152,12 @@ public abstract class BoardSpace extends JPanel implements Serializable {
      * An abstract method for displaying information about the board space
      */
     public abstract String displayInfo();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BoardSpace that = (BoardSpace) o;
+        return position == that.position && Objects.equals(name, that.name) && Objects.equals(type, that.type) && Objects.equals(playerIcons, that.playerIcons) && Objects.equals(playerIconPaths, that.playerIconPaths) && Objects.equals(playerIconPanel, that.playerIconPanel) && Objects.equals(centerPanel, that.centerPanel);
+    }
 }
