@@ -163,20 +163,22 @@ public class MonopolyController extends DefaultHandler {
      * @return
      */
     private String getGameVersionFilename() {
+        Object[] options = {"english", "starwars"};
+        Object version = null;
         boolean validInput = false;
-        String versionFilename = "";
         String message = "Please type the filename for the version you would like to play.";
         while (!validInput) {
-            versionFilename = (String) JOptionPane.showInputDialog(view, message, "Version Filename", JOptionPane.PLAIN_MESSAGE);
-            if (versionFilename == null) {
+            version = JOptionPane.showInputDialog(
+                    view, message, "AI Player Selection",
+                    JOptionPane.PLAIN_MESSAGE, null, options, 0
+            );
+            if (version == null) {
                 message = "Please type the filename for the version you would like to player.\nPlease try again and press 'Ok' not 'Cancel'";
-            } else if (versionFilename.equals("")) {
-                message = "Please type the filename for the version you would like to player.\nThe filename cannot be blank.";
             } else {
                 validInput = true;
             }
         }
-        return Objects.requireNonNull(getClass().getResource("versions/" + versionFilename + ".xml")).toString();
+        return Objects.requireNonNull(getClass().getResource("versions/" + version + ".xml")).toString();
     }
 
     /**

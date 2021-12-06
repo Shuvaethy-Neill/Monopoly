@@ -90,8 +90,8 @@
     <ColouredProperty>
         <name>HOTH</name>
         <price>140</price>
-        <color>magenta</color>
-        <colorHex>#D0008C</colorHex>
+        <color>white</color>
+        <colorHex>#FFFFFF</colorHex>
         <position>11</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -106,8 +106,8 @@
     <ColouredProperty>
         <name>DANTOOINE</name>
         <price>140</price>
-        <color>magenta</color>
-        <colorHex>#D0008C</colorHex>
+        <color>white</color>
+        <colorHex>#FFFFFF</colorHex>
         <position>13</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -116,8 +116,8 @@
     <ColouredProperty>
         <name>YAVIN 4</name>
         <price>160</price>
-        <color>magenta</color>
-        <colorHex>#D0008C</colorHex>
+        <color>white</color>
+        <colorHex>#FFFFFF</colorHex>
         <position>14</position>
         <houseHotelPrice>100</houseHotelPrice>
         <setSize>3</setSize>
@@ -131,7 +131,7 @@
 
     <ColouredProperty>
         <name>KASHYYK</name>
-        <price>180</price>
+        <price>200</price>
         <color>orange</color>
         <colorHex>#FF8C19</colorHex>
         <position>16</position>
@@ -141,7 +141,7 @@
 
     <ColouredProperty>
         <name>MUSTAFAR</name>
-        <price>180</price>
+        <price>200</price>
         <color>orange</color>
         <colorHex>#FF8C19</colorHex>
         <position>17</position>
@@ -151,7 +151,7 @@
 
     <ColouredProperty>
         <name>UTAPU</name>
-        <price>200</price>
+        <price>220</price>
         <color>orange</color>
         <colorHex>#FF8C19</colorHex>
         <position>18</position>
