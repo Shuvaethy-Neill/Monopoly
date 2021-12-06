@@ -24,6 +24,7 @@ public class Jail extends BoardSpace{
     public Jail() {
         this("", "", "", -1);
     }
+
     /**
      * Constructor for the Jail Class
      * @param name String, name of the board square
@@ -46,6 +47,14 @@ public class Jail extends BoardSpace{
     }
 
     @Override
+    /**
+     *
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
     /**
      * Method returns the  Jail board square type (Just Visiting or Go to Jail)
      * @return the type
