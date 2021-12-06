@@ -74,7 +74,7 @@ public abstract class BoardSpace extends JPanel implements Serializable {
         centerPanel.setOpaque(false);
         this.add(centerPanel, BorderLayout.CENTER);
 
-        this.setPreferredSize(new Dimension(48, 48));
+        this.setPreferredSize(new Dimension(56, 56));
         this.setBackground(Color.lightGray);
     }
 

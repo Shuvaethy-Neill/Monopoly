@@ -85,7 +85,7 @@ public class BoardPanel extends JPanel implements MonopolyView, Serializable {
 
         //monopolyLabel = new JLabel(new ImageIcon("images/logo.jpg"), JLabel.CENTER);
         monopolyLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/logo.jpg"))), JLabel.CENTER);
-        monopolyLabel.setPreferredSize(new Dimension(448, 448));
+        monopolyLabel.setPreferredSize(new Dimension(446, 446));
     }
 
     /**

@@ -70,7 +70,7 @@ public class MonopolyController extends DefaultHandler {
      * @return
      */
     private int gameState(){
-        Object[] options = { "New Game", "Load Previous Game", "Continue load" };
+        Object[] options = { "New Game", "Load Previous Game" };
         int s = JOptionPane.showOptionDialog(null, "How would you like to start?", "Monopoly",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
                 options, options[0]);
