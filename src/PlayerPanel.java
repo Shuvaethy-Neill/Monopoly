@@ -41,7 +41,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView, Serializab
             individualPlayerPanels[i].setLayout(new BoxLayout(individualPlayerPanels[i], BoxLayout.PAGE_AXIS));
             individualPlayerPanels[i].setBackground(colours[i]);
             updatePlayerList(model.getPlayers(), i);
-            this.addTab(model.getPlayers().get(i).getName(), individualPlayerPanels[i]);
+            this.add(model.getPlayers().get(i).getName(), individualPlayerPanels[i]);
         }
     }
 
@@ -55,8 +55,9 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView, Serializab
         individualPlayerPanels[playerIndex].removeAll();
         DefaultListModel<String> listModel = new DefaultListModel<>();
 
+        individualPlayerPanels[playerIndex].add(new JLabel("Player: " + currentPlayer.getName()));
         individualPlayerPanels[playerIndex].add(new JLabel("Money: " + currentPlayer.getMoney()));
-        individualPlayerPanels[playerIndex].add(new JLabel("Position: " + model.getPieces().get(currentPlayer.getPosition()).getName()));
+        //individualPlayerPanels[playerIndex].add(new JLabel("Position: " + model.getPieces().get(currentPlayer.getPosition()).getName()));
 
         if (currentPlayer.getProperties().size() == 0) {
             individualPlayerPanels[playerIndex].add(new JLabel("Properties: None"));

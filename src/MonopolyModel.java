@@ -27,8 +27,6 @@ public class MonopolyModel implements Serializable{
     private static final String PASS = "Pass";
     private static final String QUIT = "Quit";
 
-    private int position;
-
     private int player; // current player index
 
     private ArrayList<Player> players;
@@ -107,6 +105,10 @@ public class MonopolyModel implements Serializable{
         return this.player;
     }
 
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+
     /**
      * Method that returns the array of Dice rolled
      * @return dice
@@ -130,6 +132,10 @@ public class MonopolyModel implements Serializable{
      */
     public Status getPlayerStatus() {
         return playerStatus;
+    }
+
+    public void setPlayerStatus(Status playerStatus) {
+        this.playerStatus = playerStatus;
     }
 
     /**
@@ -162,6 +168,7 @@ public class MonopolyModel implements Serializable{
      */
     public String start() {
         System.out.println();
+        System.out.println(players.size());
         player = rand.nextInt(players.size());
         outputText = "Starting the game...\n" + players.get(player).getName() + " will start!";
         if (players.get(player) instanceof MonopolyAIPlayer){
@@ -508,7 +515,11 @@ public class MonopolyModel implements Serializable{
             FileOutputStream file = new FileOutputStream(filename);
             ObjectOutputStream outputStream = new ObjectOutputStream(file);
             System.out.println("here");
-            outputStream.writeObject(this);
+            //outputStream.writeObject(this);
+            outputStream.writeObject(playerStatus);
+            outputStream.writeObject(getPlayer());
+            outputStream.writeObject(getPlayers());
+            outputStream.writeObject(getPieces());
             System.out.println("in model saving");
             outputStream.close();
             file.close();
@@ -519,18 +530,33 @@ public class MonopolyModel implements Serializable{
         }
     }
 
-    public MonopolyModel importSerialize(String filename) { //import file
-        MonopolyModel mm = null;
+    public void importSerialize(String filename) { //import file
+        //MonopolyModel mm = null;
+        ArrayList<Player> loadPlayers = new ArrayList<>();
+        Status ps = null;
+        int currPlayer = 0;
+        ArrayList<BoardSpace> loadPieces = new ArrayList<>();
         try {
             FileInputStream f = new FileInputStream(filename);
             ObjectInputStream i = new ObjectInputStream(f);
-            mm = (MonopolyModel) i.readObject();
+            //mm = (MonopolyModel) i.readObject();
+            ps = (Status) i.readObject();
+            currPlayer = (int) i.readObject();
+            loadPlayers = (ArrayList<Player>) i.readObject();
+            loadPieces= (ArrayList<BoardSpace>) i.readObject();
+
+
+
             i.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
 
         }
-        return mm;
+        setPlayerStatus(ps);
+        setPlayer(currPlayer);
+        setPlayers(loadPlayers);
+        setPieces(loadPieces);
+
     }
 
 

@@ -19,7 +19,6 @@ import java.util.Stack;
  * @verion 2.0
  * @since 2021-11-21
  */
-
 public class MonopolyController extends DefaultHandler {
     private MonopolyModel model;
     private MonopolyFrame view;
@@ -60,12 +59,20 @@ public class MonopolyController extends DefaultHandler {
             importFromXmlFile(getGameVersionFilename());
             model.setPieces(boardSpaces);
         }
-        else{
-            this.model = model.importSerialize("MonopolyGame.txt");
+
+        else if(state == 1){
+            //MonopolyModel m = this.model.importSerialize("MonopolyGame.txt");
+            //MonopolyModel mm2 = new MonopolyModel();
+            this.model.importSerialize("MonopolyGame.txt");
+            //this.model = model.importSerialize("MonopolyGame.txt");
+            /*this.model.setPlayers(mm2.getPlayers());
+            System.out.println(this.model.getPlayers());
+
+            this.model.setPieces(boardSpaces);
             this.view = new MonopolyFrame(this.model);
-            BoardPanel boardPanel = new BoardPanel(this.model);
-            PlayerPanel playerPanel = new PlayerPanel(this.model);
-            view.addPanels(boardPanel, playerPanel);
+            BoardPanel boardPanel = new BoardPanel(model);
+            PlayerPanel playerPanel = new PlayerPanel(model);
+            this.view.addPanels(boardPanel, playerPanel);*/
 
             System.out.println("imported!");
         }
