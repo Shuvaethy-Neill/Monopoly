@@ -1,9 +1,5 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +13,7 @@ import java.util.Objects;
  * @version 3.0
  * @since 2021-11-21
  */
-public abstract class BoardSpace extends JPanel {
+public abstract class BoardSpace extends JPanel implements Serializable {
 
     /**
      * The name of the board space

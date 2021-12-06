@@ -1,14 +1,12 @@
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
 import javax.swing.*;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -16,10 +14,9 @@ import java.util.Stack;
  * to the MonopolyModel class
  *
  * @author Evan Smedley, Shuvaethy Neill, and Harsimran Kanwar
- * @verion 2.0
+ * @version 2.0
  * @since 2021-11-21
  */
-
 public class MonopolyController extends DefaultHandler {
     private MonopolyModel model;
     private MonopolyFrame view;
@@ -60,20 +57,31 @@ public class MonopolyController extends DefaultHandler {
             importFromXmlFile(getGameVersionFilename());
             model.setPieces(boardSpaces);
         }
-        else {
-            this.model = model.importSerialize("MonopolyGame.txt");
+
+        else if(state == 1){
+            //MonopolyModel m = this.model.importSerialize("MonopolyGame.txt");
+            //MonopolyModel mm2 = new MonopolyModel();
+            this.model.importSerialize("MonopolyGame.txt");
+            //this.model = model.importSerialize("MonopolyGame.txt");
+            /*this.model.setPlayers(mm2.getPlayers());
+            System.out.println(this.model.getPlayers());
+
+            this.model.setPieces(boardSpaces);
             this.view = new MonopolyFrame(this.model);
-            BoardPanel boardPanel = new BoardPanel(this.model);
-            PlayerPanel playerPanel = new PlayerPanel(this.model);
-            view.addPanels(boardPanel, playerPanel);
+            BoardPanel boardPanel = new BoardPanel(model);
+            PlayerPanel playerPanel = new PlayerPanel(model);
+            this.view.addPanels(boardPanel, playerPanel);*/
 
             System.out.println("imported!");
         }
     }
 
-
+    /**
+     *
+     * @return
+     */
     private int gameState(){
-        Object[] options = { "New Game", "Load Previous Game" };
+        Object[] options = { "New Game", "Load Previous Game", "Continue load" };
         int s = JOptionPane.showOptionDialog(null, "How would you like to start?", "Monopoly",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
                 options, options[0]);
@@ -160,35 +168,6 @@ public class MonopolyController extends DefaultHandler {
         return new Player(playerName);
     }
 
-    public void getHousesandHotelInfo(Object choice){
-        Player currentPlayer = model.getPlayers().get(model.getPlayer());
-
-        ColouredProperty propertyToBuildOn = null;
-        int tempNum = 4;
-        for (ColouredProperty property : currentPlayer.getPlayerColours().get((String) choice)) {
-            if ((property).getHouseHotelStatus().getNum() <= tempNum) {
-                propertyToBuildOn = (property);
-                tempNum = propertyToBuildOn.getHouseHotelStatus().getNum();
-            }
-        }
-        if (propertyToBuildOn == null) {
-            currentPlayer.setCanBuild(false);
-            JOptionPane.showMessageDialog(view, "You cannot build any more on these " +
-                    "properties!\nThey already have hotels!");
-        } else if (propertyToBuildOn.getHouseHotelPrice() > currentPlayer.getMoney()) {
-            currentPlayer.setCanBuild(false);
-            JOptionPane.showMessageDialog(view, "You do not have enough money to buy a " +
-                    "house or hotel");
-        } else {
-            currentPlayer.setCanBuild(true);
-            currentPlayer.doTransaction(propertyToBuildOn.getHouseHotelPrice());
-            propertyToBuildOn.addHouseHotel();
-            model.notifyViews();
-            JOptionPane.showMessageDialog(view, "House successfully built on " +
-                    propertyToBuildOn.getName() + " for " + propertyToBuildOn.getHouseHotelPrice() + "!");
-        }
-    }
-
     /**
      *
      * @return
@@ -260,7 +239,7 @@ public class MonopolyController extends DefaultHandler {
             newGo.setType("go");
             this.boardSpaces.add(newGo);
 
-        } else if (qName.equals("FreeParking")) {
+        } else if (qName.equals("Free Parking")) {
             FreeParking newFreeParking = new FreeParking();
             newFreeParking.setType("freeParking");
             this.boardSpaces.add(newFreeParking);
