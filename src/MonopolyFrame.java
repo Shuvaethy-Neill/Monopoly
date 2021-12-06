@@ -30,7 +30,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView, Serializable 
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(920,900));
+        this.setPreferredSize(new Dimension(900,800));
         this.model.addView(this);
 
         startButton = new JButton("Start");
