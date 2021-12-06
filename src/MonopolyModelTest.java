@@ -3,6 +3,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import static org.junit.Assert.*;
@@ -125,6 +126,59 @@ public class MonopolyModelTest {
 
     @Test
     public void testXMLImport() {
-        MonopolyController controller = new MonopolyController();
+        // For this test to work properly you need to select load game and choose the english version
+        // All of the other options can be anything you want, I recommend choosing 2 players only (although it doesn't matter)
+        MonopolyController controller = new MonopolyController(mm, new MonopolyFrame(mm));
+
+        ArrayList<BoardSpace> spaces = mm.getPieces();
+
+        // Test import of go
+        Go go = (Go) spaces.get(0);
+        assertEquals(go.getName(), "GO");
+        assertEquals(go.getPosition(), 0);
+        assertEquals(go.getType(), "go");
+
+        // Test import of a coloured property
+        ColouredProperty parkPlace = (ColouredProperty) spaces.get(33);
+        assertEquals(parkPlace.getName(), "PARK PLACE");
+        assertEquals(parkPlace.getPosition(), 33);
+        assertEquals(parkPlace.getType(), "colouredProperty");
+        assertEquals(parkPlace.getPrice(), 350);
+        assertEquals(parkPlace.getColor(), "blue");
+        assertEquals(parkPlace.getHouseHotelPrice(), 200);
+        assertEquals(parkPlace.getSetSize(), 2);
+
+        // Test import of another coloured property
+        ColouredProperty connecticut = (ColouredProperty) spaces.get(9);
+        assertEquals(connecticut.getName(), "CONNECTICUT AVENUE");
+        assertEquals(connecticut.getPosition(), 9);
+        assertEquals(connecticut.getType(), "colouredProperty");
+        assertEquals(connecticut.getPrice(), 120);
+        assertEquals(connecticut.getColor(), "light blue");
+        assertEquals(connecticut.getHouseHotelPrice(), 50);
+        assertEquals(connecticut.getSetSize(), 3);
+
+        // Test import of tax
+        Tax luxuryTax = (Tax) spaces.get(34);
+        assertEquals(luxuryTax.getName(), "LUXURY TAX");
+        assertEquals(luxuryTax.getPosition(), 34);
+        assertEquals(luxuryTax.getCost(), 100);
+
+        // Test import of utility
+        Utility electricCompany = (Utility) spaces.get(12);
+        assertEquals(electricCompany.getName(), "ELECTRIC COMPANY");
+        assertEquals(electricCompany.getPrice(), 150);
+        assertEquals(electricCompany.getPosition(), 12);
+
+        // Test import of free parking
+        FreeParking freeParking = (FreeParking) spaces.get(19);
+        assertEquals(freeParking.getName(), "FREE PARKING");
+        assertEquals(freeParking.getPosition(), 19);
+
+        // Test import of railroad
+        Railroad railroad = (Railroad) spaces.get(15);
+        assertEquals(railroad.getName(), "PENNSYLVANIA RAILROAD");
+        assertEquals(railroad.getPrice(), 200);
+        assertEquals(railroad.getPosition(), 15);
     }
 }
