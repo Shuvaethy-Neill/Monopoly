@@ -78,7 +78,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView, Serializable 
         buttonPanel.add(buildButton);
 
         instructionPanel = new JPanel(new BorderLayout());
-        instructionPanel.setPreferredSize(new Dimension(900,150));
+        instructionPanel.setPreferredSize(new Dimension(840,150));
         instructionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Instruction box that will continuously update when a user makes a move
