@@ -514,7 +514,11 @@ public class MonopolyModel implements Serializable {
         else if (command.equals(ROLL)) {
             roll();
         } else if (command.equals(PASS)) {
-            if (players.get(player) instanceof MonopolyAIPlayer){outputText="AI player has passed/completed their turn! Passing to next player.\n"; }
+            if (players.get(player) instanceof MonopolyAIPlayer){
+                ((MonopolyAIPlayer) players.get(player)).setRolled(false);
+                ((MonopolyAIPlayer) players.get(player)).setBought(false);
+                outputText="AI player has passed/completed their turn! Passing to next player.\n";
+            }
             else{outputText= players.get(player).getName() + " has passed their turn! Passing to next player.\n";}
             endTurn();
         }
