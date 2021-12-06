@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The Regular English Board -->
+
+<BoardSquares>
+    <Go>
+        <name>GO</name>
+        <path>images/Go.jpg</path>
+        <position>0</position>
+    </Go>
+
+    <ColouredProperty>
+        <name>TATOOINE MOS EISLEY</name>
+        <price>60</price>
+        <color>brown</color>
+        <colorHex>#900C3F</colorHex>
+        <position>1</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>2</setSize>
+    </ColouredProperty>
+
+    <FreeParking>
+        <name>COMMUNITY CHEST</name>
+        <position>2</position>
+    </FreeParking>
+
+    <ColouredProperty>
+        <name>TATOOINE MOS ESPA</name>
+        <price>60</price>
+        <color>brown</color>
+        <colorHex>#900C3F</colorHex>
+        <position>3</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>2</setSize>
+    </ColouredProperty>
+
+    <Tax>
+        <name>PAY BOUNTY</name>
+        <cost>200</cost>
+        <position>4</position>
+    </Tax>
+
+    <Railroad>
+        <name>SUPER STAR DESTROYER</name>
+        <price>200</price>
+        <position>5</position>
+    </Railroad>
+
+    <ColouredProperty>
+        <name>DAGOBAH</name>
+        <price>100</price>
+        <color>light blue</color>
+        <colorHex>#A3F6FF</colorHex>
+        <position>6</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <FreeParking>
+        <name>CHANCE</name>
+        <position>7</position>
+    </FreeParking>
+
+    <ColouredProperty>
+        <name>ENDOR</name>
+        <price>100</price>
+        <color>light blue</color>
+        <colorHex>#A3F6FF</colorHex>
+        <position>8</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>BESPIN</name>
+        <price>120</price>
+        <color>light blue</color>
+        <colorHex>#A3F6FF</colorHex>
+        <position>9</position>
+        <houseHotelPrice>50</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Jail>
+        <name>JAIL</name>
+        <type>jail</type>
+        <position>10</position>
+    </Jail>
+
+    <ColouredProperty>
+        <name>HOTH</name>
+        <price>140</price>
+        <color>magenta</color>
+        <colorHex>#D0008C</colorHex>
+        <position>11</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Utility>
+        <name>THE DEATHSTAR</name>
+        <price>150</price>
+        <position>12</position>
+    </Utility>
+
+    <ColouredProperty>
+        <name>DANTOOINE</name>
+        <price>140</price>
+        <color>magenta</color>
+        <colorHex>#D0008C</colorHex>
+        <position>13</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>YAVIN 4</name>
+        <price>160</price>
+        <color>magenta</color>
+        <colorHex>#D0008C</colorHex>
+        <position>14</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Railroad>
+        <name>REPUBLICAN FREIGHTER</name>
+        <price>200</price>
+        <position>15</position>
+    </Railroad>
+
+    <ColouredProperty>
+        <name>KASHYYK</name>
+        <price>180</price>
+        <color>orange</color>
+        <colorHex>#FF8C19</colorHex>
+        <position>16</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>MUSTAFAR</name>
+        <price>180</price>
+        <color>orange</color>
+        <colorHex>#FF8C19</colorHex>
+        <position>17</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>UTAPU</name>
+        <price>200</price>
+        <color>orange</color>
+        <colorHex>#FF8C19</colorHex>
+        <position>18</position>
+        <houseHotelPrice>100</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <FreeParking>
+        <name>FREE PARKING</name>
+        <position>19</position>
+    </FreeParking>
+
+    <ColouredProperty>
+        <name>KESSEL</name>
+        <price>220</price>
+        <color>red</color>
+        <colorHex>#FF0000</colorHex>
+        <position>20</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>SULLUST</name>
+        <price>220</price>
+        <color>red</color>
+        <colorHex>#FF0000</colorHex>
+        <position>21</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>ORD MANTELL</name>
+        <price>240</price>
+        <color>red</color>
+        <colorHex>#FF0000</colorHex>
+        <position>22</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Railroad>
+        <name>REBEL FREIGHTER</name>
+        <price>200</price>
+        <position>23</position>
+    </Railroad>
+
+    <ColouredProperty>
+        <name>GEONOSIS</name>
+        <price>260</price>
+        <color>yellow</color>
+        <colorHex>#FFFE00</colorHex>
+        <position>24</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>KAMINO</name>
+        <price>260</price>
+        <color>yellow</color>
+        <colorHex>#FFFE00</colorHex>
+        <position>25</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Utility>
+        <name>DEATHSTAR 2</name>
+        <price>150</price>
+        <position>26</position>
+    </Utility>
+
+    <ColouredProperty>
+        <name>NABOO</name>
+        <price>280</price>
+        <color>yellow</color>
+        <colorHex>#FFFE00</colorHex>
+        <position>27</position>
+        <houseHotelPrice>150</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Jail>
+        <name>GO TO JAIL</name>
+        <type>go to jail</type>
+        <position>28</position>
+    </Jail>
+
+    <ColouredProperty>
+        <name>MON CALAMARI</name>
+        <price>300</price>
+        <color>green</color>
+        <colorHex>#00C430</colorHex>
+        <position>29</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>CORELLIA</name>
+        <price>300</price>
+        <color>green</color>
+        <colorHex>#00C430</colorHex>
+        <position>30</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <ColouredProperty>
+        <name>ALDERAAN</name>
+        <price>320</price>
+        <color>green</color>
+        <colorHex>#00C430</colorHex>
+        <position>31</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Railroad>
+        <name>TANTIVE IV</name>
+        <price>200</price>
+        <position>32</position>
+    </Railroad>
+
+    <ColouredProperty>
+        <name>CORUSCANT JEDI TEMPLE</name>
+        <price>350</price>
+        <color>blue</color>
+        <colorHex>#0089FF</colorHex>
+        <position>33</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+    <Tax>
+        <name>PAY BOUNTY</name>
+        <cost>100</cost>
+        <position>34</position>
+    </Tax>
+
+    <ColouredProperty>
+        <name>CORUSCANT SENATE</name>
+        <price>400</price>
+        <color>blue</color>
+        <colorHex>#0089FF</colorHex>
+        <position>35</position>
+        <houseHotelPrice>200</houseHotelPrice>
+        <setSize>3</setSize>
+    </ColouredProperty>
+
+</BoardSquares>
