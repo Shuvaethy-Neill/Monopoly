@@ -255,10 +255,6 @@ public class MonopolyModel implements Serializable {
                 players.get(player).setJailStatus(false);
             }
         }
-        if (players.get(player).getNumDoublesRolled() == 3) {
-            outputText= "Oh no you rolled three doubles\n";
-            endTurn();
-        } // If 3 doubles rolled end turn
 
         if (!players.get(player).isInJail()) {
             outputText += "Rolling the Dice! You rolled : " + dice.toString() +
@@ -277,6 +273,10 @@ public class MonopolyModel implements Serializable {
             checkIfAI(players.get(player));
             endTurn();
         }
+        else if (players.get(player).getNumDoublesRolled() == 3) {
+            outputText= "Oh no you rolled three doubles\n";
+            endTurn();
+        } // If 3 doubles rolled end turn
         else if (pieces.get(players.get(player).getPosition()) instanceof Jail) {
             handleJail();
         }
@@ -480,9 +480,11 @@ public class MonopolyModel implements Serializable {
 
         if (!ended) { //endTurn didn't get called in roll()
             if (pieces.get(players.get(player).getPosition()) instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
-                this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
-                aiTurnEndText();
-                outputText += "\nNow it's " +players.get(player).getName() + "'s turn!";
+                if (((Property) pieces.get(players.get(player).getPosition())).isAvailable()) {
+                    this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
+                    aiTurnEndText();
+                    outputText += "\nNow it's " + players.get(player).getName() + "'s turn!";
+                }
             }
             if (dice.isDouble() && players.get(player) instanceof MonopolyAIPlayer) {
                 this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());

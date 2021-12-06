@@ -57,8 +57,7 @@ public class MonopolyAIPlayer extends Player {
             return ROLL;
         }
         //if AI rolled but hasn't bought anything then always buy
-        else if((rolled) && (!bought) && (this.getNumDoublesRolled() < 2)){
-            bought = true;
+        else if((rolled) && (bought) && (this.getNumDoublesRolled() <= 1)){
             return BUY;
         }
         else{
