@@ -480,11 +480,9 @@ public class MonopolyModel implements Serializable {
 
         if (!ended) { //endTurn didn't get called in roll()
             if (pieces.get(players.get(player).getPosition()) instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
-                if (((Property) pieces.get(players.get(player).getPosition())).isAvailable()) {
-                    this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
-                    aiTurnEndText();
-                    outputText += "\nNow it's " + players.get(player).getName() + "'s turn!";
-                }
+                this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
+                aiTurnEndText();
+                outputText += "\nNow it's " +players.get(player).getName() + "'s turn!";
             }
             if (dice.isDouble() && players.get(player) instanceof MonopolyAIPlayer) {
                 this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
