@@ -16,7 +16,7 @@ public class Tax extends BoardSpace {
     /**
      * The cost of landing on the Tax BoardSpace
      */
-    private final int cost;
+    private int cost;
 
     private ImageIcon square;
 
@@ -48,6 +48,14 @@ public class Tax extends BoardSpace {
      */
     public int getCost() {
         return this.cost;
+    }
+
+    /**
+     *
+     * @param cost
+     */
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     /**
