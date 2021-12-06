@@ -520,14 +520,11 @@ public class MonopolyModel implements Serializable {
         notifyViews();
     }
 
-
+    /**Method to save Model Data*/
     public void saveSerialize(String filename){ //save file
-        System.out.println("beginning");
         try {
             FileOutputStream file = new FileOutputStream(filename);
             ObjectOutputStream outputStream = new ObjectOutputStream(file);
-            System.out.println("here");
-            //outputStream.writeObject(this);
             outputStream.writeObject(playerStatus);
             outputStream.writeObject(getPlayer());
             outputStream.writeObject(getPlayers());
@@ -540,8 +537,8 @@ public class MonopolyModel implements Serializable {
         }
     }
 
+    /** Method to import Model Data **/
     public void importSerialize(String filename) { //import file
-        //MonopolyModel mm = null;
         ArrayList<Player> loadPlayers = new ArrayList<>();
         Status ps = null;
         int currPlayer = 0;
@@ -549,14 +546,10 @@ public class MonopolyModel implements Serializable {
         try {
             FileInputStream f = new FileInputStream(filename);
             ObjectInputStream i = new ObjectInputStream(f);
-            //mm = (MonopolyModel) i.readObject();
             ps = (Status) i.readObject();
             currPlayer = (int) i.readObject();
             loadPlayers = (ArrayList<Player>) i.readObject();
             loadPieces= (ArrayList<BoardSpace>) i.readObject();
-
-
-
             i.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -568,6 +561,8 @@ public class MonopolyModel implements Serializable {
         setPieces(loadPieces);
 
     }
+
+
 
 
 }
