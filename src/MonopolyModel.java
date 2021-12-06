@@ -305,7 +305,7 @@ public class MonopolyModel implements Serializable {
      * Method to handle when a player lands in jail
      */
     public void handleJail(){
-        if ((pieces.get(players.get(player).getPosition())).getType().equals(GOJAIL)){ //kinda smellyy
+        if ((pieces.get(players.get(player).getPosition())).getType().equals(GOJAIL)){
             players.get(player).setJailStatus(true);
             players.get(player).move(18, pieces.size()); //will update once all pieces are on boards
             if (players.get(player) instanceof MonopolyAIPlayer){

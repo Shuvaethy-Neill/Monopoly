@@ -46,20 +46,21 @@ public class Jail extends BoardSpace{
         centerPanel.add(new JLabel(new ImageIcon(jailIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
-    /**
-     *
-     * @param type
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
 
     /**
      * Method returns the  Jail board square type (Just Visiting or Go to Jail)
-     * @return
+     * @return the type
      */
     public String getType(){
         return this.type;
+    }
+
+    @Override
+    /**
+     * Method sets the Jail board square type (Just Visiting or Go to Jail)
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
