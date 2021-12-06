@@ -146,11 +146,14 @@ public class MonopolyModel implements Serializable {
     }
 
     /**
-     *
+     *Sets the pieces of the board
      * @param pieces
      */
     public void setPieces(ArrayList<BoardSpace> pieces) { this.pieces = pieces; }
-
+    /**
+     *Sets the players in the model
+     * @param players
+     */
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
@@ -367,7 +370,7 @@ public class MonopolyModel implements Serializable {
             if(getPlayers().size() > 2) {
                 this.playerStatus = Status.BANKRUPT2;
                 players.remove(player);
-                player = player -1 ; //set the current player
+                //player = player-1 ; //set the current player
             }
             else{
                 this.playerStatus = Status.BANKRUPT;
@@ -556,7 +559,7 @@ public class MonopolyModel implements Serializable {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("File does not exist");
             e.printStackTrace();
-            System.out.println("Oops looks like don't have any saved data, Exiting..");
+            System.out.println("Oops looks like you don't have any saved data, Exiting..");
             System.exit(0);
 
         }
