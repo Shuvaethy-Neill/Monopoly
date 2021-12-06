@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.io.Serializable;
 
 /**
  * MonopolyFrame Class that extends from the JFrame Class and implements from the
@@ -11,10 +10,9 @@ import java.util.HashMap;
  * @version 1.0
  * @since 2021-10-22
  */
-public class MonopolyFrame extends JFrame implements MonopolyView {
+public class MonopolyFrame extends JFrame implements MonopolyView, Serializable {
 
     private MonopolyModel model;
-    private MonopolyController controller;
     private JPanel instructionPanel;
     private JPanel buttonPanel;
     private JPanel dicePanel;
@@ -30,7 +28,6 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
     public MonopolyFrame(MonopolyModel model) {
         super("The Monopoly Game!");
         this.model = model;
-        this.controller = new MonopolyController(model, this);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.setPreferredSize(new Dimension(900,800));
@@ -164,7 +161,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
                 choice = JOptionPane.showInputDialog(this, message, "Color Choice",
                         JOptionPane.PLAIN_MESSAGE, null, options, null);
                 if(choice != null) {
-                    controller.getHousesandHotelInfo(choice);
+                    getHousesandHotelInfo(choice);
                 }
             }
 
@@ -219,6 +216,35 @@ public class MonopolyFrame extends JFrame implements MonopolyView {
             buyButton.setEnabled(false);
             passButton.setEnabled(true);
             helpButton.setEnabled(true);
+        }
+    }
+
+    public void getHousesandHotelInfo(Object choice){
+        Player currentPlayer = model.getPlayers().get(model.getPlayer());
+
+        ColouredProperty propertyToBuildOn = null;
+        int tempNum = 4;
+        for (ColouredProperty property : currentPlayer.getPlayerColours().get((String) choice)) {
+            if ((property).getHouseHotelStatus().getNum() <= tempNum) {
+                propertyToBuildOn = (property);
+                tempNum = propertyToBuildOn.getHouseHotelStatus().getNum();
+            }
+        }
+        if (propertyToBuildOn == null) {
+            currentPlayer.setCanBuild(false);
+            JOptionPane.showMessageDialog(this, "You cannot build any more on these " +
+                    "properties!\nThey already have hotels!");
+        } else if (propertyToBuildOn.getHouseHotelPrice() > currentPlayer.getMoney()) {
+            currentPlayer.setCanBuild(false);
+            JOptionPane.showMessageDialog(this, "You do not have enough money to buy a " +
+                    "house or hotel");
+        } else {
+            currentPlayer.setCanBuild(true);
+            currentPlayer.doTransaction(propertyToBuildOn.getHouseHotelPrice());
+            propertyToBuildOn.addHouseHotel();
+            model.notifyViews();
+            JOptionPane.showMessageDialog(this, "House successfully built on " +
+                    propertyToBuildOn.getName() + " for " + propertyToBuildOn.getHouseHotelPrice() + "!");
         }
     }
 }

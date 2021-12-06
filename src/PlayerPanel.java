@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @version 3.0
  * @since 2021-11-21
  */
-public class PlayerPanel extends JTabbedPane implements MonopolyView, Serializable {
+public class PlayerPanel extends JPanel implements MonopolyView, Serializable {
 
     private MonopolyModel model;
     private JPanel[] individualPlayerPanels;
@@ -50,7 +50,7 @@ public class PlayerPanel extends JTabbedPane implements MonopolyView, Serializab
      * @param playerIndex int, index of the list of Players
      */
     private void updatePlayerList(ArrayList<Player> players, int playerIndex) {
-        this.addTab(players.get(playerIndex).getName(), individualPlayerPanels[playerIndex]);
+        this.add(players.get(playerIndex).getName(), individualPlayerPanels[playerIndex]);
         Player currentPlayer = players.get(playerIndex);
         individualPlayerPanels[playerIndex].removeAll();
         DefaultListModel<String> listModel = new DefaultListModel<>();

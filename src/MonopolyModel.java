@@ -1,4 +1,3 @@
-import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
@@ -10,7 +9,7 @@ import java.util.*;
  * @since 2021-11-21
  */
 
-public class MonopolyModel implements Serializable{
+public class MonopolyModel implements Serializable {
 
     private List<MonopolyView> monopolyViews;
 
@@ -44,7 +43,6 @@ public class MonopolyModel implements Serializable{
     public MonopolyModel() {
         rand = new Random();
         dice = new Dice();
-        position = 0;
         player = 0;
         playerStatus = Status.UNDECIDED;
         outputText="";
@@ -152,6 +150,10 @@ public class MonopolyModel implements Serializable{
      * @param pieces
      */
     public void setPieces(ArrayList<BoardSpace> pieces) { this.pieces = pieces; }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
 
     /**
      * Method gets the BoardSpace piece position
@@ -523,9 +525,7 @@ public class MonopolyModel implements Serializable{
             System.out.println("in model saving");
             outputStream.close();
             file.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
