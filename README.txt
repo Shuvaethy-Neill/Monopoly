@@ -68,6 +68,11 @@ For Milestone 4, the following changes were made:
 - implemented an english and french version of the board that are read from xml files (a user can enter which version they would like to use when setting up the game)
 - "Save" and "Quit" buttons are now displayed under a clickable Menu in the top left corner of the game frame
 - "Build Houses/Hotels" button has been added to the list of buttons
+- implemented test methods for go, jail, AI players, and save/load feature
+- ensured that AI players cannot buy houses/hotels
+- implemented the MonopolyAIPlayer class
+- resized the board to work on Mac/Windows without full screening 
+- If a player saves the game state, the program will exit
 
 -----------------------------------------------------------------
 =============
