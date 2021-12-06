@@ -119,7 +119,7 @@ public class MonopolyModelTest {
         mm.saveSerialize("testFile.txt");
         assertTrue(new File("testFile.txt").exists());
         MonopolyModel mm2 = new MonopolyModel();
-        //mm2 = mm2.importSerialize("testFile.txt");
+        mm2.importSerialize("testFile.txt");
         System.out.println(mm2.getPlayers().size());
         //assertEquals(mm,mm2); //to do this we need an equals method in MonopolyModel */
     }

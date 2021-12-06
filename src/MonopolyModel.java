@@ -527,7 +527,6 @@ public class MonopolyModel implements Serializable {
             FileOutputStream file = new FileOutputStream(filename);
             ObjectOutputStream outputStream = new ObjectOutputStream(file);
             System.out.println("here");
-            //outputStream.writeObject(this);
             outputStream.writeObject(playerStatus);
             outputStream.writeObject(getPlayer());
             outputStream.writeObject(getPlayers());
@@ -541,7 +540,6 @@ public class MonopolyModel implements Serializable {
     }
 
     public void importSerialize(String filename) { //import file
-        //MonopolyModel mm = null;
         ArrayList<Player> loadPlayers = new ArrayList<>();
         Status ps = null;
         int currPlayer = 0;
@@ -549,7 +547,6 @@ public class MonopolyModel implements Serializable {
         try {
             FileInputStream f = new FileInputStream(filename);
             ObjectInputStream i = new ObjectInputStream(f);
-            //mm = (MonopolyModel) i.readObject();
             ps = (Status) i.readObject();
             currPlayer = (int) i.readObject();
             loadPlayers = (ArrayList<Player>) i.readObject();
@@ -568,6 +565,8 @@ public class MonopolyModel implements Serializable {
         setPieces(loadPieces);
 
     }
+
+
 
 
 }
