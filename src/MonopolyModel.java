@@ -554,7 +554,10 @@ public class MonopolyModel implements Serializable {
             loadPieces= (ArrayList<BoardSpace>) i.readObject();
             i.close();
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println("File does not exist");
             e.printStackTrace();
+            System.out.println("Oops looks like don't have any saved data, Exiting..");
+            System.exit(0);
 
         }
         setPlayer(currPlayer);
