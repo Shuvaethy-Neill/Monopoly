@@ -318,11 +318,7 @@ public class MonopolyModel implements Serializable {
             //what happens when they're in jail or if they're passing by
             if (!players.get(player).isInJail()){
                 outputText += "\nYou're just visiting jail. This is a free space\n";
-                if (players.get(player) instanceof MonopolyAIPlayer){
-                    ended = true;
-                    aiTurnEndText();
-                }
-                endTurn();
+                handleNonDoubleTurnRoll(dice);
             }
             else{ //actually in jail
                 players.get(player).incrementTurn();
@@ -461,6 +457,7 @@ public class MonopolyModel implements Serializable {
             this.playerStatus=Status.JAIL;
             if(players.get(player) instanceof MonopolyAIPlayer){
                 this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
+                aiTurnEndText();
             }
         }
         else {
@@ -477,6 +474,7 @@ public class MonopolyModel implements Serializable {
      */
     private void moveAi(){
         this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
+
         if (!ended) { //endTurn didn't get called in roll()
             if (pieces.get(players.get(player).getPosition()) instanceof Property && players.get(player) instanceof MonopolyAIPlayer) {
                 this.play(((MonopolyAIPlayer) (players.get(player))).getRollDecision());
@@ -517,6 +515,7 @@ public class MonopolyModel implements Serializable {
             if (players.get(player) instanceof MonopolyAIPlayer){
                 ((MonopolyAIPlayer) players.get(player)).setRolled(false);
                 ((MonopolyAIPlayer) players.get(player)).setBought(false);
+                players.get(player).resetNumDoublesRolled();
                 outputText="AI player has passed/completed their turn! Passing to next player.\n";
             }
             else{outputText= players.get(player).getName() + " has passed their turn! Passing to next player.\n";}
@@ -566,15 +565,10 @@ public class MonopolyModel implements Serializable {
             e.printStackTrace();
             System.out.println("Oops looks like you don't have any saved data, Exiting..");
             System.exit(0);
-
         }
         setPlayer(currPlayer);
         setPlayers(loadPlayers);
         setPieces(loadPieces);
 
     }
-
-
-
-
 }
