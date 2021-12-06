@@ -30,7 +30,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView, Serializable 
         this.model = model;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.setPreferredSize(new Dimension(900,800));
+        this.setPreferredSize(new Dimension(900,900));
         this.model.addView(this);
 
         startButton = new JButton("Start");
@@ -78,7 +78,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView, Serializable 
         buttonPanel.add(buildButton);
 
         instructionPanel = new JPanel(new BorderLayout());
-        instructionPanel.setPreferredSize(new Dimension(1100,150));
+        instructionPanel.setPreferredSize(new Dimension(900,150));
         instructionPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Instruction box that will continuously update when a user makes a move

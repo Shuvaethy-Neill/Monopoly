@@ -239,7 +239,7 @@ public class MonopolyController extends DefaultHandler {
             newGo.setType("go");
             this.boardSpaces.add(newGo);
 
-        } else if (qName.equals("Free Parking")) {
+        } else if (qName.equals("FreeParking")) {
             FreeParking newFreeParking = new FreeParking();
             newFreeParking.setType("freeParking");
             this.boardSpaces.add(newFreeParking);
