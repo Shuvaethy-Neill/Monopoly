@@ -61,7 +61,7 @@ public abstract class BoardSpace extends JPanel implements Serializable {
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         playerIconPanel = new JPanel(new GridLayout(1,8));
-        playerIconPanel.setPreferredSize(new Dimension(48,6));
+        playerIconPanel.setPreferredSize(new Dimension(56,7));
         playerIconPanel.setOpaque(false);
         this.add(playerIconPanel, BorderLayout.PAGE_END);
 

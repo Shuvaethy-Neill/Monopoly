@@ -32,7 +32,7 @@ public class BoardPanel extends JPanel implements MonopolyView, Serializable {
     public BoardPanel(MonopolyModel model) {
         super(new GridBagLayout());
         this.model = model;
-        this.setPreferredSize(new Dimension(640, 640));
+        this.setPreferredSize(new Dimension(560, 560));
         this.model.addView(this);
 
         initializeLayout();
@@ -85,7 +85,7 @@ public class BoardPanel extends JPanel implements MonopolyView, Serializable {
 
         //monopolyLabel = new JLabel(new ImageIcon("images/logo.jpg"), JLabel.CENTER);
         monopolyLabel = new JLabel(new ImageIcon(Objects.requireNonNull(getClass().getResource("images/logo.jpg"))), JLabel.CENTER);
-        monopolyLabel.setPreferredSize(new Dimension(384, 384));
+        monopolyLabel.setPreferredSize(new Dimension(448, 448));
     }
 
     /**

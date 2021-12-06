@@ -68,7 +68,7 @@ public class ColouredProperty extends Property {
         this.propertyHouseHotelStatus = HouseHotel.NONE;
 
         houseHotelPanel = new JPanel(new GridLayout(1,4));
-        houseHotelPanel.setPreferredSize(new Dimension(64,16));
+        houseHotelPanel.setPreferredSize(new Dimension(56,14));
         this.add(houseHotelPanel, BorderLayout.PAGE_START);
     }
 
