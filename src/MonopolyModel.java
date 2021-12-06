@@ -551,9 +551,6 @@ public class MonopolyModel implements Serializable {
             currPlayer = (int) i.readObject();
             loadPlayers = (ArrayList<Player>) i.readObject();
             loadPieces= (ArrayList<BoardSpace>) i.readObject();
-
-
-
             i.close();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
