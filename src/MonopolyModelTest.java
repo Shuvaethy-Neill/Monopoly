@@ -122,4 +122,9 @@ public class MonopolyModelTest {
         mm2.importSerialize("testFile.txt");
         assertEquals(mm.getPlayers().size(),mm2.getPlayers().size());
     }
+
+    @Test
+    public void testXMLImport() {
+        MonopolyController controller = new MonopolyController();
+    }
 }

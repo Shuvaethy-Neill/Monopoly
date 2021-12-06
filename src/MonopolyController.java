@@ -79,7 +79,7 @@ public class MonopolyController extends DefaultHandler {
             s = JOptionPane.showOptionDialog(null, message, "Monopoly",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
                     options, options[0]);
-            if (s == 1 || s == 2) {
+            if (s == 0 || s == 1) {
                 validInput = true;
             } else {
                 message = "How would you like to start?\nPlease make a valid selection";
