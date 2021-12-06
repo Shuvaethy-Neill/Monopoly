@@ -24,6 +24,7 @@ public class Jail extends BoardSpace{
     public Jail() {
         this("", "", "", -1);
     }
+
     /**
      * Constructor for the Jail Class
      * @param name String, name of the board square
@@ -43,6 +44,14 @@ public class Jail extends BoardSpace{
 
         }
         centerPanel.add(new JLabel(new ImageIcon(jailIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
+    }
+
+    /**
+     *
+     * @param type
+     */
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
