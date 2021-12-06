@@ -7,6 +7,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -175,7 +176,7 @@ public class MonopolyController extends DefaultHandler {
                 validInput = true;
             }
         }
-        return "src/versions/" + versionFilename + ".xml";
+        return Objects.requireNonNull(getClass().getResource("versions/" + versionFilename + ".xml")).toString();
     }
 
     /**

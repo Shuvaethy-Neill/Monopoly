@@ -25,6 +25,7 @@ public class MonopolyModel implements Serializable {
     private static final String BUILD = "Build House/Hotel";
     private static final String PASS = "Pass";
     private static final String QUIT = "Quit";
+    private static final String GOJAIL ="go to jail";
 
     private int player; // current player index
 
@@ -146,11 +147,14 @@ public class MonopolyModel implements Serializable {
     }
 
     /**
-     *
+     *Sets the pieces of the board
      * @param pieces
      */
     public void setPieces(ArrayList<BoardSpace> pieces) { this.pieces = pieces; }
-
+    /**
+     *Sets the players in the model
+     * @param players
+     */
     public void setPlayers(ArrayList<Player> players) {
         this.players = players;
     }
@@ -301,7 +305,7 @@ public class MonopolyModel implements Serializable {
      * Method to handle when a player lands in jail
      */
     public void handleJail(){
-        if ((pieces.get(players.get(player).getPosition())).getType().equals("go to jail")){ //kinda smellyy
+        if ((pieces.get(players.get(player).getPosition())).getType().equals(GOJAIL)){ //kinda smellyy
             players.get(player).setJailStatus(true);
             players.get(player).move(18, pieces.size()); //will update once all pieces are on boards
             if (players.get(player) instanceof MonopolyAIPlayer){
@@ -367,7 +371,7 @@ public class MonopolyModel implements Serializable {
             if(getPlayers().size() > 2) {
                 this.playerStatus = Status.BANKRUPT2;
                 players.remove(player);
-                player = player -1 ; //set the current player
+                //player = player-1 ; //set the current player
             }
             else{
                 this.playerStatus = Status.BANKRUPT;
@@ -520,7 +524,9 @@ public class MonopolyModel implements Serializable {
         notifyViews();
     }
 
-    /**Method to save Model Data*/
+    /**Method to save Model Data
+     * @param filename file to save
+     * */
     public void saveSerialize(String filename){ //save file
         try {
             FileOutputStream file = new FileOutputStream(filename);
@@ -537,25 +543,27 @@ public class MonopolyModel implements Serializable {
         }
     }
 
-    /** Method to import Model Data **/
+    /** Method to import Model Data
+     * @param filename the file to import
+     * **/
     public void importSerialize(String filename) { //import file
         ArrayList<Player> loadPlayers = new ArrayList<>();
-        Status ps = null;
         int currPlayer = 0;
         ArrayList<BoardSpace> loadPieces = new ArrayList<>();
         try {
             FileInputStream f = new FileInputStream(filename);
             ObjectInputStream i = new ObjectInputStream(f);
-            //ps = (Status) i.readObject();
             currPlayer = (int) i.readObject();
             loadPlayers = (ArrayList<Player>) i.readObject();
             loadPieces= (ArrayList<BoardSpace>) i.readObject();
             i.close();
         } catch (IOException | ClassNotFoundException e) {
+            System.out.println("File does not exist");
             e.printStackTrace();
+            System.out.println("Oops looks like you don't have any saved data, Exiting..");
+            System.exit(0);
 
         }
-        //setPlayerStatus(ps);
         setPlayer(currPlayer);
         setPlayers(loadPlayers);
         setPieces(loadPieces);

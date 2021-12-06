@@ -54,7 +54,7 @@ public class MonopolyModelTest {
     }
 
     /**
-     *
+     * Method to test if start works
      */
     @Test
     public void start() {
