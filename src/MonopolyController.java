@@ -60,7 +60,7 @@ public class MonopolyController extends DefaultHandler {
             importFromXmlFile(getGameVersionFilename());
             model.setPieces(boardSpaces);
         }
-        else{
+        else {
             this.model = model.importSerialize("MonopolyGame.txt");
             this.view = new MonopolyFrame(this.model);
             BoardPanel boardPanel = new BoardPanel(this.model);
@@ -260,7 +260,7 @@ public class MonopolyController extends DefaultHandler {
             newGo.setType("go");
             this.boardSpaces.add(newGo);
 
-        } else if (qName.equals("Free Parking")) {
+        } else if (qName.equals("FreeParking")) {
             FreeParking newFreeParking = new FreeParking();
             newFreeParking.setType("freeParking");
             this.boardSpaces.add(newFreeParking);

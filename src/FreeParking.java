@@ -29,9 +29,6 @@ public class FreeParking extends BoardSpace {
     public FreeParking(String name, String path, int position) {
         super(name, "free parking", path, position);
         this.amount = 0;
-
-        ImageIcon freeParkingIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/free_parking.icon")));
-        centerPanel.add(new JLabel(new ImageIcon(freeParkingIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
     /**
@@ -50,6 +47,30 @@ public class FreeParking extends BoardSpace {
      */
     public int getAmount() {
         return this.amount;
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+        ImageIcon freeParkingIcon = null;
+        boolean displayIcon = false;
+        if (name.equals("COMMUNITY CHEST")) {
+            System.out.println(name);
+            freeParkingIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/community_chest.gif")));
+            displayIcon = true;
+        } else if (name.equals("CHANCE")) {
+            System.out.println(name);
+            freeParkingIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/chance.png")));
+            displayIcon = true;
+        } else if (name.equals("FREE PARKING")) {
+            System.out.println(name);
+            freeParkingIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/free_parking.png")));
+            displayIcon = true;
+        }
+
+        if (displayIcon) {
+            centerPanel.add(new JLabel(new ImageIcon(freeParkingIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
+        }
     }
 
     /**
