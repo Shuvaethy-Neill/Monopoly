@@ -32,7 +32,7 @@ public class BoardPanel extends JPanel implements MonopolyView, Serializable {
     public BoardPanel(MonopolyModel model) {
         super(new GridBagLayout());
         this.model = model;
-        this.setPreferredSize(new Dimension(320, 320));
+        this.setPreferredSize(new Dimension(640, 640));
         this.model.addView(this);
 
         initializeLayout();

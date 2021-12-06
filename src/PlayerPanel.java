@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @version 3.0
  * @since 2021-11-21
  */
-public class PlayerPanel extends JPanel implements MonopolyView, Serializable {
+public class PlayerPanel extends JTabbedPane implements MonopolyView, Serializable {
 
     private MonopolyModel model;
     private JPanel[] individualPlayerPanels;
@@ -37,11 +37,11 @@ public class PlayerPanel extends JPanel implements MonopolyView, Serializable {
         individualPlayerPanels = new JPanel[model.getPlayers().size()];
         for (int i = 0; i < model.getPlayers().size(); i++) {
             individualPlayerPanels[i] = new JPanel();
-            individualPlayerPanels[i].setPreferredSize(new Dimension(260,850));
+            individualPlayerPanels[i].setPreferredSize(new Dimension(200,850));
             individualPlayerPanels[i].setLayout(new BoxLayout(individualPlayerPanels[i], BoxLayout.PAGE_AXIS));
             individualPlayerPanels[i].setBackground(colours[i]);
             updatePlayerList(model.getPlayers(), i);
-            this.add(model.getPlayers().get(i).getName(), individualPlayerPanels[i]);
+            this.addTab(model.getPlayers().get(i).getName(), individualPlayerPanels[i]);
         }
     }
 
