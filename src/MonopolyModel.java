@@ -227,6 +227,18 @@ public class MonopolyModel implements Serializable {
     }
 
     /**
+     * Helper method that handles all rent payments when player lands on properties
+     */
+    private void payRent(Property property){
+        if(property instanceof Utility){
+            players.get(player).doTransaction((property.getRent()) * dice.getRollValue()); // Deducts the cost from account
+            property.getOwner().setMoney((property.getRent()) * dice.getRollValue());
+        }
+        players.get(player).doTransaction(property.getRent()); // Deducts the cost from account
+        property.getOwner().setMoney(property.getRent()); // adds the rent cost to the owner's account
+    }
+
+    /**
      * Method that rolls the dice and handles actions users could take on a certain
      * boardspace such as pay rent or pay tax
      */
@@ -279,12 +291,7 @@ public class MonopolyModel implements Serializable {
                 outputText+="\nYou do not need to pay rent since you own this property.\n";
             } else {
                 outputText+="\nTaking the money from your account\n";
-                if(pieces.get(players.get(player).getPosition()) instanceof Utility){
-                    players.get(player).doTransaction((((Property) pieces.get(players.get(player).getPosition())).getRent()) * dice.getRollValue()); // Deducts the cost from account
-                    ((Property) pieces.get(players.get(player).getPosition())).getOwner().setMoney((((Property) pieces.get(players.get(player).getPosition())).getRent()) * dice.getRollValue());
-                }
-                players.get(player).doTransaction(((Property) pieces.get(players.get(player).getPosition())).getRent()); // Deducts the cost from account
-                ((Property) pieces.get(players.get(player).getPosition())).getOwner().setMoney(((Property) pieces.get(players.get(player).getPosition())).getRent()); // adds the rent cost to the owner's account
+                payRent((Property) pieces.get(players.get(player).getPosition()));
             }
             handleNonDoubleTurnRoll(dice);
         }
@@ -397,6 +404,12 @@ public class MonopolyModel implements Serializable {
             outputText= "\nUnfortunately the property you are on is not available for purchase.";
         }
     }
+
+    /**
+     * Method to update properties a player has and categorize them in list
+     * (acts as property cards a player has)
+     * @param property
+     */
     private void updatePropertyLists(ColouredProperty property){
         Player currentPlayer = this.getPlayers().get(player);
         //if property colour is not in list add colour
@@ -405,20 +418,15 @@ public class MonopolyModel implements Serializable {
         }
         //if property not in list, then add
         if(!currentPlayer.getPlayerColours().containsValue(property)) {
-            System.out.println("adding "+ property);
             currentPlayer.getPlayerColours().get(property.getColor()).add(property);
         }
-        if ((currentPlayer.getPlayerColours().get(property.getColor()).size() == (property).getSetSize()) &&
-                !currentPlayer.getPossibleColoursForBuilding().contains(property.getColor())) {
-            System.out.println(property.getColor() + " owned set size " + currentPlayer.getPlayerColours().get(property.getColor()).size());
-            System.out.println("set size" + (property).getSetSize());
-
+        if ((currentPlayer.getPlayerColours().get(property.getColor()).size() == (property).getSetSize()) && !currentPlayer.getPossibleColoursForBuilding().contains(property.getColor())) {
             currentPlayer.getPossibleColoursForBuilding().add(property.getColor());
         }
     }
 
     /**
-     * Checks which properties the player can build a house or hotel on and builds a house on the one selected by the player
+     * Helper method that checks if a player can build a house or hotel
      */
     private void buildHouseHotel() {
         this.playerStatus = Status.BUILDING;
@@ -429,7 +437,9 @@ public class MonopolyModel implements Serializable {
             outputText += "You cannot build any houses/hotels because you don't have any\nfull property sets yet!";
         } else {
             currentPlayer.setCanBuild(true);
-
+            for(String s: currentPlayer.getPossibleColoursForBuilding()) {
+                outputText += "Each house/hotel price on a " + s + " property is $" + currentPlayer.getPlayerColours().get(s).get(0).getHouseHotelPrice()+ "\n";
+            }
         }
     }
 

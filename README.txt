@@ -63,6 +63,11 @@ CHANGELOG
 ===========
 
 For Milestone 4, the following changes were made:
+- implemented save feature that lets you save your current game state
+- implemented load game feature that lets you load the game state you previously saved and begin playiing where you left off
+- implemented an english and french version of the board that are read from xml files (a user can enter which version they would like to use when setting up the game)
+- "Save" and "Quit" buttons are now displayed under a clickable Menu in the top left corner of the game frame
+- "Build Houses/Hotels" button has been added to the list of buttons
 
 -----------------------------------------------------------------
 =============

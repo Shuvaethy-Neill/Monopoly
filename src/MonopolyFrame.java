@@ -159,7 +159,7 @@ public class MonopolyFrame extends JFrame implements MonopolyView, Serializable 
                 Object choice = null;
                 String message = "You can build on any of the following color sets!";
                 choice = JOptionPane.showInputDialog(this, message, "Color Choice",
-                        JOptionPane.PLAIN_MESSAGE, null, options, null);
+                        JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
                 if(choice != null) {
                     getHousesandHotelInfo(choice);
                 }
