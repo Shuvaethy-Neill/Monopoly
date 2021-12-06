@@ -25,6 +25,7 @@ public class MonopolyModel implements Serializable {
     private static final String BUILD = "Build House/Hotel";
     private static final String PASS = "Pass";
     private static final String QUIT = "Quit";
+    private static final String GOJAIL ="go to jail";
 
     private int player; // current player index
 
@@ -304,7 +305,7 @@ public class MonopolyModel implements Serializable {
      * Method to handle when a player lands in jail
      */
     public void handleJail(){
-        if ((pieces.get(players.get(player).getPosition())).getType().equals("go to jail")){ //kinda smellyy
+        if ((pieces.get(players.get(player).getPosition())).getType().equals(GOJAIL)){ //kinda smellyy
             players.get(player).setJailStatus(true);
             players.get(player).move(18, pieces.size()); //will update once all pieces are on boards
             if (players.get(player) instanceof MonopolyAIPlayer){
