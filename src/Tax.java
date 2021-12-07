@@ -38,7 +38,7 @@ public class Tax extends BoardSpace {
         this.cost = cost;
 
         ImageIcon taxIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/tax.png")));
-        centerPanel.add(new JLabel(new ImageIcon(taxIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
+        centerPanel.add(new JLabel(new ImageIcon(taxIcon.getImage().getScaledInstance(30, 30, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
     /**
@@ -56,6 +56,9 @@ public class Tax extends BoardSpace {
      */
     public void setCost(int cost) {
         this.cost = cost;
+        JLabel costLabel = new JLabel("<html><div style='text-align: center;'>" + String.valueOf(cost) + "</div></html>", JLabel.CENTER);
+        costLabel.setFont(new Font("Serif", Font.PLAIN, 8));
+        centerPanel.add(costLabel, BorderLayout.PAGE_END);
     }
 
     /**

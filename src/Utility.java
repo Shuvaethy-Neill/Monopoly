@@ -31,7 +31,7 @@ public class Utility extends Property {
         super(name, price, type, colour, path, position);
 
         ImageIcon utilityIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/utility.png")));
-        centerPanel.add(new JLabel(new ImageIcon(utilityIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
+        centerPanel.add(new JLabel(new ImageIcon(utilityIcon.getImage().getScaledInstance(15, 15, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
     /**

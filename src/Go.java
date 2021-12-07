@@ -31,7 +31,7 @@ public class Go extends BoardSpace {
         this.amount = 200;
 
         ImageIcon goIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/go.gif")));
-        centerPanel.add(new JLabel(new ImageIcon(goIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
+        centerPanel.add(new JLabel(new ImageIcon(goIcon.getImage().getScaledInstance(35, 35, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
     /**
      * A getter for the amount of money currently at free parking

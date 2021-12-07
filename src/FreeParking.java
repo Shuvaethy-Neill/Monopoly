@@ -66,7 +66,7 @@ public class FreeParking extends BoardSpace {
         }
 
         if (displayIcon) {
-            centerPanel.add(new JLabel(new ImageIcon(freeParkingIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
+            centerPanel.add(new JLabel(new ImageIcon(freeParkingIcon.getImage().getScaledInstance(30, 30, Image.SCALE_FAST))), BorderLayout.CENTER);
         }
     }
 

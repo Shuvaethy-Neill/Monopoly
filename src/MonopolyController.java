@@ -200,13 +200,13 @@ public class MonopolyController extends DefaultHandler {
     public void importFromXmlFile(String filename) {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = null;
+        System.out.println("Loading Board Spaces:");
         try {
             parser = factory.newSAXParser();
             parser.parse(filename, this);
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
-        System.out.println("Loading Properties:");
     }
 
     @Override

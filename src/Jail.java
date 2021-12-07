@@ -43,7 +43,7 @@ public class Jail extends BoardSpace{
             jailIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/in_jail.png")));
 
         }
-        centerPanel.add(new JLabel(new ImageIcon(jailIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
+        centerPanel.add(new JLabel(new ImageIcon(jailIcon.getImage().getScaledInstance(30, 30, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
 

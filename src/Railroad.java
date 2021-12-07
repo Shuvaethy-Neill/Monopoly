@@ -31,7 +31,7 @@ public class Railroad extends Property {
         super(name, price, type, colour,  path, position);
 
         ImageIcon railroadIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/railroad.png")));
-        centerPanel.add(new JLabel(new ImageIcon(railroadIcon.getImage().getScaledInstance(40, 40, Image.SCALE_FAST))), BorderLayout.CENTER);
+        centerPanel.add(new JLabel(new ImageIcon(railroadIcon.getImage().getScaledInstance(25, 25, Image.SCALE_FAST))), BorderLayout.CENTER);
     }
 
     /**
