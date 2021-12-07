@@ -26,6 +26,18 @@ public class MonopolyController extends DefaultHandler {
     private int humanPlayers;
     private Stack<String> stack;
     private ArrayList<BoardSpace> boardSpaces;
+    private enum BoardSpaceTags {
+        COLOURED_PROPERTY("ColouredProperty"), RAILROAD("Railroad"), UTILITY("Utility"), TAX("Tax"), GO("Go"),
+            FREE_PARKING("FreeParking"), JAIL("Jail"), NAME("name"), TYPE("type"), PRICE("price"), COLOR("color"),
+            COST("cost"), POSITION("position"), COLOR_HEX("colorHex"), SET_SIZE("setSize"), HOUSE_HOTEL_PRICE("houseHotelPrice");
+        private String tag;
+        BoardSpaceTags(String tag) {
+            this.tag = tag;
+        }
+        public String getTag() {
+            return this.tag;
+        }
+    }
 
     /**
      *
@@ -213,39 +225,39 @@ public class MonopolyController extends DefaultHandler {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         super.startElement(uri, localName, qName, attributes);
         this.stack.push(qName);
-        if (qName.equals("ColouredProperty")) {
+        if (qName.equals(BoardSpaceTags.COLOURED_PROPERTY.getTag())) {
             ColouredProperty newColouredProperty = new ColouredProperty();
             newColouredProperty.setType("colouredProperty");
             this.boardSpaces.add(newColouredProperty);
 
-        } else if (qName.equals("Railroad")) {
+        } else if (qName.equals(BoardSpaceTags.RAILROAD.getTag())) {
             Railroad newRailroad = new Railroad();
             newRailroad.setType("railroad");
             newRailroad.setColor("black");
             this.boardSpaces.add(newRailroad);
 
-        } else if (qName.equals("Utility")) {
+        } else if (qName.equals(BoardSpaceTags.UTILITY.getTag())) {
             Utility newUtility = new Utility();
             newUtility.setType("utility");
             newUtility.setColor("black");
             this.boardSpaces.add(newUtility);
 
-        } else if (qName.equals("Tax")) {
+        } else if (qName.equals(BoardSpaceTags.TAX.getTag())) {
             Tax newTax = new Tax();
             newTax.setType("tax");
             this.boardSpaces.add(newTax);
 
-        } else if (qName.equals("Go")) {
+        } else if (qName.equals(BoardSpaceTags.GO.getTag())) {
             Go newGo = new Go();
             newGo.setType("go");
             this.boardSpaces.add(newGo);
 
-        } else if (qName.equals("FreeParking")) {
+        } else if (qName.equals(BoardSpaceTags.FREE_PARKING.getTag())) {
             FreeParking newFreeParking = new FreeParking();
             newFreeParking.setType("freeParking");
             this.boardSpaces.add(newFreeParking);
 
-        } else if (qName.equals("Jail")) {
+        } else if (qName.equals(BoardSpaceTags.JAIL.getTag())) {
             this.boardSpaces.add(new Jail());
         }
     }
@@ -261,24 +273,24 @@ public class MonopolyController extends DefaultHandler {
         super.characters(ch, start, length);
         String val = new String(ch, start, length);
         if (!(val.length() == 0)) {
-            if (stack.peek().equals("name")) {
+            if (stack.peek().equals(BoardSpaceTags.NAME.getTag())) {
                 boardSpaces.get(boardSpaces.size() - 1).setName(val);
                 System.out.println(val);
-            } else if (stack.peek().equals("position")) {
+            } else if (stack.peek().equals(BoardSpaceTags.POSITION.getTag())) {
                 boardSpaces.get(boardSpaces.size() - 1).setPosition(Integer.parseInt(val));
-            } else if (stack.peek().equals("price")) {
+            } else if (stack.peek().equals(BoardSpaceTags.PRICE.getTag())) {
                 ((Property) boardSpaces.get(boardSpaces.size() - 1)).setPrice(Integer.parseInt(val));
-            } else if (stack.peek().equals("type")) {
+            } else if (stack.peek().equals(BoardSpaceTags.TYPE.getTag())) {
                 boardSpaces.get(boardSpaces.size() - 1).setType(val);
-            } else if (stack.peek().equals("color")) {
+            } else if (stack.peek().equals(BoardSpaceTags.COLOR.getTag())) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setColor(val);
-            } else if (stack.peek().equals("cost")) {
+            } else if (stack.peek().equals(BoardSpaceTags.COST.getTag())) {
                 ((Tax) boardSpaces.get(boardSpaces.size() - 1)).setCost(Integer.parseInt(val));
-            } else if (stack.peek().equals("colorHex")) {
+            } else if (stack.peek().equals(BoardSpaceTags.COLOR_HEX.getTag())) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setColorHex(val);
-            } else if (stack.peek().equals("houseHotelPrice")) {
+            } else if (stack.peek().equals(BoardSpaceTags.HOUSE_HOTEL_PRICE.getTag())) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setHouseHotelPrice(Integer.parseInt(val));
-            } else if (stack.peek().equals("setSize")) {
+            } else if (stack.peek().equals(BoardSpaceTags.SET_SIZE.getTag())) {
                 ((ColouredProperty) boardSpaces.get(boardSpaces.size() - 1)).setSetSize(Integer.parseInt(val));
             }
         }
