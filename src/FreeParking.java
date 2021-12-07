@@ -55,15 +55,12 @@ public class FreeParking extends BoardSpace {
         ImageIcon freeParkingIcon = null;
         boolean displayIcon = false;
         if (name.equals("COMMUNITY CHEST")) {
-            System.out.println(name);
             freeParkingIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/community_chest.gif")));
             displayIcon = true;
         } else if (name.equals("CHANCE")) {
-            System.out.println(name);
             freeParkingIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/chance.png")));
             displayIcon = true;
         } else if (name.equals("FREE PARKING")) {
-            System.out.println(name);
             freeParkingIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("images/free_parking.png")));
             displayIcon = true;
         }

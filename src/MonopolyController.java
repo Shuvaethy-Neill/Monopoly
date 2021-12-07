@@ -61,8 +61,7 @@ public class MonopolyController extends DefaultHandler {
 
         else if(state == 1){
             this.model.importSerialize("MonopolyGame.txt");
-
-            System.out.println("imported!");
+            System.out.println("Imported!");
         }
     }
 
@@ -207,7 +206,7 @@ public class MonopolyController extends DefaultHandler {
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
-
+        System.out.println("Loading Properties:");
     }
 
     @Override

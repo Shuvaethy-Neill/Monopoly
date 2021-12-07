@@ -173,8 +173,6 @@ public class MonopolyModel implements Serializable {
      * @return name of the player
      */
     public String start() {
-        System.out.println();
-        System.out.println(players.size());
         player = rand.nextInt(players.size());
         outputText = "Starting the game...\n" + players.get(player).getName() + " will start!";
         if (players.get(player) instanceof MonopolyAIPlayer){
@@ -541,7 +539,7 @@ public class MonopolyModel implements Serializable {
             outputStream.writeObject(getPlayer());
             outputStream.writeObject(getPlayers());
             outputStream.writeObject(getPieces());
-            System.out.println("in model saving");
+            System.out.println("Saving");
             outputStream.close();
             file.close();
         } catch (IOException e) {
