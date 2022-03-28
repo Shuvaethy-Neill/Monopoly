@@ -1,3 +1,5 @@
+Note: Final version on M4 branch!
+
 Monopoly
 [Version 1.0] 
 October 25, 2021
