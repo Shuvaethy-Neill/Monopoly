@@ -1,15 +1,15 @@
-# The Monopoly Game
-[Version 4.0] 
-December 6, 2021
+Note: Final version on M4 branch!
 
+Monopoly
+[Version 1.0] 
+October 25, 2021
 
------------------------------------------------------------------
-=========
+-----------------------------------------------------------------------------
+=======
 AUTHORS
-=========
+=======
 
 Contact Name:		
-
 		Shuvaethy Neill, 101143478
 		Dorothy Tran, 101141902
 		Harsimran Kanwar, 101143556
@@ -19,78 +19,73 @@ Affiliation:
 		Carleton University - Systems and Computer Engineering
 		SYSC3110 Software Development Project
 
------------------------------------------------------------------
-============
-DESCRIPTION
-============
 
-- This is our implementation of Monopoly that can be played using a user interface which follows the MVC model.
+
+-----------------------------------------------------------------------------
+===========
+DESCRIPTION
+===========
+
+- This is our implementation of Monopoly that can be played from the command line
 
 - The milestone is composed of the following files:
 
 	Monopoly.jar
-	SYSC3110_M4_Documentation.pdf
-	SYSC3110_M4_UML.png
+	SYSC3110_M1_Documentation.pdf
+	SYSC3110_M1_UML.png
 	SequenceDiagram_PlayMethod.png
 
 - The jar file has '.java' and '.class' files for the following classes
-	BoardPanel
-	BoardSpace
-	BoardSquares
-	ColouredProperty
+
 	Dice
-	DiceDisplay
-	FreeParking
-	Go
-	Jail
-	MonopolyAIPlayer
-	MonopolyClient
-	MonopolyController
-	MonopolyEvent
-	MonopolyFrame
-	MonopolyModel
-	MonopolyModelTest
-	MonopolyView
-	Player
-	PlayerPanel
 	Property
-	Railroad
-	Utility
+	BoardSpace
+	Board
 	Tax
------------------------------------------------------------------
-===========
+	Player
+	FreeParking
+
+
+
+-----------------------------------------------------------------------------
+=========
 CHANGELOG
-===========
+=========
 
-For Milestone 4, the following changes were made:
-- implemented save feature that lets you save your current game state
-- implemented load game feature that lets you load the game state you previously saved and begin playiing where you left off
-- implemented an english and french version of the board that are read from xml files (a user can enter which version they would like to use when setting up the game)
-- "Save" and "Quit" buttons are now displayed under a clickable Menu in the top left corner of the game frame
-- "Build Houses/Hotels" button has been added to the list of buttons
-- implemented test methods for go, jail, AI players, and save/load feature
-- ensured that AI players cannot buy houses/hotels
-- implemented the MonopolyAIPlayer class
-- resized the board to work on Mac/Windows without full screening 
-- If a player saves the game state, the program will exit
+This is the first milestone so there have been no changes so far.
 
------------------------------------------------------------------
-=============
+
+
+-----------------------------------------------------------------------------
+============
 KNOWN ISSUES
-=============
+============
 
 All known issues have been resolved.
 
 
------------------------------------------------------------------
-===============
+
+-----------------------------------------------------------------------------
+=============
 ROADMAP AHEAD
-===============
+=============
 
-Project is completed
-		
+Milestone 2: 
+		Add GUI
+		Add View and Controller classes
+		Add model unit tests
 
------------------------------------------------------------------
+Milestone 3:
+		Add houses, hotels and special properties/squares
+		Add AI players
+
+Milestone 4:
+		Add save/load feature
+		Add international game versions with custom street names
+
+
+
+-----------------------------------------------------------------------------
 =======
 CREDITS
 =======
@@ -99,14 +94,15 @@ Thanks to the support of TAs and Instructor during the development of this
 application.
 
 
------------------------------------------------------------------
+
+-----------------------------------------------------------------------------
 =======
 LICENSE
 =======
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-Copyright (c) 2021 Evan Smedley, Dorothy Tran, Harsimran Kanwar, & Shuvaethy Neill
+Copyright (c) 2021 Evan Smedley
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
