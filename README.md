@@ -10,15 +10,10 @@ December 6, 2021
 - Harsimran Kanwar<br/>
 - Evan Smedley<br/>
 
-**Affiliation:**<br/>		
-Carleton University - Systems and Computer Engineering 
-- SYSC3110 Software Development Project
-
-
 -----------------------------------------------------------------------------
 ## DESCRIPTION
 
-This is our implementation of Monopoly that can be played using a user interface which follows the MVC model.
+This is our implementation of Monopoly that can be played using a user interface which follows the MVC design pattern.
 
 The milestone is composed of the following files:
 - Monopoly.jar
@@ -66,16 +61,6 @@ For the final version of the game, the following changes were made:
 - resized the board to work on Mac/Windows without full screening 
 - If a player saves the game state, the program will exit
 
------------------------------------------------------------------
-## KNOWN ISSUES
-
-All known issues have been resolved.
-
------------------------------------------------------------------
-## ROADMAP AHEAD
-
-Project is completed!
-		
 -----------------------------------------------------------------
 ## CREDITS
 
